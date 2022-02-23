@@ -25,7 +25,7 @@ export default function SalePage() {
       name: 'Kawasaki 2020',
       price: 20000,
       score: 2,
-      off: 30,
+      off: 0,
     },
     {
       id: nanoid(),
@@ -34,7 +34,7 @@ export default function SalePage() {
       name: 'Kawasaki 2020',
       price: 20000,
       score: 1,
-      off: 30,
+      off: 0,
     },
     {
       id: nanoid(),
@@ -91,6 +91,8 @@ export default function SalePage() {
       off: 30,
     },
   ])
+  data.sort((a, b) => b.off - a.off)
+  console.log(data)
   return (
     <ThemeProvider theme={saleTheme}>
       <SalePageWrapper>
