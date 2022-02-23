@@ -7,18 +7,48 @@ import RatingSIze from '../rating'
 import { Box } from '@mui/system'
 import { FaPlus } from 'react-icons/fa'
 import { Grid, IconButton } from '@mui/material'
+import { CenterFocusStrong } from '@mui/icons-material'
 
 export default function MainCard({ data }) {
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <Card
-        sx={{ width: '100%', mt: 2, boxShadow: 'rgb(3 0 71 / 9%) 0px 1px 3px' }}
+        sx={{
+          width: '100%',
+          mt: 2,
+          boxShadow: 'rgb(3 0 71 / 9%) 0px 1px 3px',
+          fontFamily: 'roboto !important',
+        }}
       >
+        {data.off > 0 && (
+          <Box
+            component={'div'}
+            color="primary"
+            variant="contained"
+            sx={{
+              background: 'rgb(210, 63, 87)',
+              px: 2,
+              py: 1,
+
+              display: 'flex',
+              alignItems: 'center',
+              position: 'absolute',
+              borderRadius: '20px',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: '600',
+            }}
+          >
+            <Typography>{data.off}%</Typography>
+            <Typography sx={{ fontSize: '12px' }}> off</Typography>
+          </Box>
+        )}
         <CardMedia
           component="img"
           alt="green iguana"
           height="140"
           image={data.img}
+          sx={{}}
         />
         <CardContent>
           <Typography gutterBottom variant="body1" component="div">
@@ -40,9 +70,10 @@ export default function MainCard({ data }) {
               direction="row"
               justifyContent="space-between"
               alignItems="center"
+              sx={{ mt: 1 }}
             >
               <Typography color="primary" variant="body1">
-                {data.price}$
+                ${data.price}
               </Typography>
               <IconButton size="small" color="primary" variant="outlined">
                 <FaPlus />
