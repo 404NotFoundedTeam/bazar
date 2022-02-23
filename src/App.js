@@ -1,5 +1,9 @@
+import { createContext } from "react";
+
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
+
 function App() {
-  return <div className="text-9xl">Bazar</div>;
+  return;
 }
 
 export default App;
