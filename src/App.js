@@ -1,5 +1,14 @@
+import Header from './pages/Header'
+import Home from './pages/Home'
+import SalePage from './pages/salepage'
+
 function App() {
-  return <div className="text-9xl">Bazar</div>;
+  return (
+    <>
+      <Header/>
+      <Home />
+    </>
+  )
 }
 
-export default App;
+export default App
