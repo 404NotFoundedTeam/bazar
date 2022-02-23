@@ -1,5 +1,11 @@
+import SalePage from './pages/salepage'
+
 function App() {
-  return <div className="text-9xl">Bazar</div>;
+  return (
+    <>
+      <SalePage />
+    </>
+  )
 }
 
-export default App;
+export default App
