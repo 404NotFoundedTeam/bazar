@@ -1,8 +1,11 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 function Header() {
   return (
-    <div>Header</div>
+    <Box component={"header"}>
+        
+    </Box>
   )
 }
 
