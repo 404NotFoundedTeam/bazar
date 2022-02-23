@@ -27,40 +27,91 @@ export default function SaleTab() {
   }
 
   return (
-    <Tabs
-      value={value}
-      onChange={handleChange}
-      aria-label="icon label tabs example"
-    >
+    <Tabs value={value} onChange={handleChange}>
       <Tab
         sx={{
-          fontSize: '12px',
-          ':active': {
-            color: 'rgb(210, 63, 87) !important',
-          },
+          fontSize: '14px',
         }}
         icon={<FaTshirt />}
         label="Men"
       />
       <Tab
         sx={{
-          fontSize: '12px',
-
-          ':active': { color: 'rgb(210, 63, 87) !important' },
+          fontSize: '14px',
         }}
         icon={<FaAddressBook />}
         label="Women"
       />
-      <Tab icon={<FaCreativeCommonsNcEu />} label="Cosmetics" />
-      <Tab icon={<FaClock />} label="Accessories" />
-      <Tab icon={<GiPhotoCamera />} label="Eelctronics" />
-      <Tab icon={<FaCouch />} label="Furniture" />
-      <Tab icon={<FaBasketballBall />} label="Sport" />
-      <Tab icon={<GiCarWheel />} label="Automobile" />
-      <Tab icon={<GiDrill />} label="Hardware" />
-      <Tab icon={<GiBabyBottle />} label="Baby products" />
-      <Tab icon={<FaPhotoVideo />} label="Photos" />
-      <Tab icon={<FaTshirt />} label="Clothes" />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<FaCreativeCommonsNcEu />}
+        label="Cosmetics"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<FaClock />}
+        label="Accessories"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<GiPhotoCamera />}
+        label="Eelctronics"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<FaCouch />}
+        label="Furniture"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<FaBasketballBall />}
+        label="Sport"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<GiCarWheel />}
+        label="Automobile"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<GiDrill />}
+        label="Hardware"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<GiBabyBottle />}
+        label="Baby products"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<FaPhotoVideo />}
+        label="Photos"
+      />
+      <Tab
+        sx={{
+          fontSize: '14px',
+        }}
+        icon={<FaTshirt />}
+        label="Clothes"
+      />
     </Tabs>
   )
 }
