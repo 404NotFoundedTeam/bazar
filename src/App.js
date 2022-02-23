@@ -1,5 +1,12 @@
+import AllVendors from "./Pages/Vendors/AllVendors";
+import Container from "@mui/material/Container";
+
 function App() {
-  return <div className="text-9xl">Bazar</div>;
+  return (
+    <Container>
+      <AllVendors />
+    </Container>
+  );
 }
 
 export default App;
