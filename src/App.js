@@ -1,19 +1,10 @@
-<<<<<<< HEAD
 import Header from './pages/Header'
 import Home from './pages/Home'
 import SalePage from './pages/salepage'
 import { createContext, useContext, useMemo, useState } from 'react'
 import { ThemeProvider, useTheme } from '@mui/material/styles'
 import customTheme from './Theme'
-=======
-import Header from "./pages/Header";
-import Home from "./pages/Home";
-import SalePage from "./pages/salepage";
-import { createContext, useContext, useMemo, useState } from "react";
-import { ThemeProvider, useTheme } from "@mui/material/styles";
-import customTheme from "./Theme";
-import { Route, Routes } from "react-router-dom";
->>>>>>> 45b987c69324f0359c10221a517d02263b1c9cc5
+import { Route, Routes } from 'react-router-dom'
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
@@ -35,23 +26,14 @@ export default function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <section style={{ background: theme.palette.background.default }}>
-<<<<<<< HEAD
-          <Header />
-          <Home />
-          <SalePage />
-        </section>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
-  )
-=======
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/salepage" element={<SalePage />} />
           </Routes>
         </section>
       </ThemeProvider>
     </ColorModeContext.Provider>
-  );
->>>>>>> 45b987c69324f0359c10221a517d02263b1c9cc5
+  )
 }
 
 export { ColorModeContext }

@@ -3,7 +3,6 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import SalePageWrapper from './SalePageWrapper'
 import SaleTab from '../../components/SaleTabs'
-import PaginationItem from '@mui/material/PaginationItem'
 import {
   Box,
   createTheme,

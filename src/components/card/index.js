@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import RatingSIze from '../rating'
 import { Box } from '@mui/system'
 import { FaMinus, FaPlus } from 'react-icons/fa'
-import { Button, ButtonGroup, Grid, IconButton } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0)
