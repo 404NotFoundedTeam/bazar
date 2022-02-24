@@ -14,7 +14,7 @@ import {
 import { spacing, ThemeProvider } from '@mui/system'
 import { nanoid } from 'nanoid'
 import MainCard from '../../components/card'
-import StepperCart from '../../components/stepper'
+import Checkout from '../../components/stepper/Checkout'
 
 const saleTheme = createTheme({
   palette: {
@@ -100,34 +100,19 @@ export default function SalePage() {
     },
   ])
 
-  // const [page, setPage] = React.useState(2)
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10)
-
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage)
-  // }
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10))
-  //   setPage(0)
-  // }
-
   data.sort((a, b) => b.off - a.off)
   var _ = require('lodash')
   const data2 = _.chunk(data, 2)
   console.log(data2)
 
-  useEffect(() => {
-    // setData(data2)
-  }, [data2])
-
+  const [page, setPage] = useState(0)
   return (
     <ThemeProvider theme={saleTheme}>
       <SalePageWrapper>
         <CssBaseline />
         <Container maxWidth="lg">
           <SaleTab />
-          <StepperCart />
+          <Checkout />
           <Grid container spacing={3} sx={{ mt: 4 }}>
             {data2[0].map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -150,26 +135,8 @@ export default function SalePage() {
             </Typography>
             <Stack spacing={2}>
               <Pagination
-                count={10}
-                onChange={(e, page) => {
-                  console.log(page)
-                  // setData((prev)=>)
-                  return (
-                    <Grid container spacing={3} sx={{ mt: 4 }}>
-                      {data2[page - 1] !== [] ? (
-                        data2[page - 1].map((item, index) => (
-                          <Grid item xs={12} sm={6} md={4} lg={3}>
-                            <MainCard key={index} data={item} />
-                          </Grid>
-                        ))
-                      ) : (
-                        <Typography>
-                          Not found{console.log('not found')}
-                        </Typography>
-                      )}
-                    </Grid>
-                  )
-                }}
+                count={data.length - data2.length}
+                page={page}
                 variant="outlined"
                 color="secondary"
               />

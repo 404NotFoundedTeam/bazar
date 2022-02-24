@@ -21,17 +21,16 @@ export default function App() {
   )
 
   const theme = useMemo(() => customTheme(mode), [mode])
-  console.log(theme)
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <section style={{ background: theme.palette.background.default }}>
-          <SalePage />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/salepage" element={<SalePage />} />
           </Routes>
+          <SalePage />
         </section>
       </ThemeProvider>
     </ColorModeContext.Provider>

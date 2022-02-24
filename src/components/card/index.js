@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import RatingSIze from '../rating'
 import { Box } from '@mui/system'
 import { FaMinus, FaPlus } from 'react-icons/fa'
-import { Button, Grid } from '@mui/material'
+import { Button, Fab, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0)
@@ -20,27 +20,10 @@ export default function MainCard({ data }) {
       }}
     >
       {data.off > 0 && (
-        <Box
-          component={'div'}
-          color="primary"
-          variant="contained"
-          sx={{
-            background: 'rgb(210, 63, 87)',
-            px: '8px',
-            py: '4px',
-
-            display: 'flex',
-            alignItems: 'center',
-            position: 'absolute',
-            borderRadius: '20px',
-            color: 'white',
-            fontSize: '10px',
-            fontWeight: '600',
-          }}
-        >
+        <Fab size="small" color="primary" variant="extended">
           <Typography>{data.off}%</Typography>
           <Typography sx={{ fontSize: '12px' }}> off</Typography>
-        </Box>
+        </Fab>
       )}
       <CardMedia
         component="img"
