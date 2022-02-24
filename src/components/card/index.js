@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import RatingSIze from '../rating'
 import { Box } from '@mui/system'
-import { FaPlus } from 'react-icons/fa'
-import { Grid, IconButton } from '@mui/material'
-import { CenterFocusStrong } from '@mui/icons-material'
+import { FaMinus, FaPlus } from 'react-icons/fa'
+import { Button, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
+  const [value, setValue] = useState(0)
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <Card
@@ -27,15 +27,15 @@ export default function MainCard({ data }) {
             variant="contained"
             sx={{
               background: 'rgb(210, 63, 87)',
-              px: 2,
-              py: 1,
+              px: '8px',
+              py: '4px',
 
               display: 'flex',
               alignItems: 'center',
               position: 'absolute',
               borderRadius: '20px',
               color: 'white',
-              fontSize: '14px',
+              fontSize: '10px',
               fontWeight: '600',
             }}
           >
@@ -51,35 +51,92 @@ export default function MainCard({ data }) {
           sx={{}}
         />
         <CardContent>
-          <Typography gutterBottom variant="body1" component="div">
-            {data.name}
-          </Typography>
-
-          <RatingSIze score={data.score} />
-          <Box
-            component="div"
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'between',
-              alignItems: 'center',
-            }}
-          >
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              sx={{ mt: 1 }}
-            >
-              <Typography color="primary" variant="body1">
-                ${data.price}
+          <Grid container spacing={2}>
+            <Grid item lg={6} md={6} sm={6}>
+              <Typography gutterBottom variant="body1" component="div">
+                {data.name}
               </Typography>
-              <IconButton size="small" color="primary" variant="outlined">
-                <FaPlus />
-              </IconButton>
+
+              <RatingSIze score={data.score} />
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mt: 1 }}
+              >
+                <Typography color="primary" variant="body1">
+                  ${data.price}
+                </Typography>
+              </Grid>
             </Grid>
-          </Box>
+            <Grid item lg={6} md={6} sm={6}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column-reverse',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  height: '100%',
+                  width: '100%',
+                }}
+                aria-label="outlined primary button group"
+              >
+                <Button
+                  variant="outlined"
+                  sx={{
+                    w: '10px !important',
+                    h: '10px important',
+                    p: '5px',
+                    m: '0px',
+                    svg: {
+                      fontSize: '14px',
+                      m: '0px important',
+                      p: '0px',
+                      display: 'inline-block',
+                    },
+                  }}
+                  onClick={() => setValue(value + 1)}
+                >
+                  <FaPlus />
+                </Button>
+
+                {value > 0 && (
+                  <>
+                    <Typography
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {value}
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setValue(value - 1)}
+                      sx={{
+                        w: '10px !important',
+                        h: '10px important',
+                        p: '5px',
+                        m: '0px',
+                        svg: {
+                          fontSize: '14px',
+                          m: '0px important',
+                          p: '0px',
+                          display: 'inline-block',
+                        },
+                      }}
+                    >
+                      <FaMinus />
+                    </Button>
+                  </>
+                )}
+              </Box>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Grid>

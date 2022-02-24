@@ -32,7 +32,7 @@ function Home() {
         <MySlider settings={settings}>
           {scidka.map((item, i) => (
             <Box>
-              <Grid container direction={"row"} sx={{alignItems: "center"}}>
+              <Grid container direction={"row"} sx={{ alignItems: "center" }}>
                 <Grid item xs={12} md={6}>
                   <Box>
                     <Typography
@@ -61,10 +61,8 @@ function Home() {
           ))}
         </MySlider>
       </Container>
-      <Box component={"main"} sx = {{bgcolor: "#F6F9FC", mt: "60px"}}>
-          <Container>
-            
-          </Container>
+      <Box component={"main"} sx={{ bgcolor: "#F6F9FC", mt: "60px" }}>
+        <Container></Container>
       </Box>
     </HomeWrapper>
   );
