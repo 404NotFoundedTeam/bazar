@@ -5,22 +5,13 @@ import MainHeader from "./HeaderComponents/MainHeader";
 import TopHeader from "./HeaderComponents/TopHeader";
 
 function Header() {
-  const [scrollClass, setScrollClass] = useState(false);
-
-  useEffect(() => {
-    window.onscroll = () => {
-      if (window.scrollY > 50) {
-        setScrollClass(true);
-      } else setScrollClass(false);
-    };
-  }, []);
   return (
     <>
       <TopHeader />
+
       <MainHeader />
       <BottomHeader />
-
-      <Slide
+      {/* <Slide
         in={scrollClass}
         direction="down"
         timeout={300}
@@ -39,7 +30,7 @@ function Header() {
         >
           <MainHeader />
         </Box>
-      </Slide>
+      </Slide> */}
     </>
   );
 }

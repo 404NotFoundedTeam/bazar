@@ -1,21 +1,38 @@
-import {
-  Box,
-  Container,
-  Grid,
-} from "@mui/material";
-import React from "react";
+import { Box, Container, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import HeaderSearch from "./HeaderSearch";
 import UserIconsHeader from "./UserIconsHeader";
 
 function MainHeader() {
-  
+  const [scrollClass, setScrollClass] = useState(false);
+
+  useEffect(() => {
+    window.onscroll = () => {
+      if (window.scrollY > 50) {
+        setScrollClass(true);
+      } else setScrollClass(false);
+    };
+  }, []);
+
+  const StickyBox = styled(Box)`
+    
+  `
+
   return (
     <Box
+      className={scrollClass ? "stickyH" : ""}
       component={"header"}
       sx={{
+        "&.stickyH": {
+          position: "sticky",
+          top: 0,
+          left: 0,
+          boxShadow: (theme) => theme.shadows.header,
+        },
         position: "relative",
-        paddingY: (theme) => theme.spacing(3),
-        zIndex: "30",
+        paddingY: (theme) => theme.spacing(2),
+        zIndex: "9999",
+        bgcolor: "#fff",
       }}
     >
       <Container>
@@ -33,6 +50,7 @@ function MainHeader() {
             className="logo"
           >
             <img
+              className="w-[100px]"
               src="https://bazar-react.vercel.app/assets/images/logo2.svg"
               alt="logo"
             />

@@ -12,7 +12,7 @@ function TopHeader() {
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box
             component={"ul"}
-            sx={{ display: "flex", alignItems: "center", fontSize: "20px" }}
+            sx={{ display: "flex", alignItems: "center", fontSize: "18px" }}
           >
             <Box
               component={"li"}
@@ -31,7 +31,7 @@ function TopHeader() {
           </Box>
           <Box
             component={"ul"}
-            sx={{ display: "flex", alignItems: "center", fontSize: "20px" }}
+            sx={{ display: "flex", alignItems: "center", fontSize: "18px" }}
           >
             <Box component={"li"}>
               <Link
@@ -67,14 +67,14 @@ function TopHeader() {
 }
 
 const Wrapper = styled.div`
-  padding: 12px 0;
+  padding: 10px 0;
   background-color: #0f3460;
   .icon {
     font-size: 18px;
     color: #fff;
   }
   li {
-    font-size: 14px;
+    font-size: 12px;
     color: #fff;
     margin-left: 20px;
     gap: 10px;

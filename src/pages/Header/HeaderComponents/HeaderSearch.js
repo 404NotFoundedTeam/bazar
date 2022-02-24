@@ -35,9 +35,10 @@ function HeaderSearch() {
         }}
       >
         <Input
+          placeholder="Searching for..."
           sx={{
             bgcolor: "white",
-            padding: "8px 16px",
+            padding: "6px 16px",
             flex: 1,
           }}
           autoWidth
@@ -51,7 +52,7 @@ function HeaderSearch() {
         <Select
           sx={{
             bgcolor: (theme) => theme.palette.info.dark,
-            padding: "8px 16px",
+            padding: "6px 16px",
             borderLeft: "1.5px solid #D4E6EA",
             "& .MuiSelect-icon": { right: "10px" },
           }}
