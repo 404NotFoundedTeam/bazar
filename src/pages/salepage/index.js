@@ -3,8 +3,16 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import SalePageWrapper from './SalePageWrapper'
 import SaleTab from '../../components/SaleTabs'
-import { createTheme, Grid } from '@mui/material'
-import { ThemeProvider } from '@mui/system'
+import PaginationItem from '@mui/material/PaginationItem'
+import {
+  Box,
+  createTheme,
+  Grid,
+  Pagination,
+  Stack,
+  Typography,
+} from '@mui/material'
+import { spacing, ThemeProvider } from '@mui/system'
 import { nanoid } from 'nanoid'
 import MainCard from '../../components/card'
 
@@ -91,8 +99,23 @@ export default function SalePage() {
       off: 30,
     },
   ])
+
+  // const [page, setPage] = React.useState(2)
+  // const [rowsPerPage, setRowsPerPage] = React.useState(10)
+
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage)
+  // }
+
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(parseInt(event.target.value, 10))
+  //   setPage(0)
+  // }
+
   data.sort((a, b) => b.off - a.off)
-  console.log(data)
+  var _ = require('lodash')
+  const data2 = _.chunk(data, 2)
+  console.log(data2)
   return (
     <ThemeProvider theme={saleTheme}>
       <SalePageWrapper>
@@ -100,10 +123,48 @@ export default function SalePage() {
         <Container maxWidth="lg">
           <SaleTab />
           <Grid container spacing={3} sx={{ mt: 4 }}>
-            {data.map((item, index) => (
+            {data2[0].map((item, index) => (
               <MainCard key={index} data={item} />
             ))}
           </Grid>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              p: 1,
+              my: 5,
+              bgcolor: 'background.paper',
+              borderRadius: 1,
+            }}
+          >
+            <Typography>
+              Showing {data2[0].length} of {data.length} products
+            </Typography>
+            <Stack spacing={2}>
+              <Pagination
+                count={10}
+                onChange={(e, page) => {
+                  console.log(e)
+                  // setData((prev)=>)
+                  return (
+                    <Grid container spacing={3} sx={{ mt: 4 }}>
+                      {data2[page - 1] !== [] ? (
+                        data2[page - 1].map((item, index) => (
+                          <MainCard key={index} data={item} />
+                        ))
+                      ) : (
+                        <Typography>
+                          Not found{console.log('not found')}
+                        </Typography>
+                      )}
+                    </Grid>
+                  )
+                }}
+                variant="outlined"
+                color="secondary"
+              />
+            </Stack>
+          </Box>
         </Container>
       </SalePageWrapper>
     </ThemeProvider>
