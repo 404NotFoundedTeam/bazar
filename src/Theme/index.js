@@ -18,6 +18,7 @@ const customTheme = (mode) => {
             },
             info: {
               main: "#fff",
+              dark: "#F6F9FC",
             },
             warning: {
               main: "#f8b800",
@@ -29,6 +30,9 @@ const customTheme = (mode) => {
               default: "black",
             },
           }),
+    },
+    shadows: {
+      header: "rgba(100, 100, 111, 0.1) 0px 7px 20px 0px;",
     },
   });
 };

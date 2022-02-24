@@ -26,6 +26,7 @@ export default function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <section style={{ background: theme.palette.background.default }}>
+          <Header/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/salepage" element={<SalePage />} />
