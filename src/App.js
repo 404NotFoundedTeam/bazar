@@ -1,9 +1,11 @@
 import Header from "./pages/Header";
 import Home from "./pages/Home";
 import SalePage from "./pages/salepage";
+import AllVendors from "./pages/Vendors/AllVendors";
 import { createContext, useContext, useMemo, useState } from "react";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import customTheme from "./Theme";
+import VendorOwnPage from "./pages/Vendors/OwnVendorPage/index";
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -26,7 +28,9 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <section style={{ background: theme.palette.background.default }}>
           <Header />
-          <Home />
+          {/* <Home /> */}
+          {/* <AllVendors /> */}
+          <VendorOwnPage />
         </section>
       </ThemeProvider>
     </ColorModeContext.Provider>
