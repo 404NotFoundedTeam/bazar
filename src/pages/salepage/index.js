@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import SalePageWrapper from './SalePageWrapper'
@@ -14,6 +14,7 @@ import {
 import { spacing, ThemeProvider } from '@mui/system'
 import { nanoid } from 'nanoid'
 import MainCard from '../../components/card'
+import StepperCart from '../../components/stepper'
 
 const saleTheme = createTheme({
   palette: {
@@ -115,15 +116,23 @@ export default function SalePage() {
   var _ = require('lodash')
   const data2 = _.chunk(data, 2)
   console.log(data2)
+
+  useEffect(() => {
+    // setData(data2)
+  }, [data2])
+
   return (
     <ThemeProvider theme={saleTheme}>
       <SalePageWrapper>
         <CssBaseline />
         <Container maxWidth="lg">
           <SaleTab />
+          <StepperCart />
           <Grid container spacing={3} sx={{ mt: 4 }}>
             {data2[0].map((item, index) => (
-              <MainCard key={index} data={item} />
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <MainCard key={index} data={item} />
+              </Grid>
             ))}
           </Grid>
           <Box
@@ -143,13 +152,15 @@ export default function SalePage() {
               <Pagination
                 count={10}
                 onChange={(e, page) => {
-                  console.log(e)
+                  console.log(page)
                   // setData((prev)=>)
                   return (
                     <Grid container spacing={3} sx={{ mt: 4 }}>
                       {data2[page - 1] !== [] ? (
                         data2[page - 1].map((item, index) => (
-                          <MainCard key={index} data={item} />
+                          <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <MainCard key={index} data={item} />
+                          </Grid>
                         ))
                       ) : (
                         <Typography>
