@@ -6,36 +6,69 @@ import {
   ListItemText,
   Paper,
   styled,
+  Typography,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
   "&": {
-    marginBottom: `${theme.spacing(1)} !important`,
-    borderLeft: `2px solid transparent`,
+    margin: "0 0 12px !important",
+    padding: "0 24px",
+    borderLeft: `4px solid transparent`,
     ".MuiListItemIcon-root": {
       minWidth: "40px",
-      ".MuiSvgIcon-root": { color: theme.palette.error.main },
     },
   },
   "&:hover": {
-    borderLeft: `2px solid ${theme.palette.error.main}`,
+    borderLeft: `4px solid ${theme.palette.error.main}`,
+    color: theme.palette.error.main,
+    ".MuiSvgIcon-root": { color: theme.palette.error.main },
   },
 }));
 
-function MenuList({ elevation }) {
+function DashboardList({ listData }) {
   return (
-    <Paper elevation={elevation}>
-      <List>
-        <CustomListItemButton>
-          <ListItemIcon>
-            <ShoppingBagOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Orders" />
-        </CustomListItemButton>
-      </List>
-    </Paper>
+    <List>
+      {listData.map(({ text, icon, link }) => {
+        return (
+          <Link to={link}>
+            <CustomListItemButton>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </CustomListItemButton>
+          </Link>
+        );
+      })}
+    </List>
   );
 }
 
-export { MenuList };
+function UserOrders() {
+  return <Typography variant="h5">Orders</Typography>;
+}
+function UserWishlist() {
+  return <Typography variant="h5">Wishlist</Typography>;
+}
+function UserSupport() {
+  return <Typography variant="h5">Support</Typography>;
+}
+function UserProfile() {
+  return <Typography variant="h5">Profile</Typography>;
+}
+function UserAddress() {
+  return <Typography variant="h5">Address</Typography>;
+}
+function UserPayment() {
+  return <Typography variant="h5">Payment</Typography>;
+}
+
+export {
+  DashboardList,
+  UserAddress,
+  UserOrders,
+  UserPayment,
+  UserProfile,
+  UserSupport,
+  UserWishlist,
+};

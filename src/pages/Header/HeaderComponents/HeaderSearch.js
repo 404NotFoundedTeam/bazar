@@ -41,7 +41,6 @@ function HeaderSearch() {
             padding: "6px 16px",
             flex: 1,
           }}
-          autoWidth
           disableUnderline
           startAdornment={
             <InputAdornment position="start">

@@ -11,6 +11,9 @@ const customTheme = (mode) => {
       ...(mode === "light"
         ? {
             // palette values for light mode
+            background: {
+              default: "#f6f9fc",
+            },
             primary: {
               main: "#1c2865",
             },
@@ -34,9 +37,6 @@ const customTheme = (mode) => {
               default: "black",
             },
           }),
-    },
-    shadowsHeader: {
-      header: "rgba(100, 100, 111, 0.1) 0px 7px 20px 0px;",
     },
   });
 };
