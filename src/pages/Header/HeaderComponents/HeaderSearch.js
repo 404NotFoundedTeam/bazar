@@ -58,7 +58,6 @@ function HeaderSearch() {
           }}
           disableUnderline
           onChange={handleChange}
-          autoWidth
           value={searchCategory}
         >
           <MenuItem value={"all"}>All category</MenuItem>

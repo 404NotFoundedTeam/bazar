@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Container,
+  Fab,
   Grid,
   List,
   ListItem,
@@ -17,7 +18,7 @@ import React, { useRef, useState } from "react";
 import { FaAccusoft } from "react-icons/fa";
 
 const BottomHeader = () => {
-  const [show, setShow] = useState("false");
+  const [show, setShow] = useState(false);
   const menu = useRef();
   return (
     <Box
@@ -31,7 +32,16 @@ const BottomHeader = () => {
         <Grid container>
           <Grid item md={4} lg={3} sx={{ position: "relative" }}>
             <Button
-              sx={{ width: "100%", display: "block" }}
+              sx={{
+                width: "100%",
+                padding: "8px 16px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                display: "block",
+                cursor: "pointer",
+              }}
+              color="info.dark"
               variant="contained"
               onClick={() => setShow((i) => !i)}
             >
