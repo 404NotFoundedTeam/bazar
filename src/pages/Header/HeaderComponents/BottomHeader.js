@@ -24,8 +24,7 @@ const BottomHeader = () => {
     <Box
       sx={{
         paddingY: (theme) => theme.spacing(1),
-        zIndex: "40",
-        boxShadow: (theme) => theme.shadows.header,
+        boxShadow: (theme) => theme.shadowsHeader.header,
       }}
     >
       <Container sx={{ display: "flex", justifyContent: "space-between" }}>

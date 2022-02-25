@@ -16,10 +16,6 @@ function MainHeader() {
   }, []);
   const navigate = useNavigate();
 
-  // const StickyBox = styled(Box)`
-
-  // `
-
   return (
     <Box
       className={scrollClass ? "stickyH" : ""}
@@ -29,7 +25,7 @@ function MainHeader() {
           position: "sticky",
           top: 0,
           left: 0,
-          boxShadow: (theme) => theme.shadows.header,
+          boxShadow: (theme) => theme.shadowsHeader.header,
         },
         position: "relative",
         paddingY: (theme) => theme.spacing(2),
