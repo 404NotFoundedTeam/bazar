@@ -1,5 +1,6 @@
 import { Box, Container, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import HeaderSearch from "./HeaderSearch";
 import UserIconsHeader from "./UserIconsHeader";
 
@@ -13,10 +14,11 @@ function MainHeader() {
       } else setScrollClass(false);
     };
   }, []);
+  const navigate = useNavigate();
 
-  const StickyBox = styled(Box)`
-    
-  `
+  // const StickyBox = styled(Box)`
+
+  // `
 
   return (
     <Box
@@ -45,6 +47,8 @@ function MainHeader() {
           }}
         >
           <Grid
+            component={"button"}
+            onClick={() => navigate("/")}
             item
             sx={{ display: { xs: "none", md: "block" } }}
             className="logo"

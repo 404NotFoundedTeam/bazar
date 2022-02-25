@@ -4,15 +4,33 @@ import { Box } from "@mui/system";
 import React from "react";
 import { FaPhone, FaRegEnvelope } from "react-icons/fa";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function TopHeader() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Container>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box
+            component={"button"}
+            onClick={() => navigate("/")}
+            sx={{ display: { xs: "block", md: "none" } }}
+            className="logo"
+          >
+            <img
+              className="w-[100px]"
+              src="https://bazar-react.vercel.app/assets/images/logo.svg"
+              alt="logo"
+            />
+          </Box>
+          <Box
             component={"ul"}
-            sx={{ display: "flex", alignItems: "center", fontSize: "18px" }}
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              fontSize: "18px",
+            }}
           >
             <Box
               component={"li"}

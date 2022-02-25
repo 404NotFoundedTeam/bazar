@@ -32,7 +32,7 @@ const customTheme = (mode) => {
           }),
     },
     shadows: {
-      header: "rgba(100, 100, 111, 0.1) 0px 7px 20px 0px;",
+      header: "rgba(100, 100, 111, 0.1) 0px 7px 30px -4px;",
     },
   });
 };
