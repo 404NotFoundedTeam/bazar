@@ -12,6 +12,8 @@ import {
   UserSupport,
   UserWishlist,
 } from "./components/DashboardComponents";
+import AllVendors from "./pages/Vendors/AllVendors";
+import VendorOwnPage from "./pages/Vendors/OwnVendorPage";
 
 export default function App() {
   return (
@@ -27,6 +29,7 @@ export default function App() {
           <Route path="addresses" element={<UserAddress />} />
           <Route path="payment-methods" element={<UserPayment />} />
         </Route>
+        <Route path="/vendor" element={<VendorOwnPage />} />
       </Routes>
     </MainThemeProvider>
   );
