@@ -56,7 +56,11 @@ function MainThemeProvider({ children }) {
   console.log(theme);
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <section style={{ backgroundColor: theme.palette.background.default }}>
+          {children}
+        </section>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }

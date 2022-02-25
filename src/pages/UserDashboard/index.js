@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     width: "290px",
     paddingBottom: "24px",
   },
+  main: {
+    padding: "24px",
+  },
   title: {
     padding: "26px 30px 16px",
   },
@@ -62,7 +65,7 @@ export default function UserDashboard() {
   const classes = useStyles();
   return (
     <div className={classes.cover}>
-      <Paper className={classes.sidebar} elevation={2} rounded={1}>
+      <Paper className={classes.sidebar} elevation={1} rounded={1}>
         <Typography className={classes.title} color="textSecondary">
           Dashboard
         </Typography>
@@ -72,7 +75,7 @@ export default function UserDashboard() {
         </Typography>
         <DashboardList listData={accountSettings} />
       </Paper>
-      <div>
+      <div className={classes.main}>
         <Outlet />
       </div>
     </div>
