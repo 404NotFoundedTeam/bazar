@@ -28,7 +28,7 @@ function Home() {
   ];
   return (
     <HomeWrapper className="py-5 text-[#2B3445] mb-10">
-      <Container>
+      <Container >
         <MySlider settings={settings}>
           {scidka.map((item, i) => (
             <Box>

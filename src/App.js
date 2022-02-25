@@ -1,43 +1,20 @@
-import Header from "./pages/Header";
 import Home from "./pages/Home";
 import SalePage from "./pages/salepage";
-import AllVendors from "./pages/Vendors/AllVendors";
-import { createContext, useContext, useMemo, useState } from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import customTheme from "./Theme";
-import VendorOwnPage from "./pages/Vendors/OwnVendorPage/index";
 import { Route, Routes } from "react-router-dom";
-
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
+import UserDashboard from "./pages/UserDashboard";
+import MainThemeProvider from "./Theme/ThemeContext";
+import AllVendors from "./pages/Vendors/AllVendors";
+import VendorOwnPage from "./pages/Vendors/OwnVendorPage";
 
 export default function App() {
-  const [mode, setMode] = useState("light");
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
-
-  const theme = useMemo(() => customTheme(mode), [mode]);
-  console.log(theme);
-
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <section style={{ background: theme.palette.background.default }}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/salepage" element={<SalePage />} />
-            <Route path="/vendor" element={<VendorOwnPage />} />
-          </Routes>
-        </section>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <MainThemeProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/salepage" element={<SalePage />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/vendor" element={<VendorOwnPage />} />
+      </Routes>
+    </MainThemeProvider>
   );
 }
-
-export { ColorModeContext };
