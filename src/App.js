@@ -5,6 +5,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import customTheme from "./Theme";
 import { Route, Routes } from "react-router-dom";
+import UserDashboard from "./pages/UserDashboard";
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -27,7 +28,8 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <section style={{ background: theme.palette.background.default }}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<UserDashboard />} />
           </Routes>
         </section>
       </ThemeProvider>
