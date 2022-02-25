@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import RatingSIze from '../rating'
 import { Box } from '@mui/system'
 import { FaMinus, FaPlus } from 'react-icons/fa'
-import { Button, ButtonGroup, Grid, IconButton } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0)
@@ -52,7 +52,7 @@ export default function MainCard({ data }) {
         />
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item lg={6} className="border">
+            <Grid item lg={6} md={6} sm={6}>
               <Typography gutterBottom variant="body1" component="div">
                 {data.name}
               </Typography>
@@ -70,25 +70,37 @@ export default function MainCard({ data }) {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item lg={6} className="border">
+            <Grid item lg={6} md={6} sm={6}>
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'column-reverse',
-                  justifyContent: 'end',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
                   height: '100%',
+                  width: '100%',
                 }}
                 aria-label="outlined primary button group"
-                className="border"
               >
                 <Button
                   variant="outlined"
-                  sx={{ width: 'fit-content' }}
+                  sx={{
+                    w: '10px !important',
+                    h: '10px important',
+                    p: '5px',
+                    m: '0px',
+                    svg: {
+                      fontSize: '14px',
+                      m: '0px important',
+                      p: '0px',
+                      display: 'inline-block',
+                    },
+                  }}
                   onClick={() => setValue(value + 1)}
                 >
                   <FaPlus />
                 </Button>
+
                 {value > 0 && (
                   <>
                     <Typography
@@ -105,7 +117,18 @@ export default function MainCard({ data }) {
                     <Button
                       variant="outlined"
                       onClick={() => setValue(value - 1)}
-                      sx={{ width: 'fit-content' }}
+                      sx={{
+                        w: '10px !important',
+                        h: '10px important',
+                        p: '5px',
+                        m: '0px',
+                        svg: {
+                          fontSize: '14px',
+                          m: '0px important',
+                          p: '0px',
+                          display: 'inline-block',
+                        },
+                      }}
                     >
                       <FaMinus />
                     </Button>
@@ -114,16 +137,6 @@ export default function MainCard({ data }) {
               </Box>
             </Grid>
           </Grid>
-
-          {/* <Box
-            component="div"
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'between',
-              alignItems: 'center',
-            }}
-          ></Box> */}
         </CardContent>
       </Card>
     </Grid>
