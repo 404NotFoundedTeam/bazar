@@ -1,8 +1,25 @@
-import { Container, Grid } from "@mui/material";
-import React from "react";
+import { Box, Container, Grid, IconButton } from "@mui/material";
+import React, { useState } from "react";
 import MainCard from "../../../components/card";
 import MediaCard from "./mainSection";
 import SideBar from "./SideBar/index";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  hiddenAside: {
+    position: { sm: "absolute", md: "relative" },
+    top: 0,
+    left: "-100%",
+    zIndex: 100,
+  },
+  visibleAside: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 100,
+  },
+});
 export default function VendorOwnPage() {
   const obj = {
     id: 5,
@@ -56,17 +73,38 @@ export default function VendorOwnPage() {
       off: 0,
     },
   ];
+
+  const classes = useStyles();
+
+  const [isVisible, setIsVisible] = useState(false);
   return (
-    <Container sx={{ minHeight: "100vh", background: "silver" }}>
-      {/* <MediaCard obj={obj} /> */}
-      <Grid container spacing={2}>
-        <Grid item xs={12} lg={3}>
+    <Container sx={{ minHeight: "100vh", background: "#F6F9FC" }}>
+      <MediaCard obj={obj} />
+      <Box sx={{ textAlign: "right" }}>
+        <IconButton
+          onClick={() => setIsVisible(!isVisible)}
+          sx={{ display: { xs: "inline", sm: "inline", lg: "none" } }}
+        >
+          <FilterListIcon />
+        </IconButton>
+      </Box>
+      <Grid container spacing={2} sx={{ position: "relative" }}>
+        <Grid
+          item
+          lg={3}
+          md={4}
+          sm={4}
+          sx={{ transition: "0.3s" }}
+          // className={`${
+          //   // isVisible ? classes.hiddenAside : classes.visibleAside
+          // }`}
+        >
           <SideBar />
         </Grid>
-        <Grid item lg={9}>
+        <Grid item lg={9} md={12} sm={12}>
           <Grid container spacing={2}>
             {data.map((obj, i) => (
-              <Grid item lg={4} md={6}>
+              <Grid item lg={4} md={4} sm={6}>
                 <MainCard key={i} data={obj} />
               </Grid>
             ))}

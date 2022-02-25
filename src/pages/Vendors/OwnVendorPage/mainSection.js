@@ -1,6 +1,5 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
@@ -15,42 +14,32 @@ import ImageAvatars from "../../../components/Mini-components/Avatar";
 
 export default function MediaCard({ obj }) {
   return (
-    <Box>
-      <Card
-        sx={{
-          position: "relative",
-          "& .css-4ob670-MuiPaper-root-MuiCard-root": {
-            overflow: "visible !important",
-          },
-        }}
-      >
-        <CardMedia component="img" image={obj.img} alt="green iguana" />
-        <CardContent
+    <Box mb={2} sx={{ position: "relative", minHeight: "200px" }}>
+      <Box>
+        <img src={obj.img} alt="image" />
+      </Box>
+      <Box sx={{ backgroundColor: "#fff" }}>
+        <Box
+          mx={2}
           sx={{
-            position: "absolute",
-            bottom: "-80%",
-            display: "flex",
-            left: 0,
-            "& .MuiCardContent-root": {
-              overflow: "visible",
+            boxSizing: "border-box",
+            transform: {
+              lg: "translateY(-30%)",
+              md: "translateY(-15%)",
+              sm: "translateY(0)",
             },
+            display: "flex",
+            width: "100%",
+            gap: 4,
           }}
         >
           <ImageAvatars width="120px" height="120px" />
-          <Box
-            sx={{
-              flex: 1,
-              minHeight: "200px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around",
-            }}
-          >
+          <Box sx={{ flex: "0.8" }}>
             <Box
+              className="topActions"
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%",
               }}
             >
               <Button variant="contained">{obj.vendorName}</Button>
@@ -59,29 +48,32 @@ export default function MediaCard({ obj }) {
                 aria-label="outlined primary button group"
                 sx={{ boxShadow: "none !important" }}
               >
-                <IconButton>
+                <IconButton color="secondary">
                   <TwitterIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton color="primary">
                   <FacebookIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton color="primary">
                   <FacebookIcon />
                 </IconButton>
-                <IconButton>
+                <IconButton color="primary">
                   <InstagramIcon />
                 </IconButton>
               </ButtonGroup>
             </Box>
             <Box
+              className="bottomActions"
+              mt={2}
               sx={{
-                display: "flex",
                 justifyContent: "space-between",
-                backgroundColor: "blue",
+                display: "flex",
+                p: 2,
+                color: "rgb(43, 52, 69)",
               }}
             >
               <Box>
-                <RatingSIze score={obj.rating} />
+                <RatingSIze score={obj.rating} />{" "}
                 <Typography sx={{ marginTop: 3 }}>
                   <LocationOnIcon sx={{ marginRight: 1 }} />
                   {obj.location}
@@ -96,12 +88,99 @@ export default function MediaCard({ obj }) {
               </Box>
             </Box>
           </Box>
-        </CardContent>
-        {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
-      </Card>
+        </Box>
+      </Box>
     </Box>
   );
 }
+
+// ` <Box>
+//       <Card
+//         sx={{
+//           position: "relative",
+//           "& .css-4ob670-MuiPaper-root-MuiCard-root": {
+//             overflow: "visible !important",
+//           },
+//         }}
+//       >
+//         <CardMedia component="img" image={obj.img} alt="green iguana" />
+//         <Box
+//           sx={{
+//             position: "absolute",
+//             bottom: "-75%",
+//             display: "flex",
+//             width: "100%",
+//             justifyContent: "around",
+//             left: 0,
+//             "& .MuiPaper-elevation1 , .MuiPaper-elevation": {
+//               overflow: "visible !important",
+//             },
+//           }}
+//         >
+//           <ImageAvatars width="120px" height="120px" />
+//           <Box
+//             sx={{
+//               flex: 1,
+//               minHeight: "200px",
+//               display: "flex",
+//               flexDirection: "column",
+//               justifyContent: "space-around",
+//             }}
+//           >
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 justifyContent: "space-between",
+//                 width: "100%",
+//               }}
+//             >
+//               <Button variant="contained">{obj.vendorName}</Button>
+//               <ButtonGroup
+//                 variant="contained"
+//                 aria-label="outlined primary button group"
+//                 sx={{ boxShadow: "none !important" }}
+//               >
+//                 <IconButton>
+//                   <TwitterIcon />
+//                 </IconButton>
+//                 <IconButton>
+//                   <FacebookIcon />
+//                 </IconButton>
+//                 <IconButton>
+//                   <FacebookIcon />
+//                 </IconButton>
+//                 <IconButton>
+//                   <InstagramIcon />
+//                 </IconButton>
+//               </ButtonGroup>
+//             </Box>
+//             <Box
+//               sx={{
+//                 display: "flex",
+//                 justifyContent: "space-between",
+//                 backgroundColor: "blue",
+//               }}
+//             >
+//               <Box>
+//                 <RatingSIze score={obj.rating} />
+//                 <Typography sx={{ marginTop: 3 }}>
+//                   <LocationOnIcon sx={{ marginRight: 1 }} />
+//                   {obj.location}
+//                 </Typography>
+//                 <Typography sx={{ marginTop: 3 }}>
+//                   <PhoneIcon sx={{ marginRight: 1 }} />
+//                   {obj.phoneNumber}
+//                 </Typography>
+//               </Box>
+//               <Box>
+//                 <Button variant="outlined">Contact Vendor</Button>
+//               </Box>
+//             </Box>
+//           </Box>
+//         </Box>
+//         {/* <CardActions>
+//         <Button size="small">Share</Button>
+//         <Button size="small">Learn More</Button>
+//       </CardActions> */}
+//       </Card>
+//     </Box>`

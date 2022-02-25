@@ -3,9 +3,10 @@ import Home from "./pages/Home";
 import SalePage from "./pages/salepage";
 import AllVendors from "./pages/Vendors/AllVendors";
 import { createContext, useContext, useMemo, useState } from "react";
-import { ThemeProvider, useTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import customTheme from "./Theme";
 import VendorOwnPage from "./pages/Vendors/OwnVendorPage/index";
+import { Route, Routes } from "react-router-dom";
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -28,9 +29,11 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <section style={{ background: theme.palette.background.default }}>
           <Header />
-          {/* <Home /> */}
-          {/* <AllVendors /> */}
-          <VendorOwnPage />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/salepage" element={<SalePage />} />
+            <Route path="/vendor" element={<VendorOwnPage />} />
+          </Routes>
         </section>
       </ThemeProvider>
     </ColorModeContext.Provider>

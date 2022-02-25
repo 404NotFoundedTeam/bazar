@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import ImgBox from "../../components/ImgBox";
 import MainButton from "../../components/Button";
 import { Box } from "@mui/system";

@@ -1,16 +1,30 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  itemStyles: {
+    color: (props) => props.color,
+    fontSize: (props) => props.fontSize,
+  },
+});
 
 export default function CheckboxesGroup() {
+  ///styles Block
+  const itemStyles = {
+    color: "#2B3445",
+    fontSize: "14px",
+  };
+  const classes = useStyles(itemStyles);
+
+  ///Logic Block
   const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
+    Maccs: true,
+    Karts: false,
     antoine: false,
   });
 
@@ -21,23 +35,31 @@ export default function CheckboxesGroup() {
     });
   };
 
-  const { gilad, jason, antoine } = state;
-  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+  const { Maccs, Karts, antoine } = state;
 
   return (
     <Box sx={{ display: "flex" }}>
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-        <FormLabel component="legend">Brands</FormLabel>
-        <FormGroup>
+        <FormGroup className={`${classes.itemStyles}`}>
           <FormControlLabel
             control={
-              <Checkbox checked={gilad} onChange={handleChange} name="Maccs" />
+              <Checkbox
+                checked={Maccs}
+                onChange={handleChange}
+                size="small"
+                name="Maccs"
+              />
             }
             label="Maccs"
           />
           <FormControlLabel
             control={
-              <Checkbox checked={jason} onChange={handleChange} name="Karts" />
+              <Checkbox
+                checked={Karts}
+                onChange={handleChange}
+                size="small"
+                name="Karts"
+              />
             }
             label="Karts"
           />
@@ -46,6 +68,7 @@ export default function CheckboxesGroup() {
               <Checkbox
                 checked={antoine}
                 onChange={handleChange}
+                size="small"
                 name="antoine"
               />
             }
