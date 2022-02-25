@@ -61,7 +61,7 @@ const vendors = [
   },
 ];
 
-export default function AllVendors() {
+export default function AllVendors({ obj }) {
   return (
     <Container>
       <Box>
