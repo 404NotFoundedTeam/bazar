@@ -10,6 +10,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/salepage" element={<SalePage />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
       </Routes>
     </MainThemeProvider>
   );

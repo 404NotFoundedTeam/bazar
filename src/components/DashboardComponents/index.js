@@ -4,6 +4,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Paper,
   styled,
 } from "@mui/material";
 import React from "react";
@@ -22,16 +23,18 @@ const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
   },
 }));
 
-function MenuList() {
+function MenuList({ elevation }) {
   return (
-    <List>
-      <CustomListItemButton>
-        <ListItemIcon>
-          <ShoppingBagOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Orders" />
-      </CustomListItemButton>
-    </List>
+    <Paper elevation={elevation}>
+      <List>
+        <CustomListItemButton>
+          <ListItemIcon>
+            <ShoppingBagOutlined />
+          </ListItemIcon>
+          <ListItemText primary="Orders" />
+        </CustomListItemButton>
+      </List>
+    </Paper>
   );
 }
 
