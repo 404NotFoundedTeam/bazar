@@ -18,8 +18,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+<<<<<<< HEAD
+
+const auth = getAuth();
+=======
 const auth = getAuth();
 
+>>>>>>> eceb8ee8fb08f68c1838115ec5079ffd925db888
 createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in
