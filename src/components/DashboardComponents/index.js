@@ -8,8 +8,9 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
   "&": {
@@ -22,22 +23,40 @@ const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
   },
   "&:hover": {
     borderLeft: `4px solid ${theme.palette.error.main}`,
+    backgroundColor: "transparent",
     color: theme.palette.error.main,
     ".MuiSvgIcon-root": { color: theme.palette.error.main },
   },
 }));
 
+const useStyles = makeStyles((theme) => ({
+  activeStyle: {
+    "& .MuiListItemButton-root": {
+      borderLeft: `4px solid ${theme.palette.error.main}`,
+      backgroundColor: "transparent",
+      color: theme.palette.error.main,
+      ".MuiSvgIcon-root": { color: theme.palette.error.main },
+    },
+  },
+}));
+
 function DashboardList({ listData }) {
+  const classes = useStyles();
   return (
     <List>
       {listData.map(({ text, icon, link }) => {
         return (
-          <Link to={link}>
+          <NavLink
+            to={link}
+            className={({ isActive }) =>
+              isActive ? classes.activeStyle : undefined
+            }
+          >
             <CustomListItemButton>
               <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </CustomListItemButton>
-          </Link>
+          </NavLink>
         );
       })}
     </List>
