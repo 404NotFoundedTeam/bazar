@@ -1,6 +1,8 @@
 const database = {
   seller: {
-    seller_id: {},
+    seller_id: {
+      
+    },
   },
   products: {
     product_id: {

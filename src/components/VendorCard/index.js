@@ -27,6 +27,7 @@ export default function VendorCard({ obj }) {
         height="140"
         image={obj.img}
       />
+
       <CardContent
         sx={{
           position: "absolute",

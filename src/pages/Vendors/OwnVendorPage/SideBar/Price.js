@@ -15,6 +15,7 @@ export default function TextFieldHiddenLabel({ defaultValue }) {
     >
       <TextField
         type="number"
+        InputProps={{ inputProps: { min: 0 } }}
         hiddenLabel
         id="filled-hidden-label-small"
         defaultValue={defaultValue}
