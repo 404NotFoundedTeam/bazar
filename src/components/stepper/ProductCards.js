@@ -14,7 +14,18 @@ export default function ProductCards({ data }) {
     return setDataP(t)
   }
   return (
-    <Grid container spacing={2} sx={{ px: 2, py: 1 }}>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        px: 2,
+        py: 1,
+        background: 'gray',
+        my: 3,
+        border: '2px solid blak',
+        borderRadius: '8px',
+      }}
+    >
       <Grid item xs={3} sx={{ bg: 'red' }}>
         <img src={dataP.img} width="100%" height="100%" alt={dataP.name} />
       </Grid>
@@ -65,6 +76,7 @@ export default function ProductCards({ data }) {
             <>
               <Button
                 variant="outlined"
+                color="error"
                 disabled={value <= 0}
                 onClick={() => setValue(value - 1)}
                 sx={{
@@ -99,6 +111,7 @@ export default function ProductCards({ data }) {
 
             <Button
               variant="outlined"
+              color="error"
               sx={{
                 w: '10px !important',
                 h: '10px important',

@@ -67,15 +67,11 @@ export default function MainCard({ data }) {
               <Button
                 variant="outlined"
                 sx={{
-                  w: '10px !important',
-                  h: '10px important',
-                  p: '5px',
-                  m: '0px',
+                  minWidth: '0px',
+                  padding: '7px',
                   svg: {
-                    fontSize: '14px',
-                    m: '0px important',
-                    p: '0px',
                     display: 'inline-block',
+                    fontSize: '14px',
                   },
                 }}
                 onClick={() => setValue(value + 1)}
@@ -100,15 +96,11 @@ export default function MainCard({ data }) {
                     variant="outlined"
                     onClick={() => setValue(value - 1)}
                     sx={{
-                      w: '10px !important',
-                      h: '10px important',
-                      p: '5px',
-                      m: '0px',
+                      minWidth: '0px',
+                      padding: '7px',
                       svg: {
-                        fontSize: '14px',
-                        m: '0px important',
-                        p: '0px',
                         display: 'inline-block',
+                        fontSize: '14px',
                       },
                     }}
                   >
