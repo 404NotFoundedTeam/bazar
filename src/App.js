@@ -30,6 +30,7 @@ export default function App() {
           <Route path="payment-methods" element={<UserPayment />} />
         </Route>
         <Route path="/vendor" element={<VendorOwnPage />} />
+        <Route path="/allVendor" element={<AllVendors />} />
       </Routes>
     </MainThemeProvider>
   );
