@@ -39,6 +39,7 @@ export default function MediaCard({ obj }) {
               className="topActions"
               sx={{
                 display: "flex",
+                flexWrap: "wrap",
                 justifyContent: "space-between",
               }}
             >
