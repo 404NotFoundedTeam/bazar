@@ -24,7 +24,7 @@ const BottomHeader = () => {
     <Box
       sx={{
         paddingY: (theme) => theme.spacing(1),
-        boxShadow: (theme) => theme.shadowsHeader.header,
+        boxShadow: (theme) => theme.shadows.header,
       }}
     >
       <Container sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -40,7 +40,7 @@ const BottomHeader = () => {
                 display: "block",
                 cursor: "pointer",
               }}
-              color="info.dark"
+              color="info"
               variant="contained"
               onClick={() => setShow((i) => !i)}
             >

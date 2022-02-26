@@ -1,18 +1,63 @@
-import { ShoppingBagOutlined } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import {
+  FavoriteBorderOutlined,
+  HeadsetMicOutlined,
+  ShoppingBagOutlined,
+} from "@mui/icons-material";
+import PersonIcon from "@mui/icons-material/Person";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PaymentIcon from "@mui/icons-material/Payment";
+import { Paper, Typography } from "@mui/material";
 import React from "react";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
-import { MenuList } from "../../components/DashboardComponents";
+import { Link, Outlet } from "react-router-dom";
+import { DashboardList } from "../../components/DashboardComponents";
+
+let dashboardMainData = [
+  { text: "Orders", icon: <ShoppingBagOutlined />, link: "orders" },
+  {
+    text: "Wishlist",
+    icon: <FavoriteBorderOutlined />,
+    link: "wishlist",
+  },
+  {
+    text: "Support Tickets",
+    icon: <HeadsetMicOutlined />,
+    link: "support",
+  },
+];
+
+let accountSettings = [
+  {
+    text: "Profile Info",
+    icon: <PersonIcon />,
+    link: "profile-info",
+  },
+  {
+    text: "Addresses",
+    icon: <LocationOnIcon />,
+    link: "addresses",
+  },
+  {
+    text: "Payment Methods",
+    icon: <PaymentIcon />,
+    link: "payment-methods",
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   cover: {
-    border: "1px solid black",
     display: "flex",
+    padding: "24px",
   },
   sidebar: {
     width: "290px",
-    // border: "1px solid black",
+    paddingBottom: "24px",
+  },
+  main: {
+    padding: "24px",
+  },
+  title: {
+    padding: "26px 30px 16px",
   },
 }));
 
@@ -20,11 +65,18 @@ export default function UserDashboard() {
   const classes = useStyles();
   return (
     <div className={classes.cover}>
-      <div className={classes.sidebar}>
+      <Paper className={classes.sidebar} elevation={1} rounded={1}>
         <Typography className={classes.title} color="textSecondary">
           Dashboard
         </Typography>
-        <MenuList elevation={3} />
+        <DashboardList listData={dashboardMainData} />
+        <Typography className={classes.title} color="textSecondary">
+          Account Settings
+        </Typography>
+        <DashboardList listData={accountSettings} />
+      </Paper>
+      <div className={classes.main}>
+        <Outlet />
       </div>
     </div>
   );
