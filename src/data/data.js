@@ -49,39 +49,7 @@ const database = {
       brand: "Mi",
       price: 200,
       stock: 10,
-      seller: "seller_id",
-      rated: 23,
-      star: 10,
-      rating: function () {
-        return (this.star / this.rated).toFixed(1);
-      },
-      img_link: "",
-      description: "",
-      category: category_id,
-      discount: 15,
+      seller: "Good zone",
     },
   },
-  categories: {
-    category_id: {
-      name: "",
-      groups: [group_id],
-      brands: [brand_id],
-    },
-  },
-  groups: {
-    group_id: {
-      group_name: "",
-      products: [product_id],
-    },
-  },
-  brands: {
-    brand_id: {
-      brand_name: "",
-      products: [product_id],
-    },
-  },
-  top_category: [category_id],
-  new_arrivals: [product_id],
-  bid_discount: [product_id],
-  flash_deals,
 };
