@@ -41,7 +41,6 @@ function HeaderSearch() {
             padding: "6px 16px",
             flex: 1,
           }}
-          autoWidth
           disableUnderline
           startAdornment={
             <InputAdornment position="start">
@@ -58,7 +57,6 @@ function HeaderSearch() {
           }}
           disableUnderline
           onChange={handleChange}
-          autoWidth
           value={searchCategory}
         >
           <MenuItem value={"all"}>All category</MenuItem>

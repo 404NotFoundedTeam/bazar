@@ -1,41 +1,38 @@
-import Header from './pages/Header'
 import Home from './pages/Home'
 import SalePage from './pages/salepage'
-import { createContext, useContext, useMemo, useState } from 'react'
-import { ThemeProvider, useTheme } from '@mui/material/styles'
-import customTheme from './Theme'
 import { Route, Routes } from 'react-router-dom'
-import Cart from './pages/cart'
-
-const ColorModeContext = createContext({ toggleColorMode: () => {} })
+import UserDashboard from './pages/UserDashboard'
+import MainThemeProvider from './Theme/ThemeContext'
+import Header from './pages/Header'
+import {
+  UserAddress,
+  UserOrders,
+  UserPayment,
+  UserProfile,
+  UserSupport,
+  UserWishlist,
+} from './components/DashboardComponents'
+import AllVendors from './pages/Vendors/AllVendors'
+import VendorOwnPage from './pages/Vendors/OwnVendorPage'
 
 export default function App() {
-  const [mode, setMode] = useState('light')
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-      },
-    }),
-    [],
-  )
-
-  const theme = useMemo(() => customTheme(mode), [mode])
-
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <section style={{ background: theme.palette.background.default }}>
-          <Header/>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/salepage" element={<SalePage />} />
-          </Routes>
-          <SalePage />
-        </section>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <MainThemeProvider>
+      <SalePage />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/salepage" element={<SalePage />} />
+        <Route path="/user-dashboard" element={<UserDashboard />}>
+          <Route path="orders" element={<UserOrders />} />
+          <Route path="wishlist" element={<UserWishlist />} />
+          <Route path="support" element={<UserSupport />} />
+          <Route path="profile-info" element={<UserProfile />} />
+          <Route path="addresses" element={<UserAddress />} />
+          <Route path="payment-methods" element={<UserPayment />} />
+        </Route>
+        <Route path="/vendor" element={<VendorOwnPage />} />
+        <Route path="/allVendor" element={<AllVendors />} />
+      </Routes>
+    </MainThemeProvider>
   )
 }
-
-export { ColorModeContext }

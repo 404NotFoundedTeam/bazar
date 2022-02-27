@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import RatingSIze from '../rating'
 import { Box } from '@mui/system'
 import { FaMinus, FaPlus } from 'react-icons/fa'
-import { Button, Fab, Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0)
@@ -14,16 +14,32 @@ export default function MainCard({ data }) {
     <Card
       sx={{
         width: '100%',
-        mt: 2,
         boxShadow: 'rgb(3 0 71 / 9%) 0px 1px 3px',
         fontFamily: 'roboto !important',
       }}
     >
       {data.off > 0 && (
-        <Fab size="small" color="primary" variant="extended">
+        <Box
+          component={'div'}
+          color="primary"
+          variant="contained"
+          sx={{
+            background: 'rgb(210, 63, 87)',
+            px: '8px',
+            py: '4px',
+
+            display: 'flex',
+            alignItems: 'center',
+            position: 'absolute',
+            borderRadius: '20px',
+            color: 'white',
+            fontSize: '10px',
+            fontWeight: '600',
+          }}
+        >
           <Typography>{data.off}%</Typography>
           <Typography sx={{ fontSize: '12px' }}> off</Typography>
-        </Fab>
+        </Box>
       )}
       <CardMedia
         component="img"
@@ -67,11 +83,15 @@ export default function MainCard({ data }) {
               <Button
                 variant="outlined"
                 sx={{
-                  minWidth: '0px',
-                  padding: '7px',
+                  w: '10px !important',
+                  h: '10px important',
+                  p: '5px',
+                  m: '0px',
                   svg: {
-                    display: 'inline-block',
                     fontSize: '14px',
+                    m: '0px important',
+                    p: '0px',
+                    display: 'inline-block',
                   },
                 }}
                 onClick={() => setValue(value + 1)}
@@ -96,11 +116,15 @@ export default function MainCard({ data }) {
                     variant="outlined"
                     onClick={() => setValue(value - 1)}
                     sx={{
-                      minWidth: '0px',
-                      padding: '7px',
+                      w: '10px !important',
+                      h: '10px important',
+                      p: '5px',
+                      m: '0px',
                       svg: {
-                        display: 'inline-block',
                         fontSize: '14px',
+                        m: '0px important',
+                        p: '0px',
+                        display: 'inline-block',
                       },
                     }}
                   >
