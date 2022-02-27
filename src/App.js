@@ -5,6 +5,7 @@ import UserDashboard from "./pages/UserDashboard";
 import MainThemeProvider from "./Theme/ThemeContext";
 import Header from "./pages/Header";
 import {
+  OrderDetails,
   UserAddress,
   UserOrders,
   UserPayment,
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="payment-methods" element={<UserPayment />} />
         </Route>
         <Route path="/vendor" element={<VendorOwnPage />} />
+        <Route path="order-details" element={<OrderDetails />} />
       </Routes>
     </MainThemeProvider>
   );
