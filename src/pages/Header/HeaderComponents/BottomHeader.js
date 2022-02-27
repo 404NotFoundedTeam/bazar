@@ -7,7 +7,7 @@ const BottomHeader = () => {
   return (
     <Box
       sx={{
-        bgcolor:"#fff",
+        bgcolor: "#fff",
         paddingY: (theme) => theme.spacing(1),
         boxShadow: (theme) => theme.shadowsHeader.header,
       }}
@@ -25,13 +25,20 @@ const BottomHeader = () => {
             <Categories />
           </Grid>
           <Grid item>
-            <ul>
+            <Box display="flex" gap={3} component={"ul"}>
               <li>
-                <NavLink to="/">
-                  Home Pages User Account Vendor Account Back to Demos
-                </NavLink>
+                <NavLink to="/salepage">Sale</NavLink>
               </li>
-            </ul>
+              <li>
+                <NavLink to="/user-dashboard">User dashboard</NavLink>
+              </li>
+              <li>
+                <NavLink to="/vendor">Vendor</NavLink>
+              </li>
+              <li>
+                <NavLink to="/allVendor">All Vendors</NavLink>
+              </li>
+            </Box>
           </Grid>
         </Grid>
       </Container>
