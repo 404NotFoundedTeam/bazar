@@ -56,7 +56,10 @@ export default function SideBar() {
   return (
     <Box
       className={`${classes.foo}`}
-      sx={{ backgroundColor: "#fff !important", padding: "0 !important" }}
+      sx={{
+        maxWidth: 300,
+        backgroundColor: "#fff !important",
+      }}
     >
       <Typography className={`${classes.mainTypo}`}>Categories</Typography>
       <NestedList />

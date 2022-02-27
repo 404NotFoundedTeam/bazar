@@ -7,7 +7,6 @@ export default function TextFieldHiddenLabel({ defaultValue }) {
     <Stack
       component="form"
       sx={{
-        width: "25ch",
         backgroundColor: "#fff !important",
       }}
       // spacing={2}
@@ -16,6 +15,7 @@ export default function TextFieldHiddenLabel({ defaultValue }) {
     >
       <TextField
         type="number"
+        InputProps={{ inputProps: { min: 0 } }}
         hiddenLabel
         id="filled-hidden-label-small"
         defaultValue={defaultValue}

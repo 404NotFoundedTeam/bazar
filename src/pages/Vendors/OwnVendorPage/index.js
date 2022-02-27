@@ -1,26 +1,29 @@
-import { Box, Container, Grid, IconButton } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Drawer,
+  Grid,
+  IconButton,
+} from "@mui/material";
 import React, { useState } from "react";
 import MainCard from "../../../components/card";
 import MediaCard from "./mainSection";
 import SideBar from "./SideBar/index";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
-  hiddenAside: {
-    position: { sm: "absolute", md: "relative" },
-    top: 0,
-    left: "-100%",
-    zIndex: 100,
-  },
-  visibleAside: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: 100,
-  },
-});
 export default function VendorOwnPage() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setIsOpen(open);
+  };
   const obj = {
     id: 5,
     rating: 5,
@@ -74,16 +77,13 @@ export default function VendorOwnPage() {
     },
   ];
 
-  const classes = useStyles();
-
-  const [isVisible, setIsVisible] = useState(false);
   return (
     <Container sx={{ minHeight: "100vh", background: "#F6F9FC" }}>
       <MediaCard obj={obj} />
       <Box sx={{ textAlign: "right" }}>
         <IconButton
-          onClick={() => setIsVisible(!isVisible)}
-          sx={{ display: { xs: "inline", sm: "inline", lg: "none" } }}
+          onClick={toggleDrawer("left", true)}
+          sx={{ display: { xs: "inline", sm: "inline", md: "none" } }}
         >
           <FilterListIcon />
         </IconButton>
@@ -94,17 +94,25 @@ export default function VendorOwnPage() {
           lg={3}
           md={4}
           sm={4}
-          sx={{ transition: "0.3s" }}
-          // className={`${
-          //   // isVisible ? classes.hiddenAside : classes.visibleAside
-          // }`}
+          sx={{
+            transition: "0.3s",
+            display: { xs: "none", sm: "none", md: "block" },
+          }}
         >
           <SideBar />
+          <Drawer
+            anchor="left"
+            open={isOpen}
+            onClose={toggleDrawer("left", false)}
+            sx={{ display: { sm: "block", md: "none" } }}
+          >
+            <SideBar />
+          </Drawer>
         </Grid>
-        <Grid item lg={9} md={12} sm={12}>
+        <Grid item lg={9} md={8} sm={12}>
           <Grid container spacing={2}>
             {data.map((obj, i) => (
-              <Grid item lg={4} md={4} sm={6}>
+              <Grid item lg={4} md={6} sm={6}>
                 <MainCard key={i} data={obj} />
               </Grid>
             ))}

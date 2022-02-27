@@ -41,7 +41,11 @@ const customTheme = (mode) => {
             },
           }),
     },
+    shadowsHeader: {
+      header: "rgba(100, 100, 111, 0.1) 0px 7px 20px 0px;",
+    }
   });
+
 };
 
 function MainThemeProvider({ children }) {
