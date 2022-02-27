@@ -18,6 +18,7 @@ import VendorOwnPage from "./pages/Vendors/OwnVendorPage";
 export default function App() {
   return (
     <MainThemeProvider>
+      <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/salepage" element={<SalePage />} />
