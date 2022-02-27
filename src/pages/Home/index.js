@@ -62,7 +62,9 @@ function Home() {
         </MySlider>
       </Container>
       <Box component={"main"} sx={{ bgcolor: "#F6F9FC", mt: "60px" }}>
-        <Container></Container>
+        <Container>
+          
+        </Container>
       </Box>
     </HomeWrapper>
   );

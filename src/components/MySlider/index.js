@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import Slider from "react-slick";
 
 function MySlider({ settings, children, ...props }) {
