@@ -11,6 +11,9 @@ const customTheme = (mode) => {
       ...(mode === "light"
         ? {
             // palette values for light mode
+            background: {
+              default: "#f6f9fc",
+            },
             primary: {
               main: "#1c2865",
             },
@@ -35,10 +38,11 @@ const customTheme = (mode) => {
             },
           }),
     },
-    shadows: {
+    shadowsHeader: {
       header: "rgba(100, 100, 111, 0.1) 0px 7px 20px 0px;",
-    },
+    }
   });
+
 };
 
 function MainThemeProvider({ children }) {
@@ -56,7 +60,11 @@ function MainThemeProvider({ children }) {
   console.log(theme);
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <section style={{ backgroundColor: theme.palette.background.default }}>
+          {children}
+        </section>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }

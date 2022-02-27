@@ -26,6 +26,7 @@ const Categories = ({ variant = "big" }) => {
           alignItems: "center",
           justifyContent: "space-between",
           cursor: "pointer",
+          boxShadow: "none !important",
           bgcolor: (theme) => theme.palette.info.dark,
         }}
         color="info"
@@ -53,7 +54,7 @@ const Categories = ({ variant = "big" }) => {
             width: "100%",
             zIndex: "20 !important",
             bgcolor: "#fff",
-            boxShadow: (theme) => theme.shadows.header,
+            boxShadow: (theme) => theme.shadowsHeader.header,
           }}
         >
           <List>
