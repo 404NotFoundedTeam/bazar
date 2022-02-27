@@ -25,7 +25,7 @@ function MainHeader() {
           position: 'sticky',
           top: 0,
           left: 0,
-          boxShadow: (theme) => theme.shadows.header,
+          boxShadow: (theme) => theme.shadowsHeader.header,
         },
         position: 'relative',
         paddingY: (theme) => theme.spacing(2),

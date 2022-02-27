@@ -20,10 +20,10 @@ export default function ProductCards({ data }) {
       sx={{
         px: 2,
         py: 1,
-        background: 'gray',
+        background: '#fff',
         my: 3,
-        border: '2px solid blak',
-        borderRadius: '8px',
+        borderRadius: '4px',
+        boxShadow: '0px 1px 3px rgb(3 0 71 / 9%)',
       }}
     >
       <Grid item xs={3} sx={{ bg: 'red' }}>
@@ -52,7 +52,7 @@ export default function ProductCards({ data }) {
         <Box
           sx={{
             px: 1,
-            py: 2,
+            py: 4,
             flexGrow: 1,
             display: 'flex',
             alignItems: 'center',

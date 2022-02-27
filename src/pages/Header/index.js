@@ -25,7 +25,7 @@ function Header() {
             left: "0",
             bgcolor: "white",auto
             zIndex: "50",
-            boxShadow: (theme) => theme.shadows.header,
+            boxShadow: (theme) => theme.shadowsHeader.header,
           }}
         >
           <MainHeader />

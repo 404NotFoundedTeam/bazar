@@ -157,6 +157,7 @@ export default function Checkout() {
                       )}
 
                       <Button
+                        type="submit"
                         variant="contained"
                         onClick={handleNext}
                         sx={{ mt: 3, ml: 1 }}
@@ -171,6 +172,23 @@ export default function Checkout() {
               </React.Fragment>
             </Paper>
           </Grid>
+
+          {/* second step */}
+          {/* <Grid item xs={8}>
+            <Stepper activeStep={activeStep} sx={{ px: 3, pt: 5 }}>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+
+            <Box sx={{ flexGrow: 1 }}>
+              {data.map((item, index) => {
+                return <ProductCards data={item} key={index} />
+              })}
+            </Box>
+          </Grid> */}
         </Grid>
 
         <Copyright />
