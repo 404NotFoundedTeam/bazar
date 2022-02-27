@@ -92,31 +92,12 @@ export default function SalePage() {
     },
   ]);
 
-<<<<<<< HEAD
-  // const [page, setPage] = React.useState(2)
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10)
-
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage)
-  // }
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10))
-  //   setPage(0)
-  // }
-
-  data.sort((a, b) => b.off - a.off);
-  var _ = require("lodash");
-  const data2 = _.chunk(data, 2);
-  console.log(data2);
-=======
   data.sort((a, b) => b.off - a.off)
   var _ = require('lodash')
   const data2 = _.chunk(data, 2)
   console.log(data2)
 
   const [page, setPage] = useState(0)
->>>>>>> ac12cc675f1755a744d0d2a8234bc46292c4b7a5
   return (
     <ThemeProvider theme={saleTheme}>
       <SalePageWrapper>
