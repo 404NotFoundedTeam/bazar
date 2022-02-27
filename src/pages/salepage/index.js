@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import Container from '@mui/material/Container'
-import SalePageWrapper from './SalePageWrapper'
-import SaleTab from '../../components/SaleTabs'
+import React, { useEffect, useState } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import SalePageWrapper from "./SalePageWrapper";
+import SaleTab from "../../components/SaleTabs";
 import {
   Box,
   createTheme,
@@ -10,11 +10,11 @@ import {
   Pagination,
   Stack,
   Typography,
-} from '@mui/material'
-import { spacing, ThemeProvider } from '@mui/system'
-import { nanoid } from 'nanoid'
-import MainCard from '../../components/card'
-import Checkout from '../../components/stepper/Checkout'
+} from "@mui/material";
+import { spacing, ThemeProvider } from "@mui/system";
+import { nanoid } from "nanoid";
+import MainCard from "../../components/card";
+import Checkout from "../../components/stepper/Checkout";
 
 const saleTheme = createTheme({
   palette: {
@@ -92,12 +92,12 @@ export default function SalePage() {
     },
   ]);
 
-  data.sort((a, b) => b.off - a.off)
-  var _ = require('lodash')
-  const data2 = _.chunk(data, 2)
-  console.log(data2)
+  data.sort((a, b) => b.off - a.off);
+  var _ = require("lodash");
+  const data2 = _.chunk(data, 2);
+  console.log(data2);
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(0);
   return (
     <ThemeProvider theme={saleTheme}>
       <SalePageWrapper>
@@ -127,29 +127,8 @@ export default function SalePage() {
             </Typography>
             <Stack spacing={2}>
               <Pagination
-<<<<<<< HEAD
-                count={10}
-                onChange={(e, page) => {
-                  console.log(e);
-                  // setData((prev)=>)
-                  return (
-                    <Grid container spacing={3} sx={{ mt: 4 }}>
-                      {data2[page - 1] !== [] ? (
-                        data2[page - 1].map((item, index) => (
-                          <MainCard key={index} data={item} />
-                        ))
-                      ) : (
-                        <Typography>
-                          Not found{console.log("not found")}
-                        </Typography>
-                      )}
-                    </Grid>
-                  );
-                }}
-=======
                 count={data.length - data2.length}
                 page={page}
->>>>>>> ac12cc675f1755a744d0d2a8234bc46292c4b7a5
                 variant="outlined"
                 color="secondary"
               />
