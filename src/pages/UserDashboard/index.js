@@ -6,76 +6,126 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
-import { Paper, Typography } from "@mui/material";
-import React from "react";
+import { Button, Paper, Stack, Typography } from "@mui/material";
+import React, { useEffect, useMemo } from "react";
 import { makeStyles } from "@mui/styles";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { DashboardList } from "../../components/DashboardComponents";
 
-let dashboardMainData = [
-  { text: "Orders", icon: <ShoppingBagOutlined />, link: "orders" },
-  {
+let dashboardMainData = {
+  orders: { text: "Orders", icon: <ShoppingBagOutlined />, link: "orders" },
+  wishlist: {
     text: "Wishlist",
     icon: <FavoriteBorderOutlined />,
     link: "wishlist",
+    action: {
+      text: "Add all to cart",
+    },
   },
-  {
+  support: {
     text: "Support Tickets",
     icon: <HeadsetMicOutlined />,
     link: "support",
   },
-];
+};
 
-let accountSettings = [
-  {
+let accountSettings = {
+  "profile-info": {
     text: "Profile Info",
     icon: <PersonIcon />,
     link: "profile-info",
   },
-  {
+  addresses: {
     text: "Addresses",
     icon: <LocationOnIcon />,
     link: "addresses",
   },
-  {
+  "payment-methods": {
     text: "Payment Methods",
     icon: <PaymentIcon />,
     link: "payment-methods",
   },
-];
+};
 
 const useStyles = makeStyles((theme) => ({
   cover: {
     display: "flex",
     padding: "24px",
+    alignItems: "start",
   },
   sidebar: {
-    width: "290px",
+    minWidth: "290px",
     paddingBottom: "24px",
+    boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
+    borderRadius: "8px !important",
   },
   main: {
-    padding: "24px",
+    padding: "0 24px",
+    "& span": { color: theme.palette.error.main },
+    width: "100%",
   },
   title: {
     padding: "26px 30px 16px",
   },
+  btn: {
+    padding: "4px 16px !important",
+    fontSize: "12px !important",
+    backgroundColor: theme.palette.error.light,
+    textTransform: "capitalize !important",
+  },
 }));
 
-export default function UserDashboard() {
+export default function UserDashboard(props) {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
+  let part = !pathname.endsWith("user-dashboard")
+    ? pathname.slice(pathname.lastIndexOf("/") + 1)
+    : undefined;
+  const getTitle = useMemo(
+    () => ({
+      ...dashboardMainData,
+      ...accountSettings,
+    }),
+    []
+  );
+  useEffect(() => {
+    if (!part) navigate("orders");
+  }, []);
+
   return (
     <div className={classes.cover}>
-      <Paper className={classes.sidebar} elevation={1} rounded={1}>
+      <Paper className={classes.sidebar} elevation={0}>
         <Typography className={classes.title} color="textSecondary">
           Dashboard
         </Typography>
-        <DashboardList listData={dashboardMainData} />
+        <DashboardList listData={Object.values(dashboardMainData)} />
         <Typography className={classes.title} color="textSecondary">
           Account Settings
         </Typography>
-        <DashboardList listData={accountSettings} />
+        <DashboardList listData={Object.values(accountSettings)} />
       </Paper>
       <div className={classes.main}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Typography sx={{ fontSize: "28px" }}>
+            <span style={{ marginRight: 10 }}>
+              {getTitle[part ? part : "orders"].icon}
+            </span>
+            {getTitle[part ? part : "orders"].text}
+          </Typography>
+          {getTitle[part ? part : "orders"]?.action ? (
+            <Button className={classes.btn} variant="outlined" color="error">
+              {getTitle[part ? part : "orders"]?.action.text}
+            </Button>
+          ) : (
+            false
+          )}
+        </Stack>
         <Outlet />
       </div>
     </div>
