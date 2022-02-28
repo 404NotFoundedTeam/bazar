@@ -80,15 +80,12 @@ export default function ProductCards({ data }) {
                 disabled={value <= 0}
                 onClick={() => setValue(value - 1)}
                 sx={{
-                  w: '10px !important',
-                  h: '10px important',
-                  p: '5px',
-                  m: '0px',
+                  minWidth: '0px',
+                  px: '8px',
+                  py: '0px',
                   svg: {
-                    fontSize: '14px',
-                    m: '0px important',
-                    p: '0px',
-                    display: 'inline-block',
+                    fontSize: '30px',
+                    fontWeight: 'bold',
                   },
                 }}
               >
@@ -113,15 +110,12 @@ export default function ProductCards({ data }) {
               variant="outlined"
               color="error"
               sx={{
-                w: '10px !important',
-                h: '10px important',
-                p: '5px',
-                m: '0px',
+                minWidth: '0px',
+                px: '8px',
+                py: '0px',
                 svg: {
-                  fontSize: '14px',
-                  m: '0px important',
-                  p: '0px',
-                  display: 'inline-block',
+                  fontSize: '30px',
+                  fontWeight: 'bold',
                 },
               }}
               onClick={() => setValue(value + 1)}

@@ -18,19 +18,8 @@ import Review from './Review'
 import { Grid } from '@mui/material'
 import { nanoid } from 'nanoid'
 import ProductCards from './ProductCards'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import PaymentCard from './PaymentCard'
+import Payment from './Payment'
 
 const steps = ['Cart', 'Details', 'Payment', 'Review']
 
@@ -41,7 +30,15 @@ function getStepContent(step) {
     case 1:
       return <PaymentForm />
     case 2:
+      return <Payment />
+    case 3:
       return <Review />
+    case 5:
+      return <PaymentCard />
+    case 10:
+      return <PaymentCard />
+    case 15:
+      return <PaymentCard />
     default:
       throw new Error('Unknown step')
   }
@@ -118,22 +115,42 @@ export default function Checkout() {
                 </Step>
               ))}
             </Stepper>
+            {console.log(activeStep === steps.length)}
 
-            <Box sx={{ flexGrow: 1 }}>
-              {data.map((item, index) => {
-                return <ProductCards data={item} key={index} />
-              })}
-            </Box>
+            {activeStep === 0 ? (
+              <React.Fragment>
+                <Box sx={{ flexGrow: 1 }}>
+                  {data.map((item, index) => {
+                    return <ProductCards data={item} key={index} />
+                  })}
+                </Box>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {getStepContent(activeStep)}
+                {/* <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  {activeStep === 0 && (
+                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Back
+                    </Button>
+                  )}
+
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  </Button>
+                </Box> */}
+              </React.Fragment>
+            )}
           </Grid>
           <Grid item xs={4}>
             <Paper
               variant="outlined"
               sx={{ my: { xs: 5, md: 10 }, p: { xs: 2, md: 3 } }}
             >
-              <Typography component="h1" variant="h4" align="center">
-                Checkout
-              </Typography>
-
               <React.Fragment>
                 {activeStep === steps.length ? (
                   <React.Fragment>
@@ -148,7 +165,7 @@ export default function Checkout() {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    {getStepContent(activeStep)}
+                    {getStepContent(activeStep * 5)}
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                       {activeStep !== 0 && (
                         <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -159,6 +176,7 @@ export default function Checkout() {
                       <Button
                         type="submit"
                         variant="contained"
+                        color="error"
                         onClick={handleNext}
                         sx={{ mt: 3, ml: 1 }}
                       >
@@ -172,26 +190,7 @@ export default function Checkout() {
               </React.Fragment>
             </Paper>
           </Grid>
-
-          {/* second step */}
-          {/* <Grid item xs={8}>
-            <Stepper activeStep={activeStep} sx={{ px: 3, pt: 5 }}>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-
-            <Box sx={{ flexGrow: 1 }}>
-              {data.map((item, index) => {
-                return <ProductCards data={item} key={index} />
-              })}
-            </Box>
-          </Grid> */}
         </Grid>
-
-        <Copyright />
       </Container>
     </ThemeProvider>
   )
