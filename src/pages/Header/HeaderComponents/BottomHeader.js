@@ -12,7 +12,11 @@ const BottomHeader = () => {
         boxShadow: (theme) => theme.shadowsHeader.header,
       }}
     >
-      <Container>
+      <Container
+        sx={{
+          display: { md: "block", xs: "none" },
+        }}
+      >
         <Grid
           container
           sx={{

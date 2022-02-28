@@ -12,7 +12,7 @@ function MySlider({ settings, children, ...props }) {
     cssEase: "linear",
   };
   return (
-    <Slider {...(settings ? settings : defaultSetting)} {...props}>
+    <Slider {...defaultSetting} {...settings} {...props}>
       {children}
     </Slider>
   );
