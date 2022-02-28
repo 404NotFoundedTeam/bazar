@@ -8,11 +8,12 @@ import AddLocationIcon from "@mui/icons-material/AddLocation";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box, IconButton } from "@mui/material";
-import BasicRating from "../Mini-components/Rating";
 import ImageAvatars from "../Mini-components/Avatar";
 import RatingSIze from "../Mini-components/Rating";
+import { Link } from "react-router-dom";
 
 export default function VendorCard({ obj }) {
+  console.log(obj);
   return (
     <Card
       sx={{
@@ -40,7 +41,7 @@ export default function VendorCard({ obj }) {
           <span className="mr-2">{obj.vendorName}</span>
         </Typography>
         <Typography>
-          <RatingSIze score={obj.rating} sx={{ color: "yellow" }} />
+          <RatingSIze score={obj.rating()} sx={{ color: "yellow" }} />
         </Typography>
         <Box sx={{ marginTop: "10px" }}>
           <Typography
@@ -76,7 +77,9 @@ export default function VendorCard({ obj }) {
           <ImageAvatars avaImg={obj.avaImg} width="56px" height="56px" />
         </Box>
         <IconButton>
-          <ArrowForwardIcon sx={{ color: "#c0c0c0 !important" }} />
+          <Link to={`/vendor/${obj.id}`}>
+            <ArrowForwardIcon sx={{ color: "#c0c0c0 !important" }} />
+          </Link>
         </IconButton>
       </CardActions>
     </Card>
