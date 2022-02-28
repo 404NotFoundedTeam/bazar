@@ -1,44 +1,44 @@
-import React, { useState } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import RatingSIze from "../rating";
-import { Box } from "@mui/system";
-import { FaMinus, FaPlus } from "react-icons/fa";
-import { Button, Grid } from "@mui/material";
+import React, { useState } from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import RatingSIze from '../rating'
+import { Box } from '@mui/system'
+import { FaMinus, FaPlus } from 'react-icons/fa'
+import { Button, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0)
   return (
     <Card
       sx={{
-        width: "100%",
-        boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-        fontFamily: "roboto !important",
+        width: '100%',
+        boxShadow: 'rgb(3 0 71 / 9%) 0px 1px 3px',
+        fontFamily: 'roboto !important',
       }}
     >
       {data.off > 0 && (
         <Box
-          component={"div"}
+          component={'div'}
           color="primary"
           variant="contained"
           sx={{
-            background: "rgb(210, 63, 87)",
-            px: "8px",
-            py: "4px",
+            background: 'rgb(210, 63, 87)',
+            px: '8px',
+            py: '4px',
 
-            display: "flex",
-            alignItems: "center",
-            position: "absolute",
-            borderRadius: "20px",
-            color: "white",
-            fontSize: "10px",
-            fontWeight: "600",
+            display: 'flex',
+            alignItems: 'center',
+            position: 'absolute',
+            borderRadius: '20px',
+            color: 'white',
+            fontSize: '10px',
+            fontWeight: '600',
           }}
         >
           <Typography>{data.off}%</Typography>
-          <Typography sx={{ fontSize: "12px" }}> off</Typography>
+          <Typography sx={{ fontSize: '12px' }}> off</Typography>
         </Box>
       )}
       <CardMedia
@@ -71,12 +71,12 @@ export default function MainCard({ data }) {
           <Grid item lg={6} md={6} sm={6}>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column-reverse",
-                justifyContent: "space-between",
-                alignItems: "center",
-                height: "100%",
-                width: "100%",
+                display: 'flex',
+                flexDirection: 'column-reverse',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                height: '100%',
+                width: '100%',
               }}
               aria-label="outlined primary button group"
             >
@@ -100,11 +100,11 @@ export default function MainCard({ data }) {
                 <>
                   <Typography
                     sx={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
                   >
                     {value}
@@ -113,24 +113,12 @@ export default function MainCard({ data }) {
                     variant="outlined"
                     onClick={() => setValue(value - 1)}
                     sx={{
-<<<<<<< HEAD
                       minWidth: '0px',
                       px: '8px',
                       py: '4px',
                       svg: {
                         fontSize: '20px',
                         fontWeight: 'bold',
-=======
-                      w: "10px !important",
-                      h: "10px important",
-                      p: "5px",
-                      m: "0px",
-                      svg: {
-                        fontSize: "14px",
-                        m: "0px important",
-                        p: "0px",
-                        display: "inline-block",
->>>>>>> 9fcc744e9ae9d28e100ce3f10c40e9f0b906e66a
                       },
                     }}
                   >
@@ -143,5 +131,5 @@ export default function MainCard({ data }) {
         </Grid>
       </CardContent>
     </Card>
-  );
+  )
 }
