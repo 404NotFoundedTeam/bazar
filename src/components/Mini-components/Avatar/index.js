@@ -8,7 +8,11 @@ export default function ImageAvatars({ avaImg, width, height }) {
       <Avatar
         alt="Remy Sharp"
         src={avaImg}
-        sx={{ width: width, height: height, objectFit: "cover" }}
+        sx={{
+          width: width,
+          height: height,
+          objectFit: "cover",
+        }}
       />
     </Stack>
   );
