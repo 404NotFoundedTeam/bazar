@@ -10,6 +10,7 @@ import { Button, Grid } from '@mui/material'
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0)
+  console.log(data)
   return (
     <Card
       sx={{
@@ -45,7 +46,7 @@ export default function MainCard({ data }) {
         component="img"
         alt="green iguana"
         height="140"
-        image={data.productsImg}
+        image={data.img}
         sx={{}}
       />
       <CardContent>
@@ -55,7 +56,7 @@ export default function MainCard({ data }) {
               {data.name}
             </Typography>
 
-            <RatingSIze score={data.rating()} />
+            <RatingSIze score={data.rating} />
             <Grid
               container
               direction="row"
