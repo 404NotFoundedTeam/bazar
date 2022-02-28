@@ -1,22 +1,23 @@
-import Home from './pages/Home'
-import SalePage from './pages/salepage'
-import { Route, Routes } from 'react-router-dom'
-import UserDashboard from './pages/UserDashboard'
-import MainThemeProvider from './Theme/ThemeContext'
-import Header from './pages/Header'
+import Home from "./pages/Home";
+import SalePage from "./pages/salepage";
+import { Route, Routes } from "react-router-dom";
+import UserDashboard from "./pages/UserDashboard";
+import MainThemeProvider from "./Theme/ThemeContext";
+import Header from "./pages/Header";
 import {
+  OrderDetails,
   UserAddress,
   UserOrders,
   UserPayment,
   UserProfile,
   UserSupport,
   UserWishlist,
-} from './components/DashboardComponents'
-import AllVendors from './pages/Vendors/AllVendors'
-import VendorOwnPage from './pages/Vendors/OwnVendorPage'
-import { QueryClient, QueryClientProvider } from 'react-query'
+} from "./components/DashboardComponents";
+import AllVendors from "./pages/Vendors/AllVendors";
+import VendorOwnPage from "./pages/Vendors/OwnVendorPage";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
@@ -34,10 +35,11 @@ export default function App() {
             <Route path="addresses" element={<UserAddress />} />
             <Route path="payment-methods" element={<UserPayment />} />
           </Route>
+          <Route path="order-details" element={<OrderDetails />} />
           <Route path="/vendor" element={<VendorOwnPage />} />
           <Route path="/allVendor" element={<AllVendors />} />
         </Routes>
       </MainThemeProvider>
     </QueryClientProvider>
-  )
+  );
 }

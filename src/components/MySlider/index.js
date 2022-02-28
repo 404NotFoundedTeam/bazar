@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import Slider from "react-slick";
 
 function MySlider({ settings, children, ...props }) {
@@ -12,7 +12,7 @@ function MySlider({ settings, children, ...props }) {
     cssEase: "linear",
   };
   return (
-    <Slider {...(settings ? settings : defaultSetting)} {...props}>
+    <Slider {...defaultSetting} {...settings} {...props}>
       {children}
     </Slider>
   );

@@ -14,6 +14,9 @@ const customTheme = (mode) => {
             background: {
               default: "#f6f9fc",
             },
+            text: {
+              primary: "#2b3445",
+            },
             primary: {
               main: "#1c2865",
             },
