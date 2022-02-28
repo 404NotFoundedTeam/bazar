@@ -4,6 +4,7 @@ import {
   ShoppingBagOutlined,
 } from "@mui/icons-material";
 import {
+  Avatar,
   Button,
   Chip,
   Grid,
@@ -16,6 +17,10 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import PaymentIcon from "@mui/icons-material/Payment";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
@@ -58,7 +63,9 @@ const useStyles = makeStyles((theme) => ({
       borderLeft: `4px solid ${theme.palette.error.main}`,
       backgroundColor: "transparent",
       color: theme.palette.error.main,
-      ".MuiSvgIcon-root": { color: theme.palette.error.main },
+      "& .MuiSvgIcon-root": {
+        color: theme.palette.error.main,
+      },
     },
   },
   tableHeader: {
@@ -70,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     "& p": { width: "100%", fontSize: 18 },
     "& p:last-child": { width: "20%" },
     color: `${theme.palette.text.secondary} !important`,
-    margin: "10px 0",
+    margin: "0 0 10px",
   },
   ordersBox: {
     "& div": {
@@ -92,8 +99,28 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     padding: "4px 16px !important",
     fontSize: "12px !important",
-    backgroundColor: theme.palette.error.light,
     textTransform: "capitalize !important",
+  },
+  addressBox: {
+    "& div": {
+      boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px",
+      borderRadius: 8,
+      padding: "14px 18px",
+      marginBottom: "16px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
+      gap: "10px",
+      "& p": {
+        width: "100%",
+        fontWeight: 100,
+        margin: 0,
+        textAlign: "center",
+      },
+      "& p:last-child": { width: "50%" },
+      "& p:first-child": { width: "50%" },
+    },
   },
 }));
 
@@ -352,85 +379,10 @@ export default function CustomizedSteppers() {
 }
 
 function UserWishlist() {
-  const [data, setData] = useState([
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 2,
-      off: 0,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 1,
-      off: 0,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-  ]);
   const classes = useStyles();
-  const [currentOrders, setCurrentOrders] = useState(data);
+  const [currentOrders, setCurrentOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(8);
-
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const presentOrders = currentOrders.slice(
@@ -440,11 +392,6 @@ function UserWishlist() {
   const pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
   return (
     <div>
-      <Grid container spacing={3}>
-        {presentOrders.map((item, index) => (
-          <MainCard key={index} data={item} />
-        ))}
-      </Grid>
       <div>
         <Pagination
           className={classes.pagination}
@@ -457,9 +404,10 @@ function UserWishlist() {
     </div>
   );
 }
+
 function UserSupport() {
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div>
       <Paper sx={{ padding: "24px", marginBottom: "20px" }}>
         <Stack
           direction="row"
@@ -499,14 +447,222 @@ function UserSupport() {
     </div>
   );
 }
+
 function UserProfile() {
-  return <div></div>;
+  const classes = useStyles();
+  const userData = [
+    {
+      firstName: "John",
+      lastName: "Simth",
+      email: "john@gmail.com",
+      phone: "998 99 8979883",
+      birthDate: new Date(),
+    },
+  ];
+  return (
+    <div>
+      <Stack direction="row" justifyContent="space-between">
+        <Paper
+          sx={{
+            padding: "20px",
+            width: "40%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ width: "100%" }}
+          >
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Avatar
+                alt="Remy Sharp"
+                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                sx={{ width: 56, height: 56 }}
+              />
+              <div>
+                <Typography fontWeight="bold">John Smith</Typography>
+                <Typography fontSize={14} color="textSecondary">
+                  Balance: $500
+                </Typography>
+              </div>
+            </Stack>
+            <Typography color="textSecondary">Silver User</Typography>
+          </Stack>
+        </Paper>
+        <Paper sx={{ padding: "20px", width: "13%" }}>
+          <Typography variant="h6" textAlign={"center"} color="error.main">
+            16
+          </Typography>
+          <Typography color="textSecondary" textAlign="center">
+            All Orders
+          </Typography>
+        </Paper>
+        <Paper sx={{ padding: "20px", width: "13%" }}>
+          <Typography variant="h6" textAlign={"center"} color="error.main">
+            02
+          </Typography>
+          <Typography color="textSecondary" textAlign="center">
+            Awaiting Payments
+          </Typography>
+        </Paper>
+        <Paper sx={{ padding: "20px", width: "13%" }}>
+          <Typography variant="h6" textAlign={"center"} color="error.main">
+            16
+          </Typography>
+          <Typography color="textSecondary" textAlign="center">
+            Awaiting Shipment
+          </Typography>
+        </Paper>
+        <Paper sx={{ padding: "20px", width: "13%" }}>
+          <Typography variant="h6" textAlign={"center"} color="error.main">
+            16
+          </Typography>
+          <Typography color="textSecondary" textAlign="center">
+            Awaiting Delivery
+          </Typography>
+        </Paper>
+      </Stack>
+      <Paper sx={{ mt: 4, padding: "24px" }}>
+        <Stack direction="row">
+          <Typography sx={{ width: "100%", color: "gray" }}>
+            First Name
+          </Typography>
+          <Typography sx={{ width: "100%", color: "gray" }}>
+            Last Name
+          </Typography>
+          <Typography sx={{ width: "100%", color: "gray" }}>Email</Typography>
+          <Typography sx={{ width: "100%", color: "gray" }}>Phone</Typography>
+          <Typography sx={{ width: "100%", color: "gray" }}>
+            Birth Date
+          </Typography>
+        </Stack>
+        <div>
+          {userData.map((data) => {
+            return (
+              <Link to="/order-details">
+                <Stack direction="row">
+                  <Typography sx={{ width: "100%" }}>
+                    {data.firstName}
+                  </Typography>
+                  <Typography sx={{ width: "100%" }}>
+                    {data.lastName}
+                  </Typography>
+                  <Typography sx={{ width: "100%" }}>{data.email}</Typography>
+                  <Typography sx={{ width: "100%" }}>{data.phone}</Typography>
+                  <Typography sx={{ width: "100%" }}>
+                    {data.birthDate.toDateString()}
+                  </Typography>
+                </Stack>
+              </Link>
+            );
+          })}
+        </div>
+      </Paper>
+    </div>
+  );
 }
 function UserAddress() {
-  return <div></div>;
+  const classes = useStyles();
+  const orders = [
+    {
+      fullName: "John Smith",
+      address: "777 Brockton Avenue, Abington MA 2351",
+      phone: "1927987987498",
+      action: "delete",
+    },
+  ];
+  const [currentOrders, setCurrentOrders] = useState(orders);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage, setOrdersPerPage] = useState(5);
+
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const presentOrders = currentOrders.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+  const pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
+  return (
+    <div>
+      <div className={classes.addressBox}>
+        {presentOrders.map((order) => {
+          return (
+            <Paper elevation={1}>
+              <Typography>{order.fullName}</Typography>
+              <Typography>{order.address}</Typography>
+              <Typography>{order.phone}</Typography>
+              <Typography>
+                <IconButton aria-label="delete">
+                  <EditIcon />
+                </IconButton>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </Typography>
+            </Paper>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 function UserPayment() {
-  return <div></div>;
+  const classes = useStyles();
+  const orders = [
+    {
+      icon: <PaymentIcon />,
+      fullName: "John Smith",
+      cardNumber: "1234 4564 9878 1299",
+      date: new Date(),
+    },
+    {
+      icon: <PaymentIcon />,
+      fullName: "John Smith",
+      cardNumber: "1234 4564 9878 1299",
+      date: new Date(),
+    },
+  ];
+  const [currentOrders, setCurrentOrders] = useState(orders);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage, setOrdersPerPage] = useState(5);
+
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const presentOrders = currentOrders.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+  const pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
+  return (
+    <div>
+      <div className={classes.addressBox}>
+        {presentOrders.map((order) => {
+          return (
+            <Paper elevation={1}>
+              <Typography>
+                <span style={{ marginRight: "10px" }}>{order.icon}</span>
+                {order.fullName}
+              </Typography>
+              <Typography>{order.cardNumber}</Typography>
+              <Typography>{order.date.toDateString()}</Typography>
+              <Typography>
+                <IconButton aria-label="delete">
+                  <EditIcon />
+                </IconButton>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </Typography>
+            </Paper>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export {
