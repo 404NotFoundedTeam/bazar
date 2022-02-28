@@ -13,6 +13,7 @@ import ImageAvatars from "../Mini-components/Avatar";
 import RatingSIze from "../Mini-components/Rating";
 
 export default function VendorCard({ obj }) {
+  console.log(obj);
   return (
     <Card
       sx={{
