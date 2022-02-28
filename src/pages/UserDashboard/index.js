@@ -106,7 +106,7 @@ export default function UserDashboard(props) {
   );
   useEffect(() => {
     if (!part) navigate("orders");
-  }, []);
+  });
 
   return (
     <div className={classes.cover}>
