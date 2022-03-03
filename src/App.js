@@ -51,9 +51,9 @@ export default function App() {
             <Route path="orders" element={<VendorOrders />} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
-
           <Route path="/vendor" element={<VendorOwnPage />} />
           <Route path="/allVendor" element={<AllVendors />} />
+          <Route path="/vendor/:id" element={<VendorOwnPage />} />
         </Routes>
       </MainThemeProvider>
     </QueryClientProvider>
