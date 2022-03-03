@@ -37,6 +37,9 @@ const BottomHeader = () => {
                 <NavLink to="/user-dashboard">User dashboard</NavLink>
               </li>
               <li>
+                <NavLink to="/vendor-dashboard">Vendor dashboard</NavLink>
+              </li>
+              <li>
                 <NavLink to="/vendor">Vendor</NavLink>
               </li>
               <li>

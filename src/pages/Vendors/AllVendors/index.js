@@ -1,67 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import VendorCard from "../../../components/VendorCard";
 import { Container, Grid, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import BasicPagination from "../../../components/Mini-components/Pagination";
-
-const vendors = [
-  {
-    id: 0,
-    rating: 4,
-    avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    vendorName: "Salauat Yerejepov",
-    location: "Allisher Navoiy street 109 , Tashkent city",
-    phoneNumber: "(90)651-02-93",
-  },
-  {
-    id: 1,
-    rating: 5,
-    avaImg: "https://bazar-react.vercel.app/assets/images/banners/banner.png",
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    vendorName: "Keyboard Kiosk",
-    location: "Allisher Navoiy street 109 , Tashkent city",
-    phoneNumber: "(90)651-02-93",
-  },
-  {
-    id: 2,
-    rating: 3,
-    avaImg: "https://bazar-react.vercel.app/assets/images/banners/banner-3.png",
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    vendorName: "Anytime Buys",
-    location: "Allisher Navoiy street 109 , Tashkent city",
-    phoneNumber: "(90)651-02-93",
-  },
-  {
-    id: 3,
-    rating: 2,
-    avaImg: "https://bazar-react.vercel.app/assets/images/banners/banner-4.png",
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    vendorName: "Word Wide Wishes",
-    location: "Allisher Navoiy street 109 , Tashkent city",
-    phoneNumber: "(90)651-02-93",
-  },
-  {
-    id: 4,
-    rating: 5,
-    avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    vendorName: "Cybershop",
-    location: "Allisher Navoiy street 109 , Tashkent city",
-    phoneNumber: "(90)651-02-93",
-  },
-  {
-    id: 5,
-    rating: 5,
-    avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    vendorName: "Scarlett Beauty",
-    location: "Allisher Navoiy street 109 , Tashkent city",
-    phoneNumber: "(90)651-02-93",
-  },
-];
+import { database } from "../../../data/data";
 
 export default function AllVendors({ obj }) {
+  // console.log(database.seller);
+  const vendors = Object.entries(database.seller);
+
+  const [currentVendors, setcurrentVendors] = useState(vendors);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [vendorsPerPage, setvendorsPerPage] = useState(6);
+
+  const indexOfLastOrder = currentPage * vendorsPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - vendorsPerPage;
+  const presentVendors = currentVendors.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+  const pageNumbers = Math.ceil(currentVendors.length / vendorsPerPage);
+
   return (
     <Container>
       <Box>
@@ -78,11 +37,13 @@ export default function AllVendors({ obj }) {
           All Shops
         </Typography>
         <Grid container spacing={3}>
-          {vendors.map((obj, i) => (
-            <Grid item xs={12} sm={6} md={6} lg={4} sx={{ margin: "auto" }}>
-              <VendorCard obj={obj} key={i} />
-            </Grid>
-          ))}
+          {presentVendors.map((item, i) => {
+            return (
+              <Grid item xs={12} sm={6} md={6} lg={4} sx={{ margin: "auto" }}>
+                <VendorCard obj={item[1]} key={i} />
+              </Grid>
+            );
+          })}
         </Grid>
         <Box
           sx={{
@@ -95,7 +56,11 @@ export default function AllVendors({ obj }) {
           <Typography className="text-slate-400 text-base">
             Showing 1-9 of 300 Shops
           </Typography>
-          <BasicPagination />
+          <BasicPagination
+            onChange={(e, page) => setCurrentPage(page)}
+            variant="outlined"
+            count={pageNumbers}
+          />
         </Box>
       </Box>
     </Container>

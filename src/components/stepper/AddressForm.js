@@ -1,8 +1,6 @@
 import * as React from 'react'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
 import {
   Button,
   FormControl,
@@ -38,14 +36,16 @@ export default function AddressForm({ sum }) {
   const onSubmit = (data) => console.log(data)
 
   const { isLoading, error, data } = useQuery('repoData', () =>
-    fetch('https://restcountries.com/v2/all').then((res) => res.json()),
+    fetch('https://restcountries.com/v2/all?limit=20').then((res) =>
+      res.json(),
+    ),
   )
   if (isLoading) return 'Loading...'
   if (error) return 'An error has occurred: ' + error.message
 
-  const handleChange = (event) => {
-    event.preventDefault()
-    setCountryName(event.target.value)
+  const handleChange = (e) => {
+    e.preventDefault()
+    setCountryName(e.target.value)
   }
 
   const handleChange2 = (event) => {
@@ -74,6 +74,7 @@ export default function AddressForm({ sum }) {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            size="small"
             id="voucher"
             name="voucher"
             label="Voucher"
@@ -128,6 +129,7 @@ export default function AddressForm({ sum }) {
           </FormControl>
 
           <TextField
+            size="small"
             sx={{ mt: 2 }}
             id="zip-code"
             name="zip-code"

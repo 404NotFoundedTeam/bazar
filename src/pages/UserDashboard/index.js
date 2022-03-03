@@ -9,8 +9,14 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import { makeStyles } from "@mui/styles";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { DashboardList } from "../../components/DashboardComponents";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { DashboardList } from "../../components/DashboardComponents/UserDashboard";
 
 let dashboardMainData = {
   orders: { text: "Orders", icon: <ShoppingBagOutlined />, link: "orders" },
@@ -34,16 +40,25 @@ let accountSettings = {
     text: "Profile Info",
     icon: <PersonIcon />,
     link: "profile-info",
+    action: {
+      text: "Edit profile",
+    },
   },
   addresses: {
     text: "Addresses",
     icon: <LocationOnIcon />,
     link: "addresses",
+    action: {
+      text: "Add new address",
+    },
   },
   "payment-methods": {
     text: "Payment Methods",
     icon: <PaymentIcon />,
     link: "payment-methods",
+    action: {
+      text: "Add new payment method",
+    },
   },
 };
 
@@ -70,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     padding: "4px 16px !important",
     fontSize: "12px !important",
-    backgroundColor: theme.palette.error.light,
     textTransform: "capitalize !important",
   },
 }));
@@ -92,7 +106,7 @@ export default function UserDashboard(props) {
   );
   useEffect(() => {
     if (!part) navigate("orders");
-  }, []);
+  });
 
   return (
     <div className={classes.cover}>
@@ -111,8 +125,9 @@ export default function UserDashboard(props) {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
+          sx={{ marginBottom: "20px" }}
         >
-          <Typography sx={{ fontSize: "28px" }}>
+          {/* <Typography sx={{ fontSize: "28px" }}>
             <span style={{ marginRight: 10 }}>
               {getTitle[part ? part : "orders"].icon}
             </span>
@@ -124,7 +139,7 @@ export default function UserDashboard(props) {
             </Button>
           ) : (
             false
-          )}
+          )} */}
         </Stack>
         <Outlet />
       </div>

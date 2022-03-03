@@ -64,7 +64,12 @@ function MainThemeProvider({ children }) {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <section style={{ backgroundColor: theme.palette.background.default }}>
+        <section
+          style={{
+            backgroundColor: theme.palette.background.default,
+            minHeight: "100vh",
+          }}
+        >
           {children}
         </section>
       </ThemeProvider>

@@ -4,8 +4,14 @@ import Stack from "@mui/material/Stack";
 
 export default function BasicPagination({ className, ...props }) {
   return (
-    <Stack spacing={2} {...props}>
-      <Pagination count={10} color="secondary" className={className} />
+    <Stack spacing={2}>
+      <Pagination
+        count={3}
+        boundaryCount={3}
+        color="secondary"
+        className={className}
+        {...props}
+      />
     </Stack>
   );
 }
