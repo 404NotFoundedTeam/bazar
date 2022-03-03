@@ -1,50 +1,49 @@
-import * as React from 'react'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
-import { Button, Grid, TextField } from '@mui/material'
-import { useForm } from 'react-hook-form'
-import { Box } from '@mui/system'
+import * as React from "react";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import { Button, Grid, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { Box } from "@mui/system";
 
 export default function Payment() {
-  const [check, setCheck] = React.useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
+
   return (
     <>
       <Box>
-        <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+        <FormControl onChange={(e) => console.log(e.target.value)}>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="female"
             name="radio-buttons-group"
           >
             <FormControlLabel
-              value="female"
+              value="credit-card"
               control={<Radio />}
               label="Pay with credit card
 
 "
             />
             <FormControlLabel
-              value="male"
+              value="paypal"
               control={<Radio />}
               label="Pay with Paypal
 
 "
             />
             <FormControlLabel
-              value="other"
+              value="delivery"
               control={<Radio />}
               label="Cash On Delivery"
             />
@@ -60,7 +59,7 @@ export default function Payment() {
               id="card-number"
               label="Card Number"
               fullWidth
-              {...register('card-number')}
+              {...register("card-number")}
               autoComplete="cc-name"
               variant="outlined"
               color="error"
@@ -75,7 +74,7 @@ export default function Payment() {
               type="number"
               fullWidth
               placeholder="MM/DD"
-              {...register('full-name')}
+              {...register("full-name")}
               autoComplete="cc-name"
               variant="outlined"
               color="error"
@@ -88,7 +87,7 @@ export default function Payment() {
               id="name-on-card"
               label="Name On Card"
               fullWidth
-              {...register('name-on-card')}
+              {...register("name-on-card")}
               autoComplete="cc-name"
               variant="outlined"
               color="error"
@@ -100,7 +99,7 @@ export default function Payment() {
               id="name-on-card-2"
               label="Name On Card"
               fullWidth
-              {...register('name-on-card-2')}
+              {...register("name-on-card-2")}
               autoComplete="cc-name"
               variant="outlined"
               color="error"
@@ -115,14 +114,14 @@ export default function Payment() {
       </form>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={3} mt={3} sx={{ alignItems: 'center' }}>
+        <Grid container spacing={3} mt={3} sx={{ alignItems: "center" }}>
           <Grid item xs={10}>
             <TextField
               size="small"
               id="paypal-email"
               label="Paypal Email "
               fullWidth
-              {...register('paypal-email')}
+              {...register("paypal-email")}
               autoComplete="cc-name"
               variant="outlined"
               color="error"
@@ -137,5 +136,5 @@ export default function Payment() {
         </Grid>
       </form>
     </>
-  )
+  );
 }
