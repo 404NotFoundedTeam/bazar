@@ -1,5 +1,5 @@
 import { Box, Slide } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Bottom from "./HeaderComponents/Bottom";
 import BottomHeader from "./HeaderComponents/BottomHeader";
 import MainHeader from "./HeaderComponents/MainHeader";
@@ -11,7 +11,7 @@ function Header() {
       <TopHeader />
       <MainHeader />
       <BottomHeader />
-      <Bottom/>
+      <Bottom />
     </>
   );
 }

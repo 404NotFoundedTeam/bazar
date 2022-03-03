@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const UserIconsHeader = () => {
   return (
@@ -15,7 +15,7 @@ const UserIconsHeader = () => {
         width: "100%",
       }}
     >
-      <Link to={"/user"}>
+      <NavLink to={"/login"}>
         <Fab
           variant="contained"
           size="medium"
@@ -27,7 +27,7 @@ const UserIconsHeader = () => {
         >
           <FaRegUser />
         </Fab>
-      </Link>
+      </NavLink>
       <Link to={"/card"}>
         <Badge badgeContent={124} color={"error"} max={99}>
           <Fab

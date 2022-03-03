@@ -43,9 +43,9 @@ const customTheme = (mode) => {
     },
     shadowsHeader: {
       header: "rgba(100, 100, 111, 0.1) 0px 7px 20px 0px;",
+      card: "rgba(100, 100, 111, 0.2) 0px 7px 35px 0px;",
     }
   });
-
 };
 
 function MainThemeProvider({ children }) {
@@ -60,7 +60,7 @@ function MainThemeProvider({ children }) {
   );
 
   const theme = useMemo(() => customTheme(mode), [mode]);
-  console.log(theme);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

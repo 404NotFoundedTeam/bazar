@@ -16,6 +16,8 @@ import {
 import AllVendors from "./pages/Vendors/AllVendors";
 import VendorOwnPage from "./pages/Vendors/OwnVendorPage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import SignIn from "./pages/Login/SignIn";
+import SignUp from "./pages/Login/SignUp";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/salepage" element={<SalePage />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />

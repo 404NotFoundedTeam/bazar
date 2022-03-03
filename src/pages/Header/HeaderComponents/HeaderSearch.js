@@ -20,6 +20,8 @@ function HeaderSearch() {
     <Box
       sx={{
         borderRadius: "32px",
+        position: "relative",
+        zIndex: "999999 !importnat",
         overflow: "hidden",
         border: "1.5px solid #D4E6EA",
       }}
@@ -53,6 +55,8 @@ function HeaderSearch() {
             bgcolor: (theme) => theme.palette.info.dark,
             padding: "6px 16px",
             borderLeft: "1.5px solid #D4E6EA",
+            position: "relative",
+            zIndex: "999999 !important",
             "& .MuiSelect-icon": { right: "10px" },
           }}
           disableUnderline
