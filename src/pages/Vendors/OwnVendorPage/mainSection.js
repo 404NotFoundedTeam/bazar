@@ -10,19 +10,13 @@ import RatingSIze from "../../../components/rating";
 import ImageAvatars from "../../../components/Mini-components/Avatar";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
-//  <a href={`${obj.socail_links.twitter || "http://localhost:3000/vendor/0"}`}>
-//    <IconButton color="secondary">
-//      <TwitterIcon />
-//    </IconButton>
-//  </a>;
-
 const SocialLink = ({ item = "#", bgColor, icon }) => (
   <a href={item}>
     <IconButton
-      bgColor={bgColor}
       sx={{
         backgroundColor: `${bgColor}`,
         color: "white",
+        fontSize: "14px",
         "&:hover": { color: "white", backgroundColor: `${bgColor}` },
       }}
     >
@@ -75,7 +69,7 @@ export default function MediaCard({ obj }) {
               borderRadius: "50% !important",
             }}
           />
-          <Box sx={{ flex: "0.8" }}>
+          <Box sx={{ flex: "0.8", sm: { flex: 1 } }}>
             <Box
               className="topActions"
               sx={{
@@ -123,7 +117,10 @@ export default function MediaCard({ obj }) {
               }}
             >
               <Box>
-                <RatingSIze score={obj.rating()} />{" "}
+                <Box display="flex" alignItems="center">
+                  <RatingSIze score={obj.rating()} />
+                  <span style={{ marginLeft: "5px" }}>({obj.rated})</span>
+                </Box>
                 <Typography sx={{ marginTop: 3 }}>
                   <LocationOnIcon sx={{ marginRight: 1 }} />
                   {obj.location}
