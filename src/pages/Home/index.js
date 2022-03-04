@@ -6,6 +6,8 @@ import MainButton from "../../components/Button";
 import { Box } from "@mui/system";
 import MySlider from "../../components/MySlider";
 import { FaAdjust, FaAlignCenter } from "react-icons/fa";
+import { BiCategory } from "react-icons/bi";
+import HomeBlock from "./HomeComp/Block";
 function Home() {
   const scidka = [
     {
@@ -157,6 +159,56 @@ function Home() {
                 ))}
               </MySlider>
             </Box>
+            <HomeBlock title={"Categories"} link="#" icon={<BiCategory />}>
+              <MySlider
+                settings={{
+                  nextArrow: <FaAlignCenter />,
+                  prevArrow: <FaAdjust />,
+                  dots: false,
+                  slidesToShow: 4,
+                  responsive: [
+                    {
+                      breakpoint: 1024,
+                      settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true,
+                      },
+                    },
+                    {
+                      breakpoint: 600,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        initialSlide: 2,
+                      },
+                    },
+                    {
+                      breakpoint: 480,
+                      settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                      },
+                    },
+                  ],
+                }}
+              >
+                {scidka.map((item, i) => (
+                  <Box>
+                    <Grid
+                      container
+                      direction={"row"}
+                      sx={{ alignItems: "center" }}
+                    >
+                      <Grid item xs={12}>
+                        <ImgBox src={item.img} alt={"Praduct"} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                ))}
+              </MySlider>
+            </HomeBlock>
           </Container>
         </Box>
       </HomeWrapper>
