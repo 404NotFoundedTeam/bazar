@@ -74,7 +74,7 @@ export default function VendorCard({ obj }) {
             borderWidth: "4px",
           }}
         >
-          <ImageAvatars avaImg={obj.avaImg} width="56px" height="56px" />
+          <ImageAvatars avaImg={obj.avaImg || ""} width="56px" height="56px" />
         </Box>
         <IconButton>
           <Link to={`/vendor/${obj.id}`}>
