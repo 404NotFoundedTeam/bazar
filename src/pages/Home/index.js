@@ -8,6 +8,9 @@ import MySlider from "../../components/MySlider";
 import { FaAdjust, FaAlignCenter } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
+import Arriwals from "./HomeComp/Arriwals";
+import { MdFiberNew } from "react-icons/md";
+import { AiFillThunderbolt } from "react-icons/ai";
 function Home() {
   const scidka = [
     {
@@ -67,6 +70,80 @@ function Home() {
       desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
     },
   ];
+
+  const arrivals = [
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Flipstick%20(2).png&w=384&q=75",
+      title: "Perferendis",
+      price: 300,
+    },
+
+    {
+      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      title: "Perferendis",
+      price: 300,
+    },
+    {
+      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      title: "Perferendis",
+      price: 300,
+    },
+  ];
   return (
     <>
       <HomeWrapper className="py-5 bg-white text-[#2B3445]">
@@ -108,8 +185,12 @@ function Home() {
           </MySlider>
         </Container>
         <Box component={"main"} sx={{ bgcolor: "#F6F9FC", mt: "60px" }}>
-          <Container maxWidth={"lg"}>
-            <Box className="flash-deals">
+          <Container>
+            <HomeBlock
+              title="Flash Deals"
+              link={"#"}
+              icon={<AiFillThunderbolt />}
+            >
               <MySlider
                 settings={{
                   nextArrow: <FaAlignCenter />,
@@ -158,8 +239,8 @@ function Home() {
                   </Box>
                 ))}
               </MySlider>
-            </Box>
-            <HomeBlock title={"Categories"} link="#" icon={<BiCategory />}>
+            </HomeBlock>
+            <HomeBlock title={"Top Categories"} link="#" icon={<BiCategory />}>
               <MySlider
                 settings={{
                   nextArrow: <FaAlignCenter />,
@@ -208,6 +289,9 @@ function Home() {
                   </Box>
                 ))}
               </MySlider>
+            </HomeBlock>
+            <HomeBlock icon={<MdFiberNew />} title={"New Arrivals"} link={"#"}>
+              <Arriwals data={arrivals} />
             </HomeBlock>
           </Container>
         </Box>
