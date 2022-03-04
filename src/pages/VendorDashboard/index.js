@@ -1,13 +1,5 @@
-import {
-  Dashboard,
-  FavoriteBorderOutlined,
-  HeadsetMicOutlined,
-  ShoppingBagOutlined,
-} from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import PaymentIcon from "@mui/icons-material/Payment";
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Dashboard } from "@mui/icons-material";
+import { Button, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { makeStyles } from "@mui/styles";
@@ -49,19 +41,16 @@ let dashboardMainData = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  cover: {
-    display: "flex",
-    padding: "24px",
-    alignItems: "start",
-  },
   sidebar: {
-    minWidth: "290px",
+    minWidth: {
+      xs: "200px",
+      sm: "290px",
+    },
     paddingBottom: "24px",
     boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
     borderRadius: "8px !important",
   },
   main: {
-    padding: "0 24px",
     "& span": { color: theme.palette.error.main },
     width: "100%",
   },
@@ -91,36 +80,46 @@ export default function VendorDashboard(props) {
   );
   useEffect(() => {
     if (!part) navigate("dashboard");
-  }, []);
+  });
 
   return (
-    <div className={classes.cover}>
-      <Paper className={classes.sidebar} elevation={0}>
-        <DashboardList listData={Object.values(dashboardMainData)} />
-      </Paper>
-      <div className={classes.main}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ marginBottom: "20px" }}
-        >
-          <Typography sx={{ fontSize: "28px" }}>
-            <span style={{ marginRight: 10 }}>
-              {getTitle[part ? part : "dashboard"].icon}
-            </span>
-            {getTitle[part ? part : "dashboard"].text}
-          </Typography>
-          {getTitle[part ? part : "dashboard"]?.action ? (
-            <Button className={classes.btn} variant="outlined" color="error">
-              {getTitle[part ? part : "orders"]?.action.text}
-            </Button>
-          ) : (
-            false
-          )}
-        </Stack>
-        <Outlet />
-      </div>
+    <div style={{ padding: "24px" }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={3}>
+          <Paper className={classes.sidebar} elevation={0}>
+            <DashboardList listData={Object.values(dashboardMainData)} />
+          </Paper>
+        </Grid>
+        <Grid item lg={9}>
+          <div className={classes.main}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ marginBottom: "20px" }}
+            >
+              <Typography sx={{ fontSize: "28px" }}>
+                <span style={{ marginRight: 10 }}>
+                  {getTitle[part ? part : "dashboard"].icon}
+                </span>
+                {getTitle[part ? part : "dashboard"].text}
+              </Typography>
+              {getTitle[part ? part : "dashboard"]?.action ? (
+                <Button
+                  className={classes.btn}
+                  variant="outlined"
+                  color="error"
+                >
+                  {getTitle[part ? part : "orders"]?.action.text}
+                </Button>
+              ) : (
+                false
+              )}
+            </Stack>
+            <Outlet />
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }
