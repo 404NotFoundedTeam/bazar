@@ -127,7 +127,14 @@ const useStyles = makeStyles((theme) => ({
 function DashboardList({ listData }) {
   const classes = useStyles();
   return (
-    <List>
+    <List
+      sx={{
+        display: { xs: "flex", lg: "block" },
+        flexWrap: "wrap",
+        justifyContent: { md: "space-between" },
+        width: { xs: "100%" },
+      }}
+    >
       {listData.map(({ text, icon, link }) => {
         return (
           <NavLink
@@ -224,7 +231,7 @@ function UserOrders() {
       <div className={classes.ordersBox}>
         {presentOrders.map((order) => {
           return (
-            <Link to="/order-details">
+            <Link to="../order-details">
               <Paper elevation={1}>
                 <Typography>{order.order_id}</Typography>
                 <Typography>{order.status}</Typography>

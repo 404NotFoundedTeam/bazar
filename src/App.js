@@ -37,6 +37,7 @@ export default function App() {
           <Route path="/salepage" element={<SalePage />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />
+            <Route path="order-details" element={<OrderDetails />} />
             <Route path="wishlist" element={<UserWishlist />} />
             <Route path="support" element={<UserSupport />} />
             <Route path="profile-info" element={<UserProfile />} />
@@ -50,7 +51,7 @@ export default function App() {
             <Route path="orders" element={<VendorOrders />} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
-          <Route path="order-details" element={<OrderDetails />} />
+          <Route path="/vendor" element={<VendorOwnPage />} />
           <Route path="/allVendor" element={<AllVendors />} />
           <Route path="/vendor/:id" element={<VendorOwnPage />} />
         </Routes>
