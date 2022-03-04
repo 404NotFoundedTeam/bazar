@@ -1,34 +1,34 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import { useForm } from 'react-hook-form'
-import { TextField } from '@mui/material'
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { useForm } from "react-hook-form";
+import { TextField } from "@mui/material";
 
 export default function PaymentCard() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Card sx={{ border: 'none', boxShadow: 0 }}>
+    <Box sx={{ width: "100%" }}>
+      <Card sx={{ border: "none", boxShadow: 0 }}>
         <React.Fragment>
           <CardContent>
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
               <Typography
@@ -49,9 +49,9 @@ export default function PaymentCard() {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
               <Typography
@@ -72,9 +72,9 @@ export default function PaymentCard() {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
               <Typography
@@ -95,9 +95,9 @@ export default function PaymentCard() {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
               <Typography
@@ -131,7 +131,7 @@ export default function PaymentCard() {
                 autoComplete="shipping address-line1"
                 variant="outlined"
                 color="error"
-                {...register('vaucher')}
+                {...register("vaucher")}
               />
               <Button
                 fullWidth
@@ -147,5 +147,5 @@ export default function PaymentCard() {
         </React.Fragment>
       </Card>
     </Box>
-  )
+  );
 }
