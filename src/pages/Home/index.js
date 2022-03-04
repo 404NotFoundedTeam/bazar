@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Container, Grid, Typography } from "@mui/material";
 import ImgBox from "../../components/ImgBox";
@@ -8,10 +8,14 @@ import MySlider from "../../components/MySlider";
 import { FaAdjust, FaAlignCenter } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
-import Arriwals from "./HomeComp/Arriwals";
+import Arriwals from "./HomeComp/NewProducts";
 import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
+import AsideCart from "../cart/AsideCart";
+import { useSelector } from "react-redux";
 function Home() {
+  const openCart = useSelector((state) => state.user.openCart);
+
   const scidka = [
     {
       img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
@@ -147,6 +151,8 @@ function Home() {
   return (
     <>
       <HomeWrapper className="py-5 bg-white text-[#2B3445]">
+        {/* Cart */}
+        <AsideCart open={openCart} />
         <Container maxWidth="md" sx={{ mb: 15 }}>
           <MySlider>
             {scidka.map((item, i) => (

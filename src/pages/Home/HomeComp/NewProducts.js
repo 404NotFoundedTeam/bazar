@@ -1,4 +1,4 @@
-import { Card, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
@@ -8,6 +8,7 @@ const Arriwals = ({ data }) => {
       sx={{
         padding: "20px",
         borderRadius: 2,
+        bgcolor: '#fff',
         boxShadow: (theme) => theme.shadowsHeader.block,
       }}
     >

@@ -7,12 +7,12 @@ import TopHeader from "./HeaderComponents/TopHeader";
 
 function Header() {
   return (
-    <>
+    <Box>
       <TopHeader />
       <MainHeader />
       <BottomHeader />
       <Bottom />
-    </>
+    </Box>
   );
 }
 

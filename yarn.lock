@@ -1863,20 +1863,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mui/base@5.0.0-alpha.69":
-  version "5.0.0-alpha.69"
-  resolved "https://registry.npmjs.org/@mui/base/-/base-5.0.0-alpha.69.tgz"
-  integrity sha512-IxUUj/lkilCTNBIybQxyQGW/zpxFp490G0QBQJgRp9TJkW2PWSTLvAH7gcH0YHd0L2TAf1TRgfdemoRseMzqQA==
-  dependencies:
-    "@babel/runtime" "^7.17.0"
-    "@emotion/is-prop-valid" "^1.1.1"
-    "@mui/utils" "^5.4.2"
-    "@popperjs/core" "^2.4.4"
-    clsx "^1.1.1"
-    prop-types "^15.7.2"
-    react-is "^17.0.2"
-
-"@mui/base@^5.0.0-alpha.69":
+"@mui/base@5.0.0-alpha.69", "@mui/base@^5.0.0-alpha.69":
   version "5.0.0-alpha.69"
   resolved "https://registry.yarnpkg.com/@mui/base/-/base-5.0.0-alpha.69.tgz#8511198d760de0795870f5ec63e53db73ba801ec"
   integrity sha512-IxUUj/lkilCTNBIybQxyQGW/zpxFp490G0QBQJgRp9TJkW2PWSTLvAH7gcH0YHd0L2TAf1TRgfdemoRseMzqQA==
@@ -8382,6 +8369,11 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+redux-devtools-extension@^2.13.9:
+  version "2.13.9"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
+  integrity sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==
+
 redux-devtools-instrument@^1.10.0:
   version "1.10.0"
   resolved "https://registry.npmjs.org/redux-devtools-instrument/-/redux-devtools-instrument-1.10.0.tgz"
@@ -8390,30 +8382,10 @@ redux-devtools-instrument@^1.10.0:
     lodash "^4.17.19"
     symbol-observable "^1.2.0"
 
-<<<<<<< HEAD
 redux-devtools@^3.7.0:
   version "3.7.0"
   resolved "https://registry.npmjs.org/redux-devtools/-/redux-devtools-3.7.0.tgz"
   integrity sha512-Lnx3UX7mnJij2Xs+RicPK1GyKkbuodrCKtfYmJsN603wC0mc99W//xCAskGVNmRhIXg4e57m2k1CyX0kVzCsBg==
-=======
-"redux-devtools-extension@^2.13.9":
-  "integrity" "sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A=="
-  "resolved" "https://registry.npmjs.org/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz"
-  "version" "2.13.9"
-
-"redux-devtools-instrument@^1.10.0":
-  "integrity" "sha512-X8JRBCzX2ADSMp+iiV7YQ8uoTNyEm0VPFPd4T854coz6lvRiBrFSqAr9YAS2n8Kzxx8CJQotR0QF9wsMM+3DvA=="
-  "resolved" "https://registry.npmjs.org/redux-devtools-instrument/-/redux-devtools-instrument-1.10.0.tgz"
-  "version" "1.10.0"
-  dependencies:
-    "lodash" "^4.17.19"
-    "symbol-observable" "^1.2.0"
-
-"redux-devtools@^3.7.0":
-  "integrity" "sha512-Lnx3UX7mnJij2Xs+RicPK1GyKkbuodrCKtfYmJsN603wC0mc99W//xCAskGVNmRhIXg4e57m2k1CyX0kVzCsBg=="
-  "resolved" "https://registry.npmjs.org/redux-devtools/-/redux-devtools-3.7.0.tgz"
-  "version" "3.7.0"
->>>>>>> d8cc329edb9d15b231da59d7aac635dacc05103d
   dependencies:
     "@types/prop-types" "^15.7.3"
     lodash "^4.17.19"
@@ -8425,10 +8397,10 @@ redux-thunk@^2.4.1:
   resolved "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz"
   integrity sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==
 
-"redux@^3.1.0 || ^4.0.0", "redux@^3.4.0 || ^4.0.0", "redux@^3.5.2 || ^4.0.0", "redux@^4", "redux@^4.0.0", "redux@^4.1.2":
-  "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
-  "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
-  "version" "4.1.2"
+redux@^4.0.0, redux@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
+  integrity sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw==
   dependencies:
     "@babel/runtime" "^7.9.2"
 
