@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../firebase/server";
@@ -36,13 +36,14 @@ export default function SignIn() {
           <Typography
             align="center"
             gutterBottom
-            color={'textSecondary'}
+            color={"textSecondary"}
             variant="p"
             sx={{ fontSize: "14px" }}
           >
             Log in with email & password
           </Typography>
           <TextField label={"hello world"}></TextField>
+          <Link to={"/signup"}>Sign Up</Link>
         </Box>
       </FormControl>
     </LoginContainer>
