@@ -1,7 +1,10 @@
-import { Box, Grid } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
+import { Box, Grid, IconButton } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginContainer = ({ children }) => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -22,7 +25,7 @@ const LoginContainer = ({ children }) => {
         alignItems={"center"}
         sx={{ height: "100%" }}
       >
-        <Grid item sx={11} sm={8} md={6} lg={4}>
+        <Grid item xs={11} sm={8} md={5} lg={4}>
           <Box
             sx={{
               width: "100%",
@@ -32,6 +35,11 @@ const LoginContainer = ({ children }) => {
             }}
           >
             {children}
+            <Box sx={{ position: "absolute", top: "20px", left: "20px" }}>
+              <IconButton onClick={() => navigate("../")}>
+                <ArrowBack />
+              </IconButton>
+            </Box>
           </Box>
         </Grid>
       </Grid>
