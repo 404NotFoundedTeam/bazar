@@ -1,6 +1,6 @@
 import { ADD_PRODUCT } from "../types";
 
-const initState = {
+const vendorState = {
   vendors: {
     0: {
       id: 0,
@@ -25,7 +25,7 @@ const initState = {
   },
 };
 
-const VendorReducer = (state = initState, action) => {
+const VendorReducer = (state = vendorState, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
       return {
