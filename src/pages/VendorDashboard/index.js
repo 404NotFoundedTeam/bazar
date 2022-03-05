@@ -10,6 +10,30 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { DashboardList } from "../../components/DashboardComponents/UserDashboard";
 import { useSelector } from "react-redux";
 
+const useStyles = makeStyles((theme) => ({
+  sidebar: {
+    minWidth: {
+      xs: "200px",
+      sm: "290px",
+    },
+    paddingBottom: "24px",
+    boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
+    borderRadius: "8px !important",
+  },
+  main: {
+    "& span": { color: theme.palette.error.main },
+    width: "100%",
+  },
+  title: {
+    padding: "26px 30px 16px",
+  },
+  btn: {
+    padding: "4px 16px !important",
+    fontSize: "12px !important",
+    textTransform: "capitalize !important",
+  },
+}));
+
 let dashboardMainData = {
   dashboard: {
     text: "Dashboard",
@@ -41,33 +65,7 @@ let dashboardMainData = {
   },
 };
 
-const useStyles = makeStyles((theme) => ({
-  sidebar: {
-    minWidth: {
-      xs: "200px",
-      sm: "290px",
-    },
-    paddingBottom: "24px",
-    boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
-    borderRadius: "8px !important",
-  },
-  main: {
-    "& span": { color: theme.palette.error.main },
-    width: "100%",
-  },
-  title: {
-    padding: "26px 30px 16px",
-  },
-  btn: {
-    padding: "4px 16px !important",
-    fontSize: "12px !important",
-    textTransform: "capitalize !important",
-  },
-}));
-
 export default function VendorDashboard(props) {
-  const { vendors } = useSelector((state) => state.vendors);
-  const vendor = vendors[0];
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -83,10 +81,7 @@ export default function VendorDashboard(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} lg={3}>
           <Paper className={classes.sidebar} elevation={0}>
-            <DashboardList
-              listData={Object.values(dashboardMainData)}
-              vendorInfo={vendor}
-            />
+            <DashboardList listData={Object.values(dashboardMainData)} />
           </Paper>
         </Grid>
         <Grid item lg={9}>
