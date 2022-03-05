@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-export default function NestedList() {
+export default function NestedList({ arr }) {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {

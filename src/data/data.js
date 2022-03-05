@@ -15,6 +15,9 @@ export const database = {
         instagram: "https://www.instagram.com/e_sala29/",
       },
       products: [1, 2, 3, 4, 5],
+      groups: ["group1", "group2"],
+      categories: ["category1", "category2"],
+      brands: ["brand1", "brand2"],
       rated: 2,
       star: 10,
       rating: function () {
@@ -197,6 +200,7 @@ export const database = {
       price: 200,
       stock: 10,
       seller: "Good zone",
+      category: "category1",
       rated: 20,
       star: 80,
       productsImg:
@@ -212,6 +216,7 @@ export const database = {
       price: 200,
       stock: 10,
       seller: "Good zone",
+      category: "category2",
       rated: 10,
       star: 30,
       productsImg:
@@ -227,6 +232,7 @@ export const database = {
       price: 200,
       stock: 10,
       seller: "Good zone1",
+      category: "category2",
       rated: 2,
       star: 10,
       productsImg:
@@ -242,6 +248,7 @@ export const database = {
       price: 200,
       stock: 10,
       seller: "Good zone2",
+      category: "category2",
       rated: 20,
       star: 60,
       productsImg:
@@ -254,6 +261,7 @@ export const database = {
     5: {
       name: "Watch3",
       brand: "Mi",
+      category: "category1",
       price: 400,
       stock: 10,
       seller: "Good zone3",
@@ -272,6 +280,7 @@ export const database = {
       price: 350,
       stock: 10,
       seller: "Good zone3",
+      category: "category2",
       rated: 20,
       star: 100,
       productsImg:
@@ -287,6 +296,7 @@ export const database = {
       price: 240,
       stock: 10,
       seller: "Good zone3",
+      category: "category2",
       rated: 20,
       star: 100,
       productsImg: "https://texnomart.uz/uploads/slides/2892931920x400-ru.jpg",
@@ -294,6 +304,38 @@ export const database = {
         return (this.star / this.rated).toFixed(1);
       },
       off: 0,
+    },
+  },
+  categories: {
+    category1: {
+      name: "category1",
+      products: [1, 2, 3],
+      brands: ["brand1", "brand2"],
+    },
+    category2: {
+      name: "category2",
+      products: [4, 2, 1, 3],
+      brands: ["brand2", "brand4"],
+    },
+    category3: {
+      name: "category3",
+      products: [4, 2, 1, 3],
+      brands: ["brand2", "brand4"],
+    },
+    category4: {
+      name: "category4",
+      products: [4, 1, 3],
+      brands: ["brand2", "brand4"],
+    },
+  },
+  brands: {
+    brand1: {
+      brand_name: "Brand1",
+      products: [1, 2, 4],
+    },
+    brand2: {
+      brand_name: "Brand2",
+      products: [3, 2, 4],
     },
   },
 };

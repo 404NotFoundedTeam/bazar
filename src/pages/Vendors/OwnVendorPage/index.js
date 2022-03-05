@@ -22,12 +22,20 @@ export default function VendorOwnPage() {
     setIsOpen(open);
   };
 
-  const obj = database.seller[`seller_${vendorId?.id}`];
-  const reduxData = useSelector((state) => state);
-  console.log(reduxData, "  success");
+  const obj = useSelector((state) => state.vendors?.vendors[`${vendorId?.id}`]);
 
   const data = obj.products || [];
+
   const allProducts = database.products;
+  console.log(allProducts, "   allProducts");
+
+  console.log(database.seller[`seller_${vendorId?.id}`]);
+
+  // const categories = database.seller[`seller_${vendorId?.id}`]["categories"];
+  // const groups = database.seller[`seller_${vendorId?.id}`].groups;
+  const brands = database.seller[`seller_${vendorId?.id}`].brands;
+
+  console.log(brands, " brand");
 
   return (
     <Container
@@ -54,7 +62,7 @@ export default function VendorOwnPage() {
             display: { xs: "none", sm: "none", md: "block" },
           }}
         >
-          <SideBar />
+          <SideBar ownBrands={brands} />
           <Drawer
             anchor="left"
             open={isOpen}
@@ -70,7 +78,7 @@ export default function VendorOwnPage() {
               },
             }}
           >
-            <SideBar />
+            <SideBar ownBrands={brands} />
           </Drawer>
         </Grid>
         <Grid item lg={9} md={8} sm={12}>

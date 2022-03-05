@@ -1,10 +1,20 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import NestedList from "./NestedList";
 import TextFieldHiddenLabel from "./Price";
 import CheckboxesGroup from "./CheckedList";
 import CheckboxesGroupRating from "./PoRating";
+import { database } from "../../../../data/data";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const useStyles = makeStyles({
   foo: (props) => ({
@@ -29,9 +39,23 @@ const useStyles = makeStyles({
     marginBlock: (props) => props.marginBlock,
   },
   marginT: (props) => props.marginTop,
+  root: (props) => ({
+    backgroundColor: props.backgroundColor,
+    color: props.color,
+  }),
 });
 
-export default function SideBar() {
+export default function SideBar({ ownCategories, ownGroups, ownBrands }) {
+  console.log(ownBrands, "   ownBrands");
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  const { categories, groups, brands } = database;
+
+  console.log(categories, groups, brands);
+
   const props = {
     color: "rgb(43, 52, 69)",
     backgroundColor: "white",
@@ -63,7 +87,6 @@ export default function SideBar() {
     >
       <Typography className={`${classes.mainTypo}`}>Categories</Typography>
       <NestedList />
-
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Price Range</Typography>
@@ -76,7 +99,7 @@ export default function SideBar() {
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Brands</Typography>
-      <CheckboxesGroup />
+      <CheckboxesGroup ownBrands={ownBrands} />
 
       <hr className={`${hrClass.hr}`} />
 

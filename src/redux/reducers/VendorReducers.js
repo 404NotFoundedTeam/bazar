@@ -8,7 +8,6 @@ const initState = {
       dailyBalance: 500,
       orders: [],
       countries: [],
-      products: [],
       monitorDay: new Date().getDay(),
       avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
       img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
@@ -21,9 +20,38 @@ const initState = {
         youtube: "https://www.youtube.com/",
         instagram: "https://www.instagram.com/e_sala29/",
       },
+      products: [1, 5],
+      rated: 10,
+      star: 50,
+      rating: function () {
+        return (this.star / this.rated).toFixed(1);
+      },
+    },
+    seller_2: {
+      id: 2,
+      avaImg:
+        "https://www.allcarz.ru/wp-content/uploads/2021/05/foto-xenatec-57s_01.jpg",
+      img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      vendorName: "Anytime Buys",
+      location: "Yerejepov street 109 , Nukus city",
+      phoneNumber: "(90)888-88-88",
+      products: [1, 4, 5],
+      socail_links: {
+        twitter: "https://www.google.com/",
+        facebook: "https://www.facebook.com/salauat.erejepov.3",
+        youtube: "https://www.youtube.com/",
+        instagram: "https://www.instagram.com/e_sala29/",
+      },
+      rated: 5,
+      star: 10,
+      rating: function () {
+        return (this.star / this.rated).toFixed(1);
+      },
     },
   },
 };
+
+const Products = () => {};
 
 const VendorReducer = (state = initState, action) => {
   switch (action.type) {

@@ -13,8 +13,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CheckboxesGroup() {
+export default function CheckboxesGroup({ ownBrands }) {
   ///styles Block
+
+  console.log(ownBrands, "  Block");
   const itemStyles = {
     color: "#2B3445",
     fontSize: "14px",
@@ -41,6 +43,19 @@ export default function CheckboxesGroup() {
     <Box sx={{ display: "flex" }}>
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormGroup className={`${classes.itemStyles}`}>
+          {ownBrands.map((item) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={item}
+                  onChange={handleChange}
+                  size="small"
+                  name={item}
+                />
+              }
+              label={item}
+            />
+          ))}
           <FormControlLabel
             control={
               <Checkbox

@@ -56,6 +56,9 @@ export default function MediaCard({ obj }) {
             width: "100%",
             flexWrap: "wrap",
             gap: 4,
+            "& .css-1pqm26d-MuiAvatar-img": {
+              display: { xs: "none !important", sm: "block !important" },
+            },
           }}
         >
           <ImageAvatars
