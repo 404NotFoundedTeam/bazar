@@ -39,9 +39,7 @@ const BottomHeader = () => {
               <li>
                 <NavLink to="/vendor-dashboard">Vendor dashboard</NavLink>
               </li>
-              <li>
-                <NavLink to="/vendor">Vendor</NavLink>
-              </li>
+
               <li>
                 <NavLink to="/allVendor">All Vendors</NavLink>
               </li>

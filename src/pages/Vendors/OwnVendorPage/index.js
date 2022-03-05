@@ -11,8 +11,6 @@ export default function VendorOwnPage() {
   const [isOpen, setIsOpen] = useState(false);
   const vendorId = useParams();
 
-  console.log(vendorId);
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -25,6 +23,8 @@ export default function VendorOwnPage() {
 
   const obj = database.seller[`seller_${vendorId?.id}`];
   const data = obj.products || [];
+  const allProducts = database.products;
+  console.log(allProducts);
 
   return (
     <Container
@@ -51,21 +51,30 @@ export default function VendorOwnPage() {
             display: { xs: "none", sm: "none", md: "block" },
           }}
         >
-          {data.length !== 0 && <SideBar />}
+          <SideBar />
           <Drawer
             anchor="left"
             open={isOpen}
             onClose={toggleDrawer("left", false)}
-            sx={{ display: { sm: "block", md: "none" } }}
+            sx={{
+              display: {
+                sm: "block",
+                md: "none",
+                position: "fixed",
+                top: 0,
+                left: 0,
+                zIndex: 10000,
+              },
+            }}
           >
             <SideBar />
           </Drawer>
         </Grid>
         <Grid item lg={9} md={8} sm={12}>
           <Grid container spacing={2}>
-            {data.map((obj, i) => (
-              <Grid key={i} item lg={4} md={6} sm={6}>
-                <MainCard key={i} data={obj} />
+            {data.map((i) => (
+              <Grid key={i} item lg={4} md={6} sm={6} xs={12}>
+                <MainCard key={i} data={allProducts[`${i}`]} />
               </Grid>
             ))}
           </Grid>

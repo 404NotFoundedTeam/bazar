@@ -1,90 +1,87 @@
-import * as React from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
-import Toolbar from '@mui/material/Toolbar'
-import Paper from '@mui/material/Paper'
-import Stepper from '@mui/material/Stepper'
-import Step from '@mui/material/Step'
-import StepLabel from '@mui/material/StepLabel'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import AddressForm from './AddressForm'
-import PaymentForm from './PaymentForm'
-import Review from './Review'
-import { Grid } from '@mui/material'
-import { nanoid } from 'nanoid'
-import ProductCards from './ProductCards'
-import PaymentCard from './PaymentCard'
-import Payment from './Payment'
+import * as React from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import Paper from "@mui/material/Paper";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AddressForm from "./AddressForm";
+import PaymentForm from "./PaymentForm";
+import Review from "./Review";
+import { Grid } from "@mui/material";
+import { nanoid } from "nanoid";
+import ProductCards from "./ProductCards";
+import PaymentCard from "./PaymentCard";
+import Payment from "./Payment";
 
-const steps = ['Cart', 'Details', 'Payment', 'Review']
+const steps = ["Cart", "Details", "Payment", "Review"];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />
+      return <AddressForm />;
     case 1:
-      return <PaymentForm />
+      return <PaymentForm />;
     case 2:
-      return <Payment />
+      return <Payment />;
     case 3:
-      return <Review />
+      return <Review />;
     case 5:
-      return <PaymentCard />
+      return <PaymentCard />;
     case 10:
-      return <PaymentCard />
+      return <PaymentCard />;
     case 15:
-      return <PaymentCard />
+      return <PaymentCard />;
     default:
-      throw new Error('Unknown step')
+      throw new Error("Unknown step");
   }
 }
 
-const theme = createTheme()
+const theme = createTheme();
 
 export default function Checkout() {
   const [data, setData] = React.useState([
     {
       id: nanoid(),
-      img:
-        'https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75',
-      name: 'Kawasaki 2020',
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
+      name: "Kawasaki 2020",
       price: 20000,
       score: 2,
       off: 0,
     },
     {
       id: nanoid(),
-      img:
-        'https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75',
-      name: 'Kawasaki 2020',
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
+      name: "Kawasaki 2020",
       price: 20000,
       score: 1,
       off: 0,
     },
     {
       id: nanoid(),
-      img:
-        'https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75',
-      name: 'Kawasaki 2020',
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
+      name: "Kawasaki 2020",
       price: 20000,
       score: 5,
       off: 30,
     },
-  ])
+  ]);
 
-  const [activeStep, setActiveStep] = React.useState(0)
+  const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1)
-  }
+    setActiveStep(activeStep + 1);
+  };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1)
-  }
+    setActiveStep(activeStep - 1);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,7 +91,7 @@ export default function Checkout() {
         color="default"
         elevation={0}
         sx={{
-          position: 'relative',
+          position: "relative",
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
@@ -120,7 +117,7 @@ export default function Checkout() {
               <React.Fragment>
                 <Box sx={{ flexGrow: 1 }}>
                   {data.map((item, index) => {
-                    return <ProductCards data={item} key={index} />
+                    return <ProductCards data={item} key={index} />;
                   })}
                 </Box>
               </React.Fragment>
@@ -165,7 +162,7 @@ export default function Checkout() {
                 ) : (
                   <React.Fragment>
                     {getStepContent(activeStep * 5)}
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                       {activeStep !== 0 && (
                         <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                           Back
@@ -180,8 +177,8 @@ export default function Checkout() {
                         sx={{ mt: 3, ml: 1 }}
                       >
                         {activeStep === steps.length - 1
-                          ? 'Place order'
-                          : 'Next'}
+                          ? "Place order"
+                          : "Next"}
                       </Button>
                     </Box>
                   </React.Fragment>
@@ -192,5 +189,5 @@ export default function Checkout() {
         </Grid>
       </Container>
     </ThemeProvider>
-  )
+  );
 }

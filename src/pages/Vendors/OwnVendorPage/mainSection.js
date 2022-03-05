@@ -8,6 +8,22 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import RatingSIze from "../../../components/rating";
 import ImageAvatars from "../../../components/Mini-components/Avatar";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+
+const SocialLink = ({ item = "#", bgColor, icon }) => (
+  <a href={item}>
+    <IconButton
+      sx={{
+        backgroundColor: `${bgColor}`,
+        color: "white",
+        fontSize: "14px",
+        "&:hover": { color: "white", backgroundColor: `${bgColor}` },
+      }}
+    >
+      {icon}{" "}
+    </IconButton>
+  </a>
+);
 
 export default function MediaCard({ obj }) {
   return (
@@ -42,8 +58,18 @@ export default function MediaCard({ obj }) {
             gap: 4,
           }}
         >
-          <ImageAvatars width="120px" height="120px" avaImg={obj.avaImg} />
-          <Box sx={{ flex: "0.8" }}>
+          <ImageAvatars
+            width="120px"
+            height="120px"
+            avaImg={obj.avaImg}
+            sx={{
+              borderWidth: "4px",
+              borderColor: "black",
+              borderStyle: "solid",
+              borderRadius: "50% !important",
+            }}
+          />
+          <Box sx={{ flex: "0.8", sm: { flex: 1 } }}>
             <Box
               className="topActions"
               sx={{
@@ -56,47 +82,28 @@ export default function MediaCard({ obj }) {
               <ButtonGroup
                 variant="contained"
                 aria-label="outlined primary button group"
-                sx={{ boxShadow: "none !important" }}
+                sx={{ boxShadow: "none !important", gap: "4px" }}
               >
-                <a
-                  href={`${
-                    obj.socail_links.twitter || "http://localhost:3000/vendor/0"
-                  }`}
-                >
-                  <IconButton color="secondary">
-                    <TwitterIcon />
-                  </IconButton>
-                </a>
-                <a
-                  href={`${
-                    obj.socail_links.facebook ||
-                    "http://localhost:3000/vendor/0"
-                  }`}
-                >
-                  <IconButton color="secondary">
-                    <FacebookIcon />
-                  </IconButton>
-                </a>
-
-                <a
-                  href={`${
-                    obj.socail_links.youtube || "http://localhost:3000/vendor/0"
-                  }`}
-                >
-                  <IconButton color="secondary">
-                    <TwitterIcon />
-                  </IconButton>
-                </a>
-                <a
-                  href={`${
-                    obj.socail_links.instagram ||
-                    "http://localhost:3000/vendor/0"
-                  }`}
-                >
-                  <IconButton color="secondary">
-                    <InstagramIcon />
-                  </IconButton>
-                </a>
+                <SocialLink
+                  bgColor="rgb(59, 89, 152)"
+                  icon={<FacebookIcon />}
+                  item={obj.socail_links.facebook}
+                />
+                <SocialLink
+                  bgColor="rgb(0, 172, 238)"
+                  icon={<TwitterIcon />}
+                  item={obj.socail_links.twitter}
+                />
+                <SocialLink
+                  bgColor="rgb(255, 0, 0)"
+                  icon={<YouTubeIcon />}
+                  item={obj.socail_links.instagram}
+                />
+                <SocialLink
+                  bgColor="rgb(225, 48, 108)"
+                  icon={<InstagramIcon />}
+                  item={obj.socail_links.twitter}
+                />
               </ButtonGroup>
             </Box>
             <Box
@@ -106,11 +113,14 @@ export default function MediaCard({ obj }) {
                 justifyContent: "space-between",
                 display: "flex",
                 p: 2,
-                color: "rgb(43, 52, 69)",
+                color: "rgb(125, 135, 156)",
               }}
             >
               <Box>
-                <RatingSIze score={obj.rating()} />{" "}
+                <Box display="flex" alignItems="center">
+                  <RatingSIze score={obj.rating()} />
+                  <span style={{ marginLeft: "5px" }}>({obj.rated})</span>
+                </Box>
                 <Typography sx={{ marginTop: 3 }}>
                   <LocationOnIcon sx={{ marginRight: 1 }} />
                   {obj.location}
