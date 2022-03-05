@@ -13,7 +13,6 @@ import RatingSIze from "../Mini-components/Rating";
 import { Link } from "react-router-dom";
 
 export default function VendorCard({ obj }) {
-  console.log(obj);
   return (
     <Card
       sx={{
@@ -22,19 +21,15 @@ export default function VendorCard({ obj }) {
       }}
       color="secondary"
     >
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image={obj.img}
-      />
-
       <CardContent
         sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
           color: "#fff !important",
+          backgroundImage: `url(${obj.img})`,
+          objectFit: "cover",
+          // backgroundSize: "100% 100%",
+          backgroundSize: "cover",
+          paddingBottom: "20px",
+          minHeight: { sm: "200px", xs: "200px" },
         }}
       >
         <Typography gutterBottom variant="h5" component="div">

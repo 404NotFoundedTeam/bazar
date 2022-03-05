@@ -6,6 +6,7 @@ import SideBar from "./SideBar/index";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useParams } from "react-router-dom";
 import { database } from "../../../data/data";
+import { useSelector } from "react-redux";
 
 export default function VendorOwnPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +23,13 @@ export default function VendorOwnPage() {
   };
 
   const obj = database.seller[`seller_${vendorId?.id}`];
+  const reduxData = useSelector(
+    (state) => state.vendorReducer[`seller_${vendorId?.id}`]
+  );
+  // console.log(reduxData, "  success");
+
   const data = obj.products || [];
   const allProducts = database.products;
-  console.log(allProducts);
 
   return (
     <Container

@@ -31,30 +31,30 @@ export default function MediaCard({ obj }) {
       mb={2}
       sx={{
         position: "relative",
-        minHeight: "200px",
+        minHeight: "350px",
         overflow: "hidden",
-        borderRadius: "5px",
+        borderRadius: "2px",
+        backgroundColor: "#fff",
+        backgroundImage: `url(${obj.img})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 55%",
+        objectFit: "cover",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
       }}
     >
-      <Box>
-        <img
-          src={obj.img}
-          alt="image"
-          style={{ width: "100%", height: "220px", objectFit: "cover" }}
-        />
-      </Box>
-      <Box sx={{ backgroundColor: "#fff" }}>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <Box
           mx={2}
           sx={{
             boxSizing: "border-box",
-            transform: {
-              lg: "translateY(-30%)",
-              md: "translateY(-15%)",
-              sm: "translateY(0)",
-            },
+            // transform: {
+            //   lg: "translateY(-30%)",
+            // },
             display: "flex",
             width: "100%",
+            flexWrap: "wrap",
             gap: 4,
           }}
         >
@@ -69,7 +69,7 @@ export default function MediaCard({ obj }) {
               borderRadius: "50% !important",
             }}
           />
-          <Box sx={{ flex: "0.8", sm: { flex: 1 } }}>
+          <Box sx={{ flex: 1, minWidth: "300px" }}>
             <Box
               className="topActions"
               sx={{
