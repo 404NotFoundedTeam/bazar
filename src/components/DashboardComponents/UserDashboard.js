@@ -139,7 +139,6 @@ function DashboardList({ listData }) {
         return (
           <NavLink
             key={text}
-            state={{ link }}
             to={link}
             className={({ isActive }) =>
               isActive ? classes.activeStyle : undefined

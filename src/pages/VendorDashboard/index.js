@@ -8,6 +8,31 @@ import AddchartOutlinedIcon from "@mui/icons-material/AddchartOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { DashboardList } from "../../components/DashboardComponents/UserDashboard";
+import { useSelector } from "react-redux";
+
+const useStyles = makeStyles((theme) => ({
+  sidebar: {
+    minWidth: {
+      xs: "200px",
+      sm: "290px",
+    },
+    paddingBottom: "24px",
+    boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
+    borderRadius: "8px !important",
+  },
+  main: {
+    "& span": { color: theme.palette.error.main },
+    width: "100%",
+  },
+  title: {
+    padding: "26px 30px 16px",
+  },
+  btn: {
+    padding: "4px 16px !important",
+    fontSize: "12px !important",
+    textTransform: "capitalize !important",
+  },
+}));
 
 let dashboardMainData = {
   dashboard: {
@@ -40,30 +65,6 @@ let dashboardMainData = {
   },
 };
 
-const useStyles = makeStyles((theme) => ({
-  sidebar: {
-    minWidth: {
-      xs: "200px",
-      sm: "290px",
-    },
-    paddingBottom: "24px",
-    boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
-    borderRadius: "8px !important",
-  },
-  main: {
-    "& span": { color: theme.palette.error.main },
-    width: "100%",
-  },
-  title: {
-    padding: "26px 30px 16px",
-  },
-  btn: {
-    padding: "4px 16px !important",
-    fontSize: "12px !important",
-    textTransform: "capitalize !important",
-  },
-}));
-
 export default function VendorDashboard(props) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -72,16 +73,9 @@ export default function VendorDashboard(props) {
   let part = !pathname.endsWith("vendor-dashboard")
     ? pathname.slice(pathname.lastIndexOf("/") + 1)
     : undefined;
-  const getTitle = useMemo(
-    () => ({
-      ...dashboardMainData,
-    }),
-    []
-  );
   useEffect(() => {
     if (!part) navigate("dashboard");
   });
-
   return (
     <div style={{ padding: "24px" }}>
       <Grid container spacing={3}>
@@ -100,17 +94,17 @@ export default function VendorDashboard(props) {
             >
               <Typography sx={{ fontSize: "28px" }}>
                 <span style={{ marginRight: 10 }}>
-                  {getTitle[part ? part : "dashboard"].icon}
+                  {dashboardMainData[part ? part : "dashboard"].icon}
                 </span>
-                {getTitle[part ? part : "dashboard"].text}
+                {dashboardMainData[part ? part : "dashboard"].text}
               </Typography>
-              {getTitle[part ? part : "dashboard"]?.action ? (
+              {dashboardMainData[part ? part : "dashboard"]?.action ? (
                 <Button
                   className={classes.btn}
                   variant="outlined"
                   color="error"
                 >
-                  {getTitle[part ? part : "orders"]?.action.text}
+                  {dashboardMainData[part ? part : "orders"]?.action.text}
                 </Button>
               ) : (
                 false

@@ -1,6 +1,6 @@
 import Home from "./pages/Home";
 import SalePage from "./pages/salepage";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import UserDashboard from "./pages/UserDashboard";
 import MainThemeProvider from "./Theme/ThemeContext";
 import Header from "./pages/Header";
@@ -26,6 +26,8 @@ import {
   VendorProducts,
   VendorSettings,
 } from "./components/DashboardComponents/VendorDashboard";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const queryClient = new QueryClient();
 
@@ -59,7 +61,13 @@ export default function App() {
             <Route path="/allVendor" element={<AllVendors />} />
             <Route path="/vendor/:id" element={<VendorOwnPage />} />
           </Routes>
+<<<<<<< HEAD
       </MainThemeProvider>
     </QueryClientProvider>
+=======
+        </MainThemeProvider>
+      </QueryClientProvider>
+    </Provider>
+>>>>>>> 5f22d759e67e153f9db86c241c179fe619be9f63
   );
 }
