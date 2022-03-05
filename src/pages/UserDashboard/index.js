@@ -127,7 +127,7 @@ export default function UserDashboard(props) {
           alignItems="center"
           sx={{ marginBottom: "20px" }}
         >
-          {/* <Typography sx={{ fontSize: "28px" }}>
+          <Typography sx={{ fontSize: "28px" }}>
             <span style={{ marginRight: 10 }}>
               {getTitle[part ? part : "orders"].icon}
             </span>
@@ -139,7 +139,7 @@ export default function UserDashboard(props) {
             </Button>
           ) : (
             false
-          )} */}
+          )}
         </Stack>
         <Outlet />
       </div>

@@ -8,6 +8,7 @@ import AddchartOutlinedIcon from "@mui/icons-material/AddchartOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { DashboardList } from "../../components/DashboardComponents/UserDashboard";
+import { useSelector } from "react-redux";
 
 let dashboardMainData = {
   dashboard: {
@@ -65,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function VendorDashboard(props) {
+  const { vendors } = useSelector((state) => state.vendors);
+  const vendor = vendors[0];
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,22 +75,18 @@ export default function VendorDashboard(props) {
   let part = !pathname.endsWith("vendor-dashboard")
     ? pathname.slice(pathname.lastIndexOf("/") + 1)
     : undefined;
-  const getTitle = useMemo(
-    () => ({
-      ...dashboardMainData,
-    }),
-    []
-  );
   useEffect(() => {
     if (!part) navigate("dashboard");
   });
-
   return (
     <div style={{ padding: "24px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={3}>
           <Paper className={classes.sidebar} elevation={0}>
-            <DashboardList listData={Object.values(dashboardMainData)} />
+            <DashboardList
+              listData={Object.values(dashboardMainData)}
+              vendorInfo={vendor}
+            />
           </Paper>
         </Grid>
         <Grid item lg={9}>
@@ -100,17 +99,17 @@ export default function VendorDashboard(props) {
             >
               <Typography sx={{ fontSize: "28px" }}>
                 <span style={{ marginRight: 10 }}>
-                  {getTitle[part ? part : "dashboard"].icon}
+                  {dashboardMainData[part ? part : "dashboard"].icon}
                 </span>
-                {getTitle[part ? part : "dashboard"].text}
+                {dashboardMainData[part ? part : "dashboard"].text}
               </Typography>
-              {getTitle[part ? part : "dashboard"]?.action ? (
+              {dashboardMainData[part ? part : "dashboard"]?.action ? (
                 <Button
                   className={classes.btn}
                   variant="outlined"
                   color="error"
                 >
-                  {getTitle[part ? part : "orders"]?.action.text}
+                  {dashboardMainData[part ? part : "orders"]?.action.text}
                 </Button>
               ) : (
                 false

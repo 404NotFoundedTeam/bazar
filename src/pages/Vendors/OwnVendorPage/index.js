@@ -23,10 +23,8 @@ export default function VendorOwnPage() {
   };
 
   const obj = database.seller[`seller_${vendorId?.id}`];
-  const reduxData = useSelector(
-    (state) => state.vendorReducer[`seller_${vendorId?.id}`]
-  );
-  // console.log(reduxData, "  success");
+  const reduxData = useSelector((state) => state);
+  console.log(reduxData, "  success");
 
   const data = obj.products || [];
   const allProducts = database.products;

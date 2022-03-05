@@ -1,6 +1,6 @@
 import Home from "./pages/Home";
 import SalePage from "./pages/salepage";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import UserDashboard from "./pages/UserDashboard";
 import MainThemeProvider from "./Theme/ThemeContext";
 import Header from "./pages/Header";
