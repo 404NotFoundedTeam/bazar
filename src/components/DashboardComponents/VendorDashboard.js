@@ -12,11 +12,18 @@ import {
   Stack,
   TextField,
   Typography,
+  Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { dispatch, store } from "../../redux/store";
+import {
+  addNewProduct,
+  addNewProductToVendor,
+} from "../../redux/actions/vendorActions";
 
 const useStyles = makeStyles((theme) => ({
   activeStyle: {
@@ -253,25 +260,55 @@ export const VendorProducts = () => {
     </div>
   );
 };
+
 export const AddProduct = () => {
+  const vendorId = 0;
+  console.log(store.getState());
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    addNewProductToVendor({ vendorId, productId: 19 });
+    data = {
+      ...data,
+      id: 19,
+      price: parseFloat(data.price),
+      stock: parseFloat(data.stock),
+      off: parseFloat(data.off),
+    };
+    console.log(data);
+    addNewProduct(data);
+  };
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Paper sx={{ padding: "24px" }}>
         <Grid container spacing={2}>
-          <Grid item lg={6}>
-            <TextField required id="outlined-required" label="Name" fullWidth />
-          </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <TextField
-              required
+              {...register("name", { required: true })}
+              id="outlined-required"
+              label="Name"
+              fullWidth
+              error={errors["name"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("brand", { required: true })}
               id="outlined-required"
               label="Brand"
               fullWidth
+              error={errors["brand"]}
             />
           </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <TextField
+              {...register("stock", { required: true })}
               label="Stock"
+              type="number"
               id="outlined-start-adornment"
               InputProps={{
                 endAdornment: (
@@ -279,41 +316,46 @@ export const AddProduct = () => {
                 ),
               }}
               fullWidth
+              error={errors["stock"]}
             />
           </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Category</InputLabel>
               <Select
+                {...register("category", { required: true })}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={12}
                 label="Category"
-                onChange={() => {}}
+                fullWidth
+                error={errors["category"]}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={10}>Notebooks</MenuItem>
+                <MenuItem value={20}>Home appliances</MenuItem>
+                <MenuItem value={30}>Mobile phones</MenuItem>
               </Select>
             </FormControl>
           </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth>
               <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-amount"
-                value={12}
-                onChange={() => {}}
+                type="number"
+                {...register("price", { required: true })}
                 startAdornment={
                   <InputAdornment position="start">$</InputAdornment>
                 }
-                label="Amount"
+                label="Price"
+                error={errors["price"]}
               />
             </FormControl>
           </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               label="Discount"
+              type="number"
+              {...register("off", { required: true })}
               id="outlined-start-adornment"
               InputProps={{
                 endAdornment: (
@@ -321,29 +363,37 @@ export const AddProduct = () => {
                 ),
               }}
               fullWidth
+              error={errors["off"]}
             />
           </Grid>
-          <Grid item lg={12}>
+          <Grid item xs={12}>
             <TextField
-              required
+              {...register("description", { required: true })}
               id="outlined-required"
               label="Description"
               rows={4}
               fullWidth
               multiline
+              error={errors["description"]}
             />
           </Grid>
-          <Grid item lg={12}>
+          <Grid item xs={12}>
             <TextField
-              required
+              {...register("img", { required: true })}
               id="outlined-required"
               label="Image link"
               fullWidth
+              error={errors["img"]}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="error">
+              Add product
+            </Button>
           </Grid>
         </Grid>
       </Paper>
-    </div>
+    </form>
   );
 };
 export const VendorSettings = () => {

@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
       xs: "200px",
       sm: "290px",
     },
-    paddingBottom: "24px",
     boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
     borderRadius: "8px !important",
   },
@@ -34,37 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let dashboardMainData = {
-  dashboard: {
-    text: "Dashboard",
-    icon: <Dashboard />,
-    link: "dashboard",
-  },
-  products: {
-    text: "Products",
-    icon: <AssignmentOutlinedIcon />,
-    link: "products",
-  },
-  "add-product": {
-    text: "Add new product",
-    icon: <AddchartOutlinedIcon />,
-    link: "add-product",
-    action: {
-      text: "Back to product list",
-    },
-  },
-  orders: {
-    text: "Orders",
-    icon: <ShoppingCartOutlinedIcon />,
-    link: "orders",
-  },
-  "account-settings": {
-    text: "Account settings",
-    icon: <SettingsOutlinedIcon />,
-    link: "account-settings",
-  },
-};
-
 export default function VendorDashboard(props) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -76,6 +44,37 @@ export default function VendorDashboard(props) {
   useEffect(() => {
     if (!part) navigate("dashboard");
   });
+  let dashboardMainData = {
+    dashboard: {
+      text: "Dashboard",
+      icon: <Dashboard />,
+      link: "dashboard",
+    },
+    products: {
+      text: "Products",
+      icon: <AssignmentOutlinedIcon />,
+      link: "products",
+    },
+    "add-product": {
+      text: "Add new product",
+      icon: <AddchartOutlinedIcon />,
+      link: "add-product",
+      action: {
+        text: "Back to product list",
+        func: () => navigate("/vendor-dashboard/products"),
+      },
+    },
+    orders: {
+      text: "Orders",
+      icon: <ShoppingCartOutlinedIcon />,
+      link: "orders",
+    },
+    "account-settings": {
+      text: "Account settings",
+      icon: <SettingsOutlinedIcon />,
+      link: "account-settings",
+    },
+  };
   return (
     <div style={{ padding: "24px" }}>
       <Grid container spacing={3}>
@@ -88,6 +87,7 @@ export default function VendorDashboard(props) {
           <div className={classes.main}>
             <Stack
               direction="row"
+              flexWrap="wrap"
               justifyContent="space-between"
               alignItems="center"
               sx={{ marginBottom: "20px" }}
@@ -103,6 +103,10 @@ export default function VendorDashboard(props) {
                   className={classes.btn}
                   variant="outlined"
                   color="error"
+                  sx={{ margin: { xs: "20px 0" } }}
+                  onClick={
+                    dashboardMainData[part ? part : "orders"]?.action.func
+                  }
                 >
                   {dashboardMainData[part ? part : "orders"]?.action.text}
                 </Button>
