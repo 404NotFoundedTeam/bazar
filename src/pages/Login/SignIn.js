@@ -1,51 +1,57 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { signIn } from "../../firebase/server";
-import { Box, FormControl, TextField, Typography } from "@mui/material";
-import LoginContainer from "./LoginContainer";
-import TextFieldHiddenLabel from "../Vendors/OwnVendorPage/SideBar/Price";
+import Links from "./loginComponents/Links";
+import { Box, Typography } from "@mui/material";
+import LoginContainer from "./loginComponents/LoginContainer";
+import HookForm from "./loginComponents/Form";
 
 export default function SignIn() {
-  const { register, reset, handleSubmit } = useForm();
-
-  const navigate = useNavigate();
-  const nimadir = (data) => {
+  const signInInputs = [
+    {
+      name: "email",
+      type: "email",
+      title: "Email",
+      example: "example@mail.com",
+      options: { required: true },
+    },
+    {
+      name: "password",
+      type: "password",
+      example: "***********",
+      title: "Password",
+      options: { required: true },
+    },
+  ];
+  const submitForm = (data) => {
     console.log(data);
-  };
-
-  const onSubmit = (data) => {
-    signIn(data, nimadir);
-    navigate("../");
-    reset();
   };
 
   return (
     <LoginContainer>
-      <FormControl fullWidth>
-        <Box display={"flex"} justifyContent="center" flexDirection={"column"}>
-          <Typography
-            sx={{ fontWeight: "bold" }}
-            variant="h5"
-            align="center"
-            gutterBottom
-          >
-            Welcome To Ecommerce
-          </Typography>
-          <Typography
-            align="center"
-            gutterBottom
-            color={"textSecondary"}
-            variant="p"
-            sx={{ fontSize: "14px" }}
-          >
-            Log in with email & password
-          </Typography>
-          <TextField label={"hello world"}></TextField>
-          <Link to={"/signup"}>Sign Up</Link>
+      <Box display={"flex"} justifyContent="center" flexDirection={"column"}>
+        <Typography
+          sx={{ fontWeight: "bold" }}
+          variant="h5"
+          align="center"
+          gutterBottom
+        >
+          Welcome To Ecommerce
+        </Typography>
+        <Typography
+          align="center"
+          gutterBottom
+          color={"textSecondary"}
+          variant="p"
+          fontWeight={"700"}
+          mb={3}
+          sx={{ fontSize: "13px" }}
+        >
+          Log in with email & password
+        </Typography>
+        <Box px={{ sx: 0, md: "15px", lg: "25px" }}>
+          <HookForm data={signInInputs} submit={submitForm} type={"primary"} />
+          <Links text={"Don’t have account?"} link={"/signup"} />
         </Box>
-      </FormControl>
+      </Box>
     </LoginContainer>
   );
 }
