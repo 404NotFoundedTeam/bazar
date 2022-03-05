@@ -3,7 +3,8 @@ import { Box } from "@mui/system";
 import React from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { changeOpenCart } from "../../../redux/actions/userActions";
 
 const UserIconsHeader = () => {
   return (
@@ -15,7 +16,7 @@ const UserIconsHeader = () => {
         width: "100%",
       }}
     >
-      <Link to={"/user"}>
+      <NavLink to={"/login"}>
         <Fab
           variant="contained"
           size="medium"
@@ -27,8 +28,8 @@ const UserIconsHeader = () => {
         >
           <FaRegUser />
         </Fab>
-      </Link>
-      <Link to={"/card"}>
+      </NavLink>
+      <Box onClick={() => {changeOpenCart(true)}}>
         <Badge badgeContent={124} color={"error"} max={99}>
           <Fab
             variant="contained"
@@ -42,7 +43,7 @@ const UserIconsHeader = () => {
             <FiShoppingBag />
           </Fab>
         </Badge>
-      </Link>
+      </Box>
     </Box>
   );
 };
