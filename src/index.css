@@ -7,6 +7,11 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.open-cart {
+  padding-right: 21px;
+  overflow: hidden;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
