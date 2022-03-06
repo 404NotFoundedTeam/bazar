@@ -13,16 +13,23 @@ import {
   TextField,
   Typography,
   Button,
+  Box,
+  Collapse,
+  Alert,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { dispatch, store } from "../../redux/store";
+import { nanoid } from "nanoid";
 import {
   addNewProduct,
   addNewProductToVendor,
+  deleteProduct,
 } from "../../redux/actions/vendorActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +49,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    "& p": { width: "100%", fontSize: 18 },
-    "& p:last-child": { width: "20%" },
+    "& p": { width: "15%", fontSize: 18 },
+    "& p:last-child": { width: "8%" },
+    "& p:nth-child(2)": { width: "30%" },
+    "& p:first-child": { width: "13%" },
     color: `${theme.palette.text.secondary} !important`,
     margin: "0 0 10px",
   },
@@ -55,10 +64,17 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: "16px",
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       flexWrap: "wrap",
       width: "100%",
-      "& p": { width: "auto", fontWeight: 100, margin: 0 },
-      "& p:last-child": { width: "20%" },
+      "& p": {
+        width: "15%",
+        fontWeight: 100,
+        margin: 0,
+      },
+      "& p:last-child": { width: "8%" },
+      "& p:nth-child(2)": { width: "30%" },
+      "& p:first-child": { width: "13%" },
     },
   },
   pagination: {
@@ -94,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Dashboard = () => {
-  const { vendors } = useSelector((state) => state.vendors);
+  const vendors = useSelector((state) => state.vendors);
   //TODO id olib kelish kere kirgan vendornikini
   const vendor = vendors[0];
   return (
@@ -164,57 +180,13 @@ export const Dashboard = () => {
 
 export const VendorProducts = () => {
   const classes = useStyles();
-  const orders = [
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-  ];
-  const [currentOrders, setCurrentOrders] = useState(orders);
+  const products = useSelector((state) => state.products);
+  const vendors = useSelector((state) => state.vendors);
+  const vendorProducts = vendors[0].products;
+  const filteredProducts = [];
+  for (let i = 0; i < vendorProducts.length; i++)
+    filteredProducts.push(products[vendorProducts[i]]);
+  const [currentOrders, setCurrentOrders] = useState([...filteredProducts]);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(5);
 
@@ -224,30 +196,54 @@ export const VendorProducts = () => {
     indexOfFirstOrder,
     indexOfLastOrder
   );
+
   const pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
   return (
     <div>
-      <Paper className={classes.tableHeader} elevation={0}>
-        <Typography>Order #</Typography>
-        <Typography>Status</Typography>
-        <Typography>Date purchased</Typography>
-        <Typography>Total</Typography>
+      <Paper
+        className={classes.tableHeader}
+        elevation={0}
+        sx={{ display: { xs: "none !important", sm: "flex !important" } }}
+      >
+        <Typography>Image</Typography>
+        <Typography>Name</Typography>
+        <Typography>Stock</Typography>
+        <Typography>Price</Typography>
+        <Typography>Sale</Typography>
         <Typography></Typography>
       </Paper>
       <div className={classes.ordersBox}>
-        {presentOrders.map((order) => {
+        {presentOrders.map((product) => {
           return (
-            <Link to="/order-details">
-              <Paper elevation={1}>
-                <Typography>{order.order_id}</Typography>
-                <Typography>{order.status}</Typography>
-                <Typography>{order.date}</Typography>
-                <Typography>${order.total.toFixed(2)}</Typography>
-                <Typography color="textSecondary">
-                  <ArrowRightAlt />
-                </Typography>
-              </Paper>
-            </Link>
+            product && (
+              <NavLink to="../edit-product" state={JSON.stringify(product)}>
+                <Paper elevation={1}>
+                  <Typography>
+                    <img
+                      style={{
+                        borderRadius: "50%",
+                        width: "35px",
+                        height: "35px",
+                        objectFit: "cover",
+                        display: "inline-block",
+                        margin: "0 auto",
+                      }}
+                      src={product.img}
+                      alt=""
+                    />
+                  </Typography>
+                  <Typography>{product.name}</Typography>
+                  <Typography>{product.stock}</Typography>
+                  <Typography>${product.price}</Typography>
+                  <Typography>
+                    ${product.price - (product.price * product.off) / 100}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    <ArrowRightAlt />
+                  </Typography>
+                </Paper>
+              </NavLink>
+            )
           );
         })}
       </div>
@@ -261,29 +257,97 @@ export const VendorProducts = () => {
   );
 };
 
+export default function TransitionAlerts({ open, message, setOpen, sx }) {
+  return (
+    <Box sx={sx}>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{
+            mb: 2,
+            backgroundColor: "white",
+            boxShadow: "rgba(3, 0, 71, 0.3) 0px 1px 3px 0px !important",
+          }}
+        >
+          {message}
+        </Alert>
+      </Collapse>
+    </Box>
+  );
+}
+
 export const AddProduct = () => {
+  return <ProductForm formType={"Add product"} message="Added" />;
+};
+
+export const EditProduct = () => {
+  const location = useLocation();
+  const defVal = JSON.parse(location.state);
+  return <ProductForm defVal={defVal} formType="Save" message="Saved" />;
+};
+
+export const ProductForm = ({ defVal, formType, message }) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const vendorId = 0;
-  console.log(store.getState());
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+
   const onSubmit = (data) => {
-    addNewProductToVendor({ vendorId, productId: 19 });
-    data = {
-      ...data,
-      id: 19,
-      price: parseFloat(data.price),
-      stock: parseFloat(data.stock),
-      off: parseFloat(data.off),
-    };
-    console.log(data);
+    if (defVal) {
+      data = {
+        id: defVal.id,
+        ...data,
+        price: parseFloat(data.price),
+        stock: parseFloat(data.stock),
+        off: parseFloat(data.off),
+        rating: function () {
+          return (this.star / this.rated).toFixed(1);
+        },
+      };
+    } else {
+      let id = nanoid();
+      addNewProductToVendor({ vendorId, productId: id });
+      data = {
+        ...data,
+        id,
+      };
+    }
+
     addNewProduct(data);
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
       <Paper sx={{ padding: "24px" }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
@@ -329,10 +393,11 @@ export const AddProduct = () => {
                 label="Category"
                 fullWidth
                 error={errors["category"]}
+                defaultValue={defVal ? defVal.category : null}
               >
-                <MenuItem value={10}>Notebooks</MenuItem>
-                <MenuItem value={20}>Home appliances</MenuItem>
-                <MenuItem value={30}>Mobile phones</MenuItem>
+                <MenuItem value={"Notebooks"}>Notebooks</MenuItem>
+                <MenuItem value={"Home Appliances"}>Home appliances</MenuItem>
+                <MenuItem value={"Mobile phones"}>Mobile phones</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -388,14 +453,29 @@ export const AddProduct = () => {
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="error">
-              Add product
+              {formType}
             </Button>
+            {defVal && (
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{ marginLeft: "15px" }}
+                onClick={() => {
+                  console.log("Def form", defVal.id);
+                  deleteProduct({ id: defVal.id });
+                  navigate("../products");
+                }}
+              >
+                Delete
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Paper>
     </form>
   );
 };
+
 export const VendorSettings = () => {
   return <div>"hello world" what is goin on</div>;
 };
