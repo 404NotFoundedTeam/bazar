@@ -1,4 +1,4 @@
-import { ADD_PRODUCT } from "../types";
+import { ADD_PRODUCT_TO_VENDOR } from "../types";
 
 const vendorState = {
   vendors: {
@@ -27,16 +27,18 @@ const vendorState = {
 
 const VendorReducer = (state = vendorState, action) => {
   switch (action.type) {
-    case ADD_PRODUCT:
+    case ADD_PRODUCT_TO_VENDOR:
+      console.log("ADD_PRODUCT_TO_VENDOR");
+      console.log("ACTION PAYLOAD", action.payload);
+
       return {
         ...state,
         vendors: {
-          ...state.vendors,
-          [`${action.payload.id}`]: {
-            ...state.vendors[action.payload.id],
+          [`${action.payload.vendorId}`]: {
+            ...state.vendors[`${action.payload.vendorId}`],
             products: [
-              ...state.vendors[action.payload.id].products,
-              action.payload.newProduct,
+              ...state.vendors[`${action.payload.vendorId}`].products,
+              action.payload.productId,
             ],
           },
         },

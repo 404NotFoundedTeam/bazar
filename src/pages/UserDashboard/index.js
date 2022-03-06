@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebar: {
     minWidth: "290px",
-    paddingBottom: "24px",
     boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
     borderRadius: "8px !important",
   },
@@ -78,6 +77,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 24px",
     "& span": { color: theme.palette.error.main },
     width: "100%",
+    "& div": {
+      boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
+    },
   },
   title: {
     padding: "26px 30px 16px",
