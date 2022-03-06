@@ -46,14 +46,15 @@ const HookForm = ({ data, submit, type }) => {
                 key={i}
                 fullWidth
                 sx={{ "& > div": { padding: "12px 20px" } }}
-                error={errors[item.name]}
-                {...register(item.name, { ...(item.options || {}) })}
+                error={errors["role"]}
+                {...register("role", { required: true })}
               >
-                {item.elements.map((option, i) => (
-                  <MenuItem key={i} value={option.val}>
-                    {option.val}
-                  </MenuItem>
-                ))}
+                <MenuItem component="option" selected value={0}>
+                  Consumer
+                </MenuItem>
+                <MenuItem component="option" value={1}>
+                  Vendor
+                </MenuItem>
               </Select>
             )}
             <Zoom in={errors[item.name]}>

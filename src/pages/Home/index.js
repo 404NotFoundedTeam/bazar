@@ -11,11 +11,7 @@ import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
 import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
-import AsideCart from "../cart/AsideCart";
-import { useSelector } from "react-redux";
 function Home() {
-  const openCart = useSelector((state) => state.user.openCart);
-
   const scidka = [
     {
       img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
@@ -152,7 +148,6 @@ function Home() {
     <>
       <HomeWrapper className="py-5 bg-white text-[#2B3445]">
         {/* Cart */}
-        <AsideCart open={openCart} />
         <Container maxWidth="md" sx={{ mb: 15 }}>
           <MySlider>
             {scidka.map((item, i) => (

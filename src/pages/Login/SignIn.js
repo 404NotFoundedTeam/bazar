@@ -49,7 +49,7 @@ export default function SignIn() {
         </Typography>
         <Box px={{ sx: 0, md: "15px", lg: "25px" }}>
           <HookForm data={signInInputs} submit={submitForm} type={"primary"} />
-          <Links text={"Don’t have account?"} link={"/signup"} />
+          <Links alt="Sign Up" text={"Don’t have account?"} link={"/signup"} />
         </Box>
       </Box>
     </LoginContainer>
