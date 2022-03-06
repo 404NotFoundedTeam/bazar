@@ -38,9 +38,18 @@ const AsideCart = ({ open }) => {
             zIndex: 999999,
           }}
         >
-          <Box display={"flex"} alignItems="center">
-            <ShoppingBagOutlined />
-            <Typography ml={2}>0 Item</Typography>
+          <Box
+            display={"flex"}
+            justifyContent="space-between"
+            flexDirection={"column"}
+          >
+            <Box display="flex" alignItems={"center"}>
+              <ShoppingBagOutlined />
+              <Typography ml={2}>0 Item</Typography>
+            </Box>
+            <Box>
+              dis
+            </Box>
           </Box>
         </Box>
       </Slide>
