@@ -12,10 +12,25 @@ import {
   Stack,
   TextField,
   Typography,
+  Button,
+  Box,
+  Collapse,
+  Alert,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { dispatch, store } from "../../redux/store";
+import { nanoid } from "nanoid";
+import {
+  addNewProduct,
+  addNewProductToVendor,
+  deleteProduct,
+} from "../../redux/actions/vendorActions";
 
 const useStyles = makeStyles((theme) => ({
   activeStyle: {
@@ -34,8 +49,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    "& p": { width: "100%", fontSize: 18 },
-    "& p:last-child": { width: "20%" },
+    "& p": { width: "15%", fontSize: 18 },
+    "& p:last-child": { width: "8%" },
+    "& p:nth-child(2)": { width: "30%" },
+    "& p:first-child": { width: "13%" },
     color: `${theme.palette.text.secondary} !important`,
     margin: "0 0 10px",
   },
@@ -47,10 +64,17 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: "16px",
       display: "flex",
       justifyContent: "space-between",
+      alignItems: "center",
       flexWrap: "wrap",
       width: "100%",
-      "& p": { width: "auto", fontWeight: 100, margin: 0 },
-      "& p:last-child": { width: "20%" },
+      "& p": {
+        width: "15%",
+        fontWeight: 100,
+        margin: 0,
+      },
+      "& p:last-child": { width: "8%" },
+      "& p:nth-child(2)": { width: "30%" },
+      "& p:first-child": { width: "13%" },
     },
   },
   pagination: {
@@ -86,7 +110,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Dashboard = () => {
-  const vendorData = [];
+  const vendors = useSelector((state) => state.vendors);
+  //TODO id olib kelish kere kirgan vendornikini
+  const vendor = vendors[0];
   return (
     <div>
       <Grid container spacing={2}>
@@ -102,7 +128,7 @@ export const Dashboard = () => {
               Earnings (before taxes)
             </Typography>
             <Typography variant="h4" fontWeight="bold" sx={{ my: 1 }}>
-              $30450.00
+              ${vendor.balance.toFixed(2)}
             </Typography>
             <Typography color="textSecondary">
               after associated vendor fees
@@ -119,10 +145,10 @@ export const Dashboard = () => {
           >
             <Typography color="textSecondary">Your balance</Typography>
             <Typography variant="h4" fontWeight="bold" sx={{ my: 1 }}>
-              $4000.00
+              ${vendor.dailyBalance}
             </Typography>
             <Typography color="textSecondary">
-              processed on Feb 15, 2021
+              processed on {new Date().toDateString()}
             </Typography>
           </Paper>
         </Grid>
@@ -130,7 +156,7 @@ export const Dashboard = () => {
           <Paper sx={{ padding: "24px", textAlign: "center" }}>
             <Typography color="textSecondary">Pending Orders</Typography>
             <Typography variant="h4" fontWeight="bold" sx={{ my: 1 }}>
-              08
+              {vendor.orders.length}
             </Typography>
             <Typography color="textSecondary">7/3/2020 - 8/1/2020</Typography>
           </Paper>
@@ -151,55 +177,358 @@ export const Dashboard = () => {
     </div>
   );
 };
+
 export const VendorProducts = () => {
+  const classes = useStyles();
+  const products = useSelector((state) => state.products);
+  const vendors = useSelector((state) => state.vendors);
+  const vendorProducts = vendors[0].products;
+  const filteredProducts = [];
+  for (let i = 0; i < vendorProducts.length; i++)
+    filteredProducts.push(products[vendorProducts[i]]);
+  const [currentOrders, setCurrentOrders] = useState([...filteredProducts]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage, setOrdersPerPage] = useState(5);
+
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const presentOrders = currentOrders.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+
+  const pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
+  return (
+    <div>
+      <Paper
+        className={classes.tableHeader}
+        elevation={0}
+        sx={{ display: { xs: "none !important", sm: "flex !important" } }}
+      >
+        <Typography>Image</Typography>
+        <Typography>Name</Typography>
+        <Typography>Stock</Typography>
+        <Typography>Price</Typography>
+        <Typography>Sale</Typography>
+        <Typography></Typography>
+      </Paper>
+      <div className={classes.ordersBox}>
+        {presentOrders.map((product) => {
+          return (
+            product && (
+              <NavLink to="../edit-product" state={JSON.stringify(product)}>
+                <Paper elevation={1}>
+                  <Typography>
+                    <img
+                      style={{
+                        borderRadius: "50%",
+                        width: "35px",
+                        height: "35px",
+                        objectFit: "cover",
+                        display: "inline-block",
+                        margin: "0 auto",
+                      }}
+                      src={product.img}
+                      alt=""
+                    />
+                  </Typography>
+                  <Typography>{product.name}</Typography>
+                  <Typography>{product.stock}</Typography>
+                  <Typography>${product.price}</Typography>
+                  <Typography>
+                    ${product.price - (product.price * product.off) / 100}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    <ArrowRightAlt />
+                  </Typography>
+                </Paper>
+              </NavLink>
+            )
+          );
+        })}
+      </div>
+      <Pagination
+        className={classes.pagination}
+        onChange={(e, page) => setCurrentPage(page)}
+        variant="outlined"
+        count={pageNumbers}
+      ></Pagination>
+    </div>
+  );
+};
+
+export default function TransitionAlerts({ open, message, setOpen, sx }) {
+  return (
+    <Box sx={sx}>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{
+            mb: 2,
+            backgroundColor: "white",
+            boxShadow: "rgba(3, 0, 71, 0.3) 0px 1px 3px 0px !important",
+          }}
+        >
+          {message}
+        </Alert>
+      </Collapse>
+    </Box>
+  );
+}
+
+export const AddProduct = () => {
+  return <ProductForm formType={"Add product"} message="Added" />;
+};
+
+export const EditProduct = () => {
+  const location = useLocation();
+  const defVal = JSON.parse(location.state);
+  return <ProductForm defVal={defVal} formType="Save" message="Saved" />;
+};
+
+export const ProductForm = ({ defVal, formType, message }) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const vendorId = 0;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+
+  const onSubmit = (data) => {
+    if (defVal) {
+      data = {
+        id: defVal.id,
+        ...data,
+        price: parseFloat(data.price),
+        stock: parseFloat(data.stock),
+        off: parseFloat(data.off),
+        rating: function () {
+          return (this.star / this.rated).toFixed(1);
+        },
+      };
+    } else {
+      let id = nanoid();
+      addNewProductToVendor({ vendorId, productId: id });
+      data = {
+        ...data,
+        id,
+      };
+    }
+
+    addNewProduct(data);
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
+      <Paper sx={{ padding: "24px" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("name", { required: true })}
+              id="outlined-required"
+              label="Name"
+              fullWidth
+              error={errors["name"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("brand", { required: true })}
+              id="outlined-required"
+              label="Brand"
+              fullWidth
+              error={errors["brand"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("stock", { required: true })}
+              label="Stock"
+              type="number"
+              id="outlined-start-adornment"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">pcs.</InputAdornment>
+                ),
+              }}
+              fullWidth
+              error={errors["stock"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select
+                {...register("category", { required: true })}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Category"
+                fullWidth
+                error={errors["category"]}
+                defaultValue={defVal ? defVal.category : null}
+              >
+                <MenuItem value={"Notebooks"}>Notebooks</MenuItem>
+                <MenuItem value={"Home Appliances"}>Home appliances</MenuItem>
+                <MenuItem value={"Mobile phones"}>Mobile phones</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-amount"
+                type="number"
+                {...register("price", { required: true })}
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                label="Price"
+                error={errors["price"]}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              label="Discount"
+              type="number"
+              {...register("off", { required: true })}
+              id="outlined-start-adornment"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">%</InputAdornment>
+                ),
+              }}
+              fullWidth
+              error={errors["off"]}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              {...register("description", { required: true })}
+              id="outlined-required"
+              label="Description"
+              rows={4}
+              fullWidth
+              multiline
+              error={errors["description"]}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              {...register("img", { required: true })}
+              id="outlined-required"
+              label="Image link"
+              fullWidth
+              error={errors["img"]}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="error">
+              {formType}
+            </Button>
+            {defVal && (
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{ marginLeft: "15px" }}
+                onClick={() => {
+                  console.log("Def form", defVal.id);
+                  deleteProduct({ id: defVal.id });
+                  navigate("../products");
+                }}
+              >
+                Delete
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+      </Paper>
+    </form>
+  );
+};
+
+export const VendorSettings = () => {
+  return <div>"hello world" what is goin on</div>;
+};
+
+export const VendorOrders = () => {
   const classes = useStyles();
   const orders = [
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
     {
       order_id: "12sdj2",
       status: "pending",
-      date: new Date().getUTCDate(),
+      date: new Date(),
       total: 340,
     },
   ];
@@ -217,22 +546,43 @@ export const VendorProducts = () => {
   return (
     <div>
       <Paper className={classes.tableHeader} elevation={0}>
-        <Typography>Order #</Typography>
+        <Typography
+          sx={{ display: { xs: "none !important", sm: "flex !important" } }}
+        >
+          Order #
+        </Typography>
         <Typography>Status</Typography>
-        <Typography>Date purchased</Typography>
+        <Typography>Date</Typography>
         <Typography>Total</Typography>
-        <Typography></Typography>
+        <Typography
+          sx={{
+            display: { xs: "none !important", sm: "flex !important" },
+          }}
+        ></Typography>
       </Paper>
       <div className={classes.ordersBox}>
         {presentOrders.map((order) => {
           return (
-            <Link to="/order-details">
+            <Link to="../order-info" state={JSON.stringify(order)}>
               <Paper elevation={1}>
-                <Typography>{order.order_id}</Typography>
-                <Typography>{order.status}</Typography>
-                <Typography>{order.date}</Typography>
+                <Typography
+                  sx={{
+                    display: { xs: "none !important", sm: "flex !important" },
+                  }}
+                >
+                  {order.order_id}
+                </Typography>
+                <Typography>
+                  <p>{order.status}</p>
+                </Typography>
+                <Typography>{order.date.toLocaleDateString()}</Typography>
                 <Typography>${order.total.toFixed(2)}</Typography>
-                <Typography color="textSecondary">
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    display: { xs: "none !important", sm: "flex !important" },
+                  }}
+                >
                   <ArrowRightAlt />
                 </Typography>
               </Paper>
@@ -249,102 +599,7 @@ export const VendorProducts = () => {
     </div>
   );
 };
-export const AddProduct = () => {
-  return (
-    <div>
-      <Paper sx={{ padding: "24px" }}>
-        <Grid container spacing={2}>
-          <Grid item lg={6}>
-            <TextField required id="outlined-required" label="Name" fullWidth />
-          </Grid>
-          <Grid item lg={6}>
-            <TextField
-              required
-              id="outlined-required"
-              label="Brand"
-              fullWidth
-            />
-          </Grid>
-          <Grid item lg={6}>
-            <TextField
-              label="Stock"
-              id="outlined-start-adornment"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">pcs.</InputAdornment>
-                ),
-              }}
-              fullWidth
-            />
-          </Grid>
-          <Grid item lg={6}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={12}
-                label="Category"
-                onChange={() => {}}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item lg={6}>
-            <FormControl fullWidth>
-              <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                value={12}
-                onChange={() => {}}
-                startAdornment={
-                  <InputAdornment position="start">$</InputAdornment>
-                }
-                label="Amount"
-              />
-            </FormControl>
-          </Grid>
-          <Grid item lg={6}>
-            <TextField
-              label="Discount"
-              id="outlined-start-adornment"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">%</InputAdornment>
-                ),
-              }}
-              fullWidth
-            />
-          </Grid>
-          <Grid item lg={12}>
-            <TextField
-              required
-              id="outlined-required"
-              label="Description"
-              rows={4}
-              fullWidth
-              multiline
-            />
-          </Grid>
-          <Grid item lg={12}>
-            <TextField
-              required
-              id="outlined-required"
-              label="Image link"
-              fullWidth
-            />
-          </Grid>
-        </Grid>
-      </Paper>
-    </div>
-  );
-};
-export const VendorSettings = () => {
-  return <div>"hello world" what is goin on</div>;
-};
-export const VendorOrders = () => {
-  return <div>"hello world" what is goin on</div>;
+
+export const VendorOrderDetails = () => {
+  return <div></div>;
 };

@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebar: {
     minWidth: "290px",
-    paddingBottom: "24px",
     boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px !important",
     borderRadius: "8px !important",
   },
@@ -101,6 +100,14 @@ export default function UserDashboard(props) {
     () => ({
       ...dashboardMainData,
       ...accountSettings,
+      "order-details": {
+        text: "Order details",
+        icon: <ShoppingBagOutlined />,
+        link: "order-details",
+        action: {
+          text: "Order again",
+        },
+      },
     }),
     []
   );
@@ -127,7 +134,7 @@ export default function UserDashboard(props) {
           alignItems="center"
           sx={{ marginBottom: "20px" }}
         >
-          {/* <Typography sx={{ fontSize: "28px" }}>
+          <Typography sx={{ fontSize: "28px" }}>
             <span style={{ marginRight: 10 }}>
               {getTitle[part ? part : "orders"].icon}
             </span>
@@ -139,7 +146,7 @@ export default function UserDashboard(props) {
             </Button>
           ) : (
             false
-          )} */}
+          )}
         </Stack>
         <Outlet />
       </div>

@@ -1,6 +1,6 @@
 import Home from "./pages/Home";
 import SalePage from "./pages/salepage";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import UserDashboard from "./pages/UserDashboard";
 import MainThemeProvider from "./Theme/ThemeContext";
 import Header from "./pages/Header";
@@ -16,14 +16,20 @@ import {
 import AllVendors from "./pages/Vendors/AllVendors";
 import VendorOwnPage from "./pages/Vendors/OwnVendorPage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import SignIn from "./pages/Login/SignIn";
+import SignUp from "./pages/Login/SignUp";
 import VendorDashboard from "./pages/VendorDashboard";
 import {
   AddProduct,
   Dashboard,
+  EditProduct,
+  ProductForm,
   VendorOrders,
   VendorProducts,
   VendorSettings,
 } from "./components/DashboardComponents/VendorDashboard";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +40,8 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/salepage" element={<SalePage />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />
@@ -47,8 +55,10 @@ export default function App() {
           <Route exact path="/vendor-dashboard" element={<VendorDashboard />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<VendorProducts />} />
+            <Route path="edit-product" element={<EditProduct />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="orders" element={<VendorOrders />} />
+            <Route path="order-info" element={<div>My orders</div>} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
           <Route path="/vendor" element={<VendorOwnPage />} />

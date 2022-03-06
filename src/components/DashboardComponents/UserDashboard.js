@@ -139,7 +139,6 @@ function DashboardList({ listData }) {
         return (
           <NavLink
             key={text}
-            state={{ link }}
             to={link}
             className={({ isActive }) =>
               isActive ? classes.activeStyle : undefined
@@ -258,18 +257,7 @@ function UserOrders() {
 function OrderDetails() {
   const classes = useStyles();
   return (
-    <div style={{ padding: "24px" }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h5">
-          <span style={{ marginRight: "14px" }}>
-            <ShoppingBagOutlined />
-          </span>
-          Order Details
-        </Typography>
-        <Button className={classes.btn} variant="outlined" color="error">
-          Order Again
-        </Button>
-      </Stack>
+    <div>
       <Paper elevation={1} sx={{ marginTop: "20px", padding: "40px 24px" }}>
         <CustomizedSteppers />
       </Paper>
@@ -572,6 +560,7 @@ function UserProfile() {
     </div>
   );
 }
+
 function UserAddress() {
   const classes = useStyles();
   const orders = [
@@ -617,6 +606,7 @@ function UserAddress() {
     </div>
   );
 }
+
 function UserPayment() {
   const classes = useStyles();
   const orders = [

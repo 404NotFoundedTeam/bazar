@@ -8,6 +8,7 @@ import {
   Zoom,
   Button,
   Box,
+  ListItemButton,
 } from "@mui/material";
 
 import { BiCategory } from "react-icons/bi";
@@ -16,6 +17,11 @@ import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 
 const Categories = ({ variant = "big" }) => {
   const [show, setShow] = useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
   return (
     <>
       <Button
@@ -57,31 +63,28 @@ const Categories = ({ variant = "big" }) => {
             boxShadow: (theme) => theme.shadowsHeader.header,
           }}
         >
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <FaAccusoft />
-              </ListItemIcon>
-              <ListItemText primary="Single-line item" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <FaAccusoft />
-              </ListItemIcon>
-              <ListItemText primary="Single-line item" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <FaAccusoft />
-              </ListItemIcon>
-              <ListItemText primary="Single-line item" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <FaAccusoft />
-              </ListItemIcon>
-              <ListItemText primary="Single-line item" />
-            </ListItem>
+          <List
+            component="nav"
+            aria-label="main mailbox folders"
+            sx={{
+              "& .Mui-selected": {
+                // bgcolor: (theme) => theme.palette.error.light,
+                color: (theme) => theme.palette.error.main,
+              },
+            }}
+          >
+            <ListItemButton
+              selected={selectedIndex === 0}
+              onClick={(event) => handleListItemClick(event, 0)}
+            >
+              <ListItemText primary="Inbox" />
+            </ListItemButton>
+            <ListItemButton
+              selected={selectedIndex === 1}
+              onClick={(event) => handleListItemClick(event, 1)}
+            >
+              <ListItemText primary="Drafts" />
+            </ListItemButton>
           </List>
         </Box>
       </Zoom>
