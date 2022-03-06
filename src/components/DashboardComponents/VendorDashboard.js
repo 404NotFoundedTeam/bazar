@@ -22,7 +22,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { dispatch, store } from "../../redux/store";
 import { nanoid } from "nanoid";
@@ -479,6 +479,127 @@ export const ProductForm = ({ defVal, formType, message }) => {
 export const VendorSettings = () => {
   return <div>"hello world" what is goin on</div>;
 };
+
 export const VendorOrders = () => {
-  return <div>"hello world" what is goin on</div>;
+  const classes = useStyles();
+  const orders = [
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+    {
+      order_id: "12sdj2",
+      status: "pending",
+      date: new Date(),
+      total: 340,
+    },
+  ];
+  const [currentOrders, setCurrentOrders] = useState(orders);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage, setOrdersPerPage] = useState(5);
+
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const presentOrders = currentOrders.slice(
+    indexOfFirstOrder,
+    indexOfLastOrder
+  );
+  const pageNumbers = Math.ceil(currentOrders.length / ordersPerPage);
+  return (
+    <div>
+      <Paper className={classes.tableHeader} elevation={0}>
+        <Typography
+          sx={{ display: { xs: "none !important", sm: "flex !important" } }}
+        >
+          Order #
+        </Typography>
+        <Typography>Status</Typography>
+        <Typography>Date</Typography>
+        <Typography>Total</Typography>
+        <Typography
+          sx={{
+            display: { xs: "none !important", sm: "flex !important" },
+          }}
+        ></Typography>
+      </Paper>
+      <div className={classes.ordersBox}>
+        {presentOrders.map((order) => {
+          return (
+            <Link to="../order-info" state={JSON.stringify(order)}>
+              <Paper elevation={1}>
+                <Typography
+                  sx={{
+                    display: { xs: "none !important", sm: "flex !important" },
+                  }}
+                >
+                  {order.order_id}
+                </Typography>
+                <Typography>
+                  <p>{order.status}</p>
+                </Typography>
+                <Typography>{order.date.toLocaleDateString()}</Typography>
+                <Typography>${order.total.toFixed(2)}</Typography>
+                <Typography
+                  color="textSecondary"
+                  sx={{
+                    display: { xs: "none !important", sm: "flex !important" },
+                  }}
+                >
+                  <ArrowRightAlt />
+                </Typography>
+              </Paper>
+            </Link>
+          );
+        })}
+      </div>
+      <Pagination
+        className={classes.pagination}
+        onChange={(e, page) => setCurrentPage(page)}
+        variant="outlined"
+        count={pageNumbers}
+      ></Pagination>
+    </div>
+  );
+};
+
+export const VendorOrderDetails = () => {
+  return <div></div>;
 };

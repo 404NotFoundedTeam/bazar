@@ -9,7 +9,7 @@ const vendorState = {
     id: 0,
     balance: 10000,
     dailyBalance: 500,
-    orders: [],
+    orders: [0],
     countries: [],
     products: [1],
     monitorDay: new Date().getDay(),
@@ -46,7 +46,6 @@ const VendorReducer = (state = vendorState, action) => {
     case DELETE_PRODUCT_FV:
       let newProducts = state[action.payload.vendorId].products;
       newProducts.splice(newProducts.indexOf(action.payload.productId), 1);
-
     default:
       return state;
   }

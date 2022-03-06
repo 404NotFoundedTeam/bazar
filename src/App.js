@@ -58,6 +58,7 @@ export default function App() {
             <Route path="edit-product" element={<EditProduct />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="orders" element={<VendorOrders />} />
+            <Route path="order-info" element={<div>My orders</div>} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
           <Route path="/vendor" element={<VendorOwnPage />} />

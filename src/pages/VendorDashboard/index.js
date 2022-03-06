@@ -86,6 +86,15 @@ export default function VendorDashboard(props) {
         func: () => navigate("/vendor-dashboard/products"),
       },
     },
+    "order-info": {
+      text: "Order details",
+      icon: <AssignmentOutlinedIcon />,
+      link: "order-info",
+      action: {
+        text: "Back to orders list",
+        func: () => navigate("/vendor-dashboard/orders"),
+      },
+    },
   };
   return (
     <div style={{ padding: "24px" }}>
