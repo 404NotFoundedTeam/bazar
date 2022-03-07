@@ -11,13 +11,18 @@ const vendorState = {
     dailyBalance: 500,
     orders: [0],
     countries: [],
-    products: [1],
+    products: [3, "watch1", 5],
     monitorDay: new Date().getDay(),
     avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
     img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
     vendorName: "Salauat Yerejepov",
     location: "Allisher Navoiy street 109 , Tashkent city",
     phoneNumber: "(90)651-02-93",
+    rated: 10,
+    star: 20,
+    rating: function () {
+      return (this.star / this.rated).toFixed(1);
+    },
     socail_links: {
       twitter: "https://www.google.com/",
       facebook: "https://www.facebook.com/salauat.erejepov.3",
