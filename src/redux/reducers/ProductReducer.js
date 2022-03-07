@@ -36,15 +36,15 @@ const productState = {
   },
   watch1: {
     name: "Watch",
-    brand: "Mi",
-    price: 200,
+    brand: "Kingnous",
+    price: 100,
     stock: 10,
     seller: "Good zone1",
-    category: "category2",
+    category: "watches",
     rated: 2,
     star: 10,
     productsImg:
-      "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      "https://avatars.mds.yandex.net/i?id=102fa698daf7cae6f8048f576dd4b8c2-5911222-images-thumbs&n=13",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
@@ -69,14 +69,30 @@ const productState = {
   5: {
     name: "Redmi 9 A",
     brand: "Mi",
-    category: "Phones",
+    category: "phones",
     price: 400,
     stock: 10,
     seller: "Good zone3",
     rated: 20,
     star: 60,
     productsImg:
-      "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      "https://avatars.mds.yandex.net/i?id=74108ca467f6156c0cb44a52503e4ed5-5234070-images-thumbs&n=13",
+    rating: function () {
+      return (this.star / this.rated).toFixed(1);
+    },
+    off: 0,
+  },
+  3: {
+    name: "Samsung S21",
+    brand: "Samsung",
+    category: "phones",
+    price: 880,
+    stock: 10,
+    seller: "Good zone3",
+    rated: 20,
+    star: 80,
+    productsImg:
+      "https://avatars.mds.yandex.net/i?id=8e954a90deba43122bc9a685ead9105d-5887122-images-thumbs&n=13",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },

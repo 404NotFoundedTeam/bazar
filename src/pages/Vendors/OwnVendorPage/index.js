@@ -25,6 +25,7 @@ export default function VendorOwnPage() {
   // vendors reducer
   const obj = useSelector((state) => state.vendors[`${vendorId?.id}`]);
   const categories = useSelector((state) => state.categories.categories);
+  const brands = useSelector((state) => state.brands);
 
   const data = obj.products || [];
 
@@ -40,10 +41,14 @@ export default function VendorOwnPage() {
   const ctgryProducts = [];
 
   data.map((id) => {
-    // ownBrands.push(database.products[id].brand);
-    console.log(categories[id], ` categories${id}`);
+    const category_id = allProducts[id].category;
+    const brand_id = allProducts[id].brand;
 
-    ctgryProducts.push(categories[id]?.name);
+    console.log(brand_id, "  brand_id");
+    console.log(brands, "  brands");
+
+    ownBrands.push(brands[brand_id]);
+    ctgryProducts.push(categories[category_id]?.name);
   });
 
   console.log(ctgryProducts, " ctgryProducts");
