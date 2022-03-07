@@ -15,6 +15,7 @@ const AsideCart = ({ open }) => {
   const navigate = useNavigate();
   const korzina = useSelector((state) => state.user.korzina);
   const cart = Object.entries(korzina);
+  const cartProducsSum = cart.length;
   const products = useSelector((state) => state.products);
   const [sum, setSum] = useState(0);
   useEffect(() => {
@@ -68,9 +69,16 @@ const AsideCart = ({ open }) => {
             alignItems={"center"}
           >
             <ShoppingBagOutlined />
-            <Typography ml={2}>{cart.length} Item</Typography>
+            <Typography ml={2}>{cartProducsSum} Item</Typography>
           </Box>
-          <Box sx={{ px: 2, flex: 1, overflow: "auto" }}>
+          <Box
+            sx={{
+              px: 2,
+              flex: 1,
+              overflow: "auto",
+              display: cartProducsSum === 0 ? "none" : "block",
+            }}
+          >
             {cart.map((element, i) => {
               const item = products[element[0]];
               return (
@@ -129,7 +137,7 @@ const AsideCart = ({ open }) => {
               );
             })}
           </Box>
-          <Box px={2} pt={1}>
+          <Box px={2} pt={1} display={cartProducsSum === 0 ? "none" : "block"}>
             <Button
               size={"large"}
               fullWidth
@@ -154,6 +162,34 @@ const AsideCart = ({ open }) => {
             >
               View Cart
             </Button>
+          </Box>
+          <Box
+            sx={{
+              flex: 1,
+              marginTop: "-50px",
+              display: cartProducsSum === 0 ? "flex" : "none",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <img
+              style={{ width: "100%", maxWidth: "100px" }}
+              alt="free bag"
+              src="https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Flogos%2Fshopping-bag.svg&w=96&q=75"
+            />
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "#999",
+                width: "100%",
+                maxWidth: "200px",
+                fontSize: "14px",
+                mt: 3,
+              }}
+            >
+              Your shopping bag is empty. Start shopping
+            </Typography>
           </Box>
         </Box>
       </Slide>
