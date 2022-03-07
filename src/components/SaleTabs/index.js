@@ -1,22 +1,7 @@
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {
-  FaAddressBook,
-  FaBasketballBall,
-  FaClock,
-  FaCouch,
-  FaCreativeCommonsNcEu,
-  FaPhotoVideo,
-  FaTshirt,
-} from "react-icons/fa";
 
-import {
-  GiBabyBottle,
-  GiCarWheel,
-  GiDrill,
-  GiPhotoCamera,
-} from "react-icons/gi";
 import { useSelector } from "react-redux";
 
 export default function SaleTab() {
@@ -34,16 +19,15 @@ export default function SaleTab() {
   };
 
   return (
-    <Tabs value={value} onChange={handleChange}>
+    <Tabs value={value} color={"error"} onChange={handleChange}>
       {currentCategory.map((item, index) => (
         <Tab
           key={index}
           sx={{
             fontSize: "14px",
-            color: "red",
             pt: 3,
           }}
-          icon={<FaTshirt />}
+          icon={item.icon}
           label={item.name}
         />
       ))}
