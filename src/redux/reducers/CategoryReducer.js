@@ -6,16 +6,16 @@ const categoryState = {
       name: "category1",
       brands: [" group1  ", "group2"],
     },
-    1: {
-      name: "category1",
-      brands: [" group1  ", "group2"],
-    },
     2: {
       name: "category2",
       brands: [" group1  ", "group2"],
     },
-    watch1: {
+    watches: {
       name: "watches",
+      brands: [" group1  ", "group2"],
+    },
+    phones: {
+      name: "phones",
       brands: [" group1  ", "group2"],
     },
   },

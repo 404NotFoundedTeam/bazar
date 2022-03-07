@@ -54,7 +54,7 @@ export default function CheckboxesGroup({ ownBrands }) {
                   name={item.name}
                 />
               }
-              label={item}
+              label={item.name}
             />
           ))}
         </FormGroup>
