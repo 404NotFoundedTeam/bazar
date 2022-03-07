@@ -148,6 +148,7 @@ function Home() {
   ];
 
   const products = useSelector((state) => state.products);
+  const productsArr = Object.entries(products);
   return (
     <>
       <HomeWrapper className="py-5 bg-white text-[#2B3445]">
@@ -195,11 +196,13 @@ function Home() {
               link={"#"}
               icon={<AiFillThunderbolt />}
             >
-              <Box>
-                {/* {products.map((item, i) => (
-                  <MainCard key={i} data={item} />
-                ))} */}
-              </Box>
+              <Grid container spacing={3}>
+                {productsArr.slice(0, 4).map((item, i) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <MainCard key={i} data={item[1]} id={item[0]} />
+                  </Grid>
+                ))}
+              </Grid>
             </HomeBlock>
             <HomeBlock title={"Top Categories"} link="#" icon={<BiCategory />}>
               <MySlider

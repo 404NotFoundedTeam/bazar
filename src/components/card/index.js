@@ -3,9 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import RatingSIze from "../rating";
 import { Box } from "@mui/system";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { GoPlus } from "react-icons/go";
+import { HiMinus } from "react-icons/hi";
 import { Button, Grid } from "@mui/material";
 
 export default function MainCard({ data }) {
@@ -87,13 +87,13 @@ export default function MainCard({ data }) {
                   px: "8px",
                   py: "4px",
                   svg: {
-                    fontSize: "20px",
+                    fontSize: "16px",
                     fontWeight: "bold",
                   },
                 }}
                 onClick={() => setValue(value + 1)}
               >
-                <FaPlus />
+                <GoPlus />
               </Button>
 
               {value > 0 && (
@@ -117,12 +117,12 @@ export default function MainCard({ data }) {
                       px: "8px",
                       py: "4px",
                       svg: {
-                        fontSize: "20px",
+                        fontSize: "16px",
                         fontWeight: "bold",
                       },
                     }}
                   >
-                    <FaMinus />
+                    <HiMinus />
                   </Button>
                 </>
               )}
