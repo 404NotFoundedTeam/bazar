@@ -46,7 +46,7 @@ export default function AllVendors({ obj }) {
         <Grid container spacing={3}>
           {presentVendors.map((item, i) => {
             return (
-              <Grid item xs={12} sm={6} md={6} lg={4} sx={{ margin: "auto" }}>
+              <Grid item xs={12} sm={6} md={6} lg={4}>
                 <VendorCard obj={item[1]} key={i} />
               </Grid>
             );

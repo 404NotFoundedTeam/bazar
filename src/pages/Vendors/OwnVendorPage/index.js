@@ -1,5 +1,5 @@
 import { Box, Container, Drawer, Grid, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainCard from "../../../components/card";
 import MediaCard from "./mainSection";
 import SideBar from "./SideBar/index";
@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 
 export default function VendorOwnPage() {
   const [isOpen, setIsOpen] = useState(false);
+  const [products, setProducts] = useState([]);
   const vendorId = useParams();
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -21,6 +22,8 @@ export default function VendorOwnPage() {
     }
     setIsOpen(open);
   };
+
+  //
 
   // vendors reducer
   const obj = useSelector((state) => state.vendors[`${vendorId?.id}`]);
@@ -34,7 +37,12 @@ export default function VendorOwnPage() {
     console.log(state);
     return state.products;
   });
-  console.log(allProducts, " allProducts");
+
+  useEffect(() => {
+    const temp = [];
+    data.map((id) => temp.push(allProducts[`${id}`]));
+    setProducts(temp);
+  }, []);
 
   // categories and brands
   const ownBrands = [];
@@ -44,19 +52,14 @@ export default function VendorOwnPage() {
     const category_id = allProducts[id].category;
     const brand_id = allProducts[id].brand;
 
-    console.log(brand_id, "  brand_id");
-    console.log(brands, "  brands");
-
     ownBrands.push(brands[brand_id]);
     ctgryProducts.push(categories[category_id]?.name);
   });
 
-  console.log(ctgryProducts, " ctgryProducts");
-
   const noDuplicateownBrands = [...new Set(ownBrands)];
   const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
 
-  console.log(noDuplicateCtgryProducts, " noDuplicateCtgryProducts");
+  console.log(products);
 
   return (
     <Container
@@ -110,9 +113,14 @@ export default function VendorOwnPage() {
         </Grid>
         <Grid item lg={9} md={8} sm={12}>
           <Grid container spacing={2}>
-            {data.map((id) => (
+            {/* {data.map((id) => (
               <Grid key={id} item lg={4} md={6} sm={6} xs={12}>
                 <MainCard key={id} data={allProducts[`${id}`]} />
+              </Grid>
+            ))} */}
+            {products.map((item, index) => (
+              <Grid key={index} item lg={4} md={6} sm={6} xs={12}>
+                <MainCard key={index} data={item} />
               </Grid>
             ))}
           </Grid>
