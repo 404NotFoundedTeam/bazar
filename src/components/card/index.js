@@ -10,10 +10,6 @@ import { Button, Grid } from "@mui/material";
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0);
-<<<<<<< HEAD
-=======
-
->>>>>>> 006046e099e6ce011358b23515a4bdb0312d27dd
   return (
     <Card
       sx={{
