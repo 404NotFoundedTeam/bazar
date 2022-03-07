@@ -3,10 +3,12 @@ import { Button, Grow, IconButton, Slide, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import PlusBtn from "../../components/PlusBtn";
 import { changeOpenCart } from "../../redux/actions/userActions";
 
 const AsideCart = ({ open }) => {
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.user.korzina);
   const [sum, setSum] = useState(0);
   useEffect(() => {
@@ -75,7 +77,7 @@ const AsideCart = ({ open }) => {
                     >
                       {item.soni}
                     </Typography>
-                    <PlusBtn type={false} disabled={item.soni === 1}/>
+                    <PlusBtn type={false} disabled={item.soni === 1} />
                   </Box>
                   <img
                     style={{ width: "100px", marginLeft: "10px" }}
