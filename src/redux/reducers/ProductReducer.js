@@ -1,6 +1,23 @@
 import { ADD_PRODUCT, DELETE_PRODUCT } from "../types";
 
 const productState = {
+  0: {
+    id: 0,
+    name: "Watch",
+    brand: "Mi",
+    price: 200,
+    off: 0,
+    stock: 10,
+    vendor: "vendor-id",
+    category: "Notebooks",
+    description: "product information",
+    rated: 20,
+    star: 80,
+    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    rating: function () {
+      return (this.star / this.rated).toFixed(1);
+    },
+  },
   1: {
     id: 1,
     name: "Watch",

@@ -27,9 +27,11 @@ import {
   VendorOrders,
   VendorProducts,
   VendorSettings,
+  VendorOrderDetails,
 } from "./components/DashboardComponents/VendorDashboard";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import Checkout from "./components/stepper/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -52,18 +54,20 @@ export default function App() {
             <Route path="addresses" element={<UserAddress />} />
             <Route path="payment-methods" element={<UserPayment />} />
           </Route>
+          <Route path="cart" element={<Checkout />} />
           <Route exact path="/vendor-dashboard" element={<VendorDashboard />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<VendorProducts />} />
             <Route path="edit-product" element={<EditProduct />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="orders" element={<VendorOrders />} />
-            <Route path="order-info" element={<div>My orders</div>} />
+            <Route path="order-info" element={<VendorOrderDetails />} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
           <Route path="/vendor" element={<VendorOwnPage />} />
           <Route path="/allVendor" element={<AllVendors />} />
           <Route path="/vendor/:id" element={<VendorOwnPage />} />
+          <Route path="*" element={<p>Hello 404</p>} />
         </Routes>
       </MainThemeProvider>
     </QueryClientProvider>

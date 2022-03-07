@@ -25,12 +25,16 @@ import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { dispatch, store } from "../../redux/store";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { nanoid } from "nanoid";
 import {
   addNewProduct,
   addNewProductToVendor,
+  deleteOrderProduct,
   deleteProduct,
+  updateVendor,
 } from "../../redux/actions/vendorActions";
+import { deleteOrder, updateOrder } from "../../redux/actions/orderActions";
 
 const useStyles = makeStyles((theme) => ({
   activeStyle: {
@@ -476,63 +480,15 @@ export const ProductForm = ({ defVal, formType, message }) => {
   );
 };
 
-export const VendorSettings = () => {
-  return <div>"hello world" what is goin on</div>;
-};
-
 export const VendorOrders = () => {
   const classes = useStyles();
-  const orders = [
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date(),
-      total: 340,
-    },
-  ];
-  const [currentOrders, setCurrentOrders] = useState(orders);
+  const orders = useSelector((state) => state.orders);
+  const vendors = useSelector((state) => state.vendors);
+  const vendorOrders = vendors[0].orders;
+  const filteredOrders = [];
+  for (let i = 0; i < vendorOrders.length; i++)
+    filteredOrders.push(orders[vendorOrders[i]]);
+  const [currentOrders, setCurrentOrders] = useState([...filteredOrders]);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(5);
 
@@ -561,34 +517,43 @@ export const VendorOrders = () => {
         ></Typography>
       </Paper>
       <div className={classes.ordersBox}>
-        {presentOrders.map((order) => {
-          return (
-            <Link to="../order-info" state={JSON.stringify(order)}>
-              <Paper elevation={1}>
-                <Typography
-                  sx={{
-                    display: { xs: "none !important", sm: "flex !important" },
-                  }}
-                >
-                  {order.order_id}
-                </Typography>
-                <Typography>
-                  <p>{order.status}</p>
-                </Typography>
-                <Typography>{order.date.toLocaleDateString()}</Typography>
-                <Typography>${order.total.toFixed(2)}</Typography>
-                <Typography
-                  color="textSecondary"
-                  sx={{
-                    display: { xs: "none !important", sm: "flex !important" },
-                  }}
-                >
-                  <ArrowRightAlt />
-                </Typography>
-              </Paper>
-            </Link>
-          );
-        })}
+        {presentOrders &&
+          presentOrders.map((order) => {
+            return (
+              order && (
+                <Link to="../order-info" state={`${order.id}`}>
+                  <Paper elevation={1}>
+                    <Typography
+                      sx={{
+                        display: {
+                          xs: "none !important",
+                          sm: "flex !important",
+                        },
+                      }}
+                    >
+                      {order.id}
+                    </Typography>
+                    <Typography>
+                      <span>{order.status}</span>
+                    </Typography>
+                    <Typography>{order.date.toLocaleDateString()}</Typography>
+                    <Typography>${order.total()}</Typography>
+                    <Typography
+                      color="textSecondary"
+                      sx={{
+                        display: {
+                          xs: "none !important",
+                          sm: "flex !important",
+                        },
+                      }}
+                    >
+                      <ArrowRightAlt />
+                    </Typography>
+                  </Paper>
+                </Link>
+              )
+            );
+          })}
       </div>
       <Pagination
         className={classes.pagination}
@@ -601,5 +566,315 @@ export const VendorOrders = () => {
 };
 
 export const VendorOrderDetails = () => {
-  return <div></div>;
+  const [open, setOpen] = useState(false);
+  const orders = useSelector((state) => state.orders);
+  const products = useSelector((state) => state.products);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const defVal = orders[location.state];
+  let sum = 0;
+  const productAmount = Object.entries(defVal.products).map(([id, amount]) => {
+    sum += products[id].price * amount;
+    return [products[id], amount];
+  });
+
+  const vendorId = 0;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+  const onSubmit = (data) => {
+    data = {
+      ...data,
+      id: defVal.id,
+      products: defVal.products,
+      date: defVal.date,
+      total: function () {
+        return this.price - (this.price * this.off) / 100 + this.shipping;
+      },
+    };
+    updateOrder({ orderId: defVal.id, orderInfo: data });
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={"Saved"}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
+      <Paper sx={{ padding: "24px" }}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          flexWrap="wrap"
+        >
+          <Stack direction="row" spacing={2}>
+            <span>Order ID: {defVal.id}</span>
+            <span>Placed on: {defVal.date.toDateString()}</span>
+          </Stack>
+          <FormControl sx={{ width: 200 }}>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+              {...register("status", { required: true })}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Category"
+              fullWidth
+              error={errors["status"]}
+              defaultValue={defVal.status}
+            >
+              <MenuItem value={"delivered"}>Delivered</MenuItem>
+              <MenuItem value={"pending"}>Pending</MenuItem>
+            </Select>
+          </FormControl>
+        </Stack>
+        {productAmount.map(([product, amount]) => {
+          return (
+            <Paper sx={{ padding: "10px", marginTop: "15px" }}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                spacing={2}
+              >
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <img
+                    src={product.img}
+                    alt=""
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <span>{product.name}</span>
+                  <span>x</span>
+                  <span>{amount}</span>
+                  <span>=</span>
+                  <span>${amount * product.price}</span>
+                </Stack>
+                {/* <IconButton
+                  aria-label="delete"
+                  onClick={() => {
+                    let data = productAmount.filter(
+                      ([item, amount]) => item.id != product.id
+                    );
+                    deleteOrderProduct({
+                      orderId: defVal.id,
+                      data: Object.fromEntries(data),
+                    });
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton> */}
+              </Stack>
+            </Paper>
+          );
+        })}
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("address", { required: true })}
+            id="outlined-required"
+            label="Address"
+            fullWidth
+            error={errors["address"]}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              type="number"
+              defaultValue={sum}
+              {...register("price", { required: true })}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              label="Price"
+              error={errors["price"]}
+            />
+          </FormControl>
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            label="Discount"
+            type="number"
+            {...register("off", { required: true })}
+            id="outlined-start-adornment"
+            InputProps={{
+              endAdornment: <InputAdornment position="start">%</InputAdornment>,
+            }}
+            fullWidth
+            error={errors["off"]}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="outlined-adornment-amount">
+              Shipment
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              type="number"
+              {...register("shipping", { required: true })}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              label="Price"
+              error={errors["shipping"]}
+            />
+          </FormControl>
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("payment", { required: true })}
+            id="outlined-required"
+            label="Name"
+            fullWidth
+            error={errors["payment"]}
+          />
+        </div>
+        <Stack
+          direction="row"
+          alignItems="center"
+          style={{ marginTop: "15px" }}
+        >
+          <Button type="submit" variant="contained" color="error">
+            Save
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{ marginLeft: "15px" }}
+            onClick={() => {
+              deleteOrder({ orderId: defVal.id });
+              navigate("../orders");
+            }}
+          >
+            Delete
+          </Button>
+        </Stack>
+      </Paper>
+    </form>
+  );
+};
+
+export const VendorSettings = () => {
+  const [open, setOpen] = useState(false);
+  const vendors = useSelector((state) => state.vendors);
+  const defVal = vendors[0];
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+  const onSubmit = (data) => {
+    data = {
+      ...defVal,
+      ...data,
+    };
+    console.log(data);
+    updateVendor({ vendorId: defVal.id, vendorInfo: data });
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={"Saved"}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
+      <Paper style={{ padding: "20px" }}>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("vendorName", { required: true })}
+            id="outlined-required"
+            label="Name"
+            fullWidth
+            error={errors["vendorName"]}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("phoneNumber", { required: true })}
+            id="outlined-required"
+            label="Phone number"
+            fullWidth
+            error={errors["phoneNumber"]}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("location", { required: true })}
+            id="outlined-required"
+            label="Location"
+            fullWidth
+            error={errors["location"]}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("img", { required: true })}
+            id="outlined-required"
+            label="Wallpaper"
+            fullWidth
+            error={errors["img"]}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>
+          <TextField
+            {...register("avaImg", { required: true })}
+            id="outlined-required"
+            label="Avatar"
+            fullWidth
+            error={errors["avaImg"]}
+          />
+        </div>
+        {Object.entries(defVal.socialLinks).map(([name, link]) => {
+          return (
+            <div style={{ marginTop: "15px" }}>
+              <TextField
+                {...register(name, { required: true })}
+                id="outlined-required"
+                label={name}
+                fullWidth
+                error={errors[name]}
+                defaultValue={link}
+              />
+            </div>
+          );
+        })}
+        <div style={{ marginTop: "15px" }}>
+          <Button type="submit" variant="contained" color="error">
+            Save
+          </Button>
+        </div>
+      </Paper>
+    </form>
+  );
 };

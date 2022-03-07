@@ -19,6 +19,7 @@ import { nanoid } from "nanoid";
 import ProductCards from "./ProductCards";
 import PaymentCard from "./PaymentCard";
 import Payment from "./Payment";
+import { useNavigate } from "react-router-dom";
 
 const steps = ["Cart", "Details", "Payment", "Review"];
 
@@ -30,14 +31,14 @@ function getStepContent(step) {
       return <PaymentForm />;
     case 2:
       return <Payment />;
-    case 3:
-      return <Review />;
+    // case 3:
+    //   return <Review />;
     case 5:
       return <PaymentCard />;
     case 10:
       return <PaymentCard />;
-    case 15:
-      return <PaymentCard />;
+    // case 15:
+    //   return <PaymentCard />;
     default:
       throw new Error("Unknown step");
   }
@@ -46,6 +47,8 @@ function getStepContent(step) {
 const theme = createTheme();
 
 export default function Checkout() {
+  const navigate = useNavigate();
+
   const [data, setData] = React.useState([
     {
       id: nanoid(),
@@ -111,7 +114,7 @@ export default function Checkout() {
                 </Step>
               ))}
             </Stepper>
-            {console.log(activeStep === steps.length)}
+            {/* {console.log(activeStep === steps.length)} */}
 
             {activeStep === 0 ? (
               <React.Fragment>

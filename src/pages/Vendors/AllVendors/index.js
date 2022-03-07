@@ -27,7 +27,7 @@ export default function AllVendors({ obj }) {
     indexOfLastOrder
   );
   const pageNumbers = Math.ceil(currentVendors.length / vendorsPerPage);
-
+  // jvaklewfhuWIL
   return (
     <Container>
       <Box>

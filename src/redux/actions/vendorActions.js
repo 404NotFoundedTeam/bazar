@@ -1,5 +1,11 @@
 import { dispatch } from "../store";
-import { ADD_PRODUCT, ADD_PRODUCT_TO_VENDOR, DELETE_PRODUCT } from "../types";
+import {
+  ADD_PRODUCT,
+  ADD_PRODUCT_TO_VENDOR,
+  DELETE_ORDER_PRODUCT,
+  DELETE_PRODUCT,
+  UPDATE_VENDOR_PROFILE,
+} from "../types";
 
 export const addNewProduct = (action) => {
   dispatch({ type: ADD_PRODUCT, payload: action });
@@ -11,4 +17,12 @@ export const addNewProductToVendor = (data) => {
 
 export const deleteProduct = (data) => {
   dispatch({ type: DELETE_PRODUCT, payload: data });
+};
+
+export const deleteOrderProduct = (data) => {
+  dispatch({ type: DELETE_ORDER_PRODUCT, payload: data });
+};
+
+export const updateVendor = (data) => {
+  dispatch({ type: UPDATE_VENDOR_PROFILE, payload: data });
 };
