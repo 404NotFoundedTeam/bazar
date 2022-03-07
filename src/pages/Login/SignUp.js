@@ -28,9 +28,6 @@ export default function SignUp() {
       title: "Password",
       options: { required: true },
     },
-    {
-      type: "select",
-    },
   ];
   const onSubmit = (data) => {
     console.log(data);
