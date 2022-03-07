@@ -8,12 +8,13 @@ import { changeOpenCart } from "../../redux/actions/userActions";
 
 const AsideCart = ({ open }) => {
   const cart = useSelector((state) => state.user.korzina);
-  const sum = 0;
+  const [sum, setSum] = useState(0);
   useEffect(() => {
-    sum = 0;
-    cart.map((i) => {
-      sum += i.price * i.soni;
+    let s = 0;
+    cart.forEach((i) => {
+      s += i.price * i.soni;
     });
+    setSum(s);
   }, [cart]);
   return (
     <>
@@ -74,7 +75,7 @@ const AsideCart = ({ open }) => {
                     >
                       {item.soni}
                     </Typography>
-                    <PlusBtn type={false} />
+                    <PlusBtn type={false} disabled={item.soni === 1}/>
                   </Box>
                   <img
                     style={{ width: "100px", marginLeft: "10px" }}
