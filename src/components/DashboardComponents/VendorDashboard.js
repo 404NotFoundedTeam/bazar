@@ -337,6 +337,7 @@ export const ProductForm = ({ defVal, formType, message }) => {
     setOpen(true);
     setTimeout(() => setOpen(false), 3000);
   };
+  const categories = useSelector((state) => state.categories.categories);
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
       <TransitionAlerts
@@ -399,9 +400,11 @@ export const ProductForm = ({ defVal, formType, message }) => {
                 error={errors["category"]}
                 defaultValue={defVal ? defVal.category : null}
               >
-                <MenuItem value={"Notebooks"}>Notebooks</MenuItem>
-                <MenuItem value={"Home Appliances"}>Home appliances</MenuItem>
-                <MenuItem value={"Mobile phones"}>Mobile phones</MenuItem>
+                {Object.entries(categories).map((item, i) => (
+                  <MenuItem key={i} value={item[0]}>
+                    {item[1].name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
