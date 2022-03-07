@@ -90,22 +90,22 @@ export default function MediaCard({ obj }) {
                 <SocialLink
                   bgColor="rgb(59, 89, 152)"
                   icon={<FacebookIcon />}
-                  item={obj.socail_links.facebook}
+                  item={obj.socialLinks.facebook}
                 />
                 <SocialLink
                   bgColor="rgb(0, 172, 238)"
                   icon={<TwitterIcon />}
-                  item={obj.socail_links.twitter}
+                  item={obj.socialLinks.twitter}
                 />
                 <SocialLink
                   bgColor="rgb(255, 0, 0)"
                   icon={<YouTubeIcon />}
-                  item={obj.socail_links.instagram}
+                  item={obj.socialLinks.instagram}
                 />
                 <SocialLink
                   bgColor="rgb(225, 48, 108)"
                   icon={<InstagramIcon />}
-                  item={obj.socail_links.twitter}
+                  item={obj.socialLinks.twitter}
                 />
               </ButtonGroup>
             </Box>

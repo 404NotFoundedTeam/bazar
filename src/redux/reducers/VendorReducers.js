@@ -19,6 +19,11 @@ const vendorState = {
     vendorName: "Salauat Yerejepov",
     location: "Allisher Navoiy street 109 , Tashkent city",
     phoneNumber: "(90)651-02-93",
+    rated: 10,
+    star: 50,
+    rating: function () {
+      return (this.star / this.rated).toFixed(1);
+    },
     socialLinks: {
       twitter: "https://www.google.com/",
       facebook: "https://www.facebook.com/salauat.erejepov.3",
