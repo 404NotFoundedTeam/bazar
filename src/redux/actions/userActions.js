@@ -7,7 +7,10 @@ export const changeOpenCart = (action) => {
 };
 
 export const changeSoniProduct = (id, isPlus) => {
-  dispatch({ type: EDITE_PRODUCT_K, payload: { id: id, isPlus: isPlus } });
+  dispatch({
+    type: EDITE_PRODUCT_K,
+    payload: { id: id, add: isPlus ? 1 : -1 },
+  });
 };
 export const deleteProduct__K = (id) => {
   dispatch({ type: DELETE_PRODUCT_K, payload: id });
