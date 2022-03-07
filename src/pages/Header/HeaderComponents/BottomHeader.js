@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import Categories from "./Categories";
@@ -25,11 +25,14 @@ const BottomHeader = () => {
             justifyContent: "space-between",
           }}
         >
-          <Grid item sx={12} md={4} lg={3} sx={{ position: "relative" }}>
+          <Grid item xs={12} md={4} lg={3} sx={{ position: "relative" }}>
             <Categories />
           </Grid>
           <Grid item>
             <Box display="flex" gap={3} component={"ul"}>
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
               <li>
                 <NavLink to="/salepage">Sale</NavLink>
               </li>
@@ -39,7 +42,6 @@ const BottomHeader = () => {
               <li>
                 <NavLink to="/vendor-dashboard">Vendor dashboard</NavLink>
               </li>
-
               <li>
                 <NavLink to="/allVendor">All Vendors</NavLink>
               </li>

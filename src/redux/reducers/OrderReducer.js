@@ -12,18 +12,22 @@ const OrdersState = {
     id: 0,
     date: new Date(),
     status: "pending",
-    total: 100,
     products: {
       1: 2,
+      0: 3,
     },
+    price: 1000,
     address: "Amir Temur",
     payment: "debit card",
     off: 10,
     shipping: 12,
+    total: function () {
+      return this.price - (this.price * this.off) / 100 + this.shipping;
+    },
   },
 };
 
-const OrdersReducer = (state = OrdersState, action) => {
+export const OrdersReducer = (state = OrdersState, action) => {
   switch (action.type) {
     case UPDATE_ORDERS:
       return {
@@ -40,13 +44,11 @@ const OrdersReducer = (state = OrdersState, action) => {
         },
       };
     case DELETE_ORDER_PRODUCT:
-      let newProducts = state[action.payload.orderId].products;
-      delete newProducts[action.payload.productId];
       return {
         ...state,
         [`${action.payload.orderId}`]: {
           ...state[action.payload.orderId],
-          products: newProducts,
+          products: { ...action.payload.data },
         },
       };
     case DELETE_ORDERS:

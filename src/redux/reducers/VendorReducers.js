@@ -18,12 +18,7 @@ const vendorState = {
     vendorName: "Salauat Yerejepov",
     location: "Allisher Navoiy street 109 , Tashkent city",
     phoneNumber: "(90)651-02-93",
-    rated: 10,
-    star: 20,
-    rating: function () {
-      return (this.star / this.rated).toFixed(1);
-    },
-    socail_links: {
+    socialLinks: {
       twitter: "https://www.google.com/",
       facebook: "https://www.facebook.com/salauat.erejepov.3",
       youtube: "https://www.youtube.com/",
@@ -48,6 +43,7 @@ const VendorReducer = (state = vendorState, action) => {
             ],
           },
         };
+
     case DELETE_PRODUCT_FV:
       let newProducts = state[action.payload.vendorId].products;
       newProducts.splice(newProducts.indexOf(action.payload.productId), 1);
