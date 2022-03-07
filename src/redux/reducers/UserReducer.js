@@ -6,7 +6,26 @@ import {
 } from "../types";
 
 const initialState = {
-  korzina: [],
+  korzina: [
+    {
+      name: "Ford 2019",
+      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
+      soni: 1,
+      price: 1000,
+    },
+    {
+      name: "Ford 2019",
+      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
+      soni: 3,
+      price: 1000,
+    },
+    {
+      name: "Ford 2020",
+      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
+      soni: 2,
+      price: 3000,
+    },
+  ],
   openCart: false,
 };
 

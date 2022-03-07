@@ -1,14 +1,23 @@
 import { Close, ShoppingBagOutlined } from "@mui/icons-material";
 import { Button, Grow, IconButton, Slide, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PlusBtn from "../../components/PlusBtn";
 import { changeOpenCart } from "../../redux/actions/userActions";
 
 const AsideCart = ({ open }) => {
   const navigate = useNavigate();
-  const cart = [];
+  const cart = useSelector((state) => state.user.korzina);
+  const [sum, setSum] = useState(0);
+  useEffect(() => {
+    let s = 0;
+    cart.forEach((i) => {
+      s += i.price * i.soni;
+    });
+    setSum(s);
+  }, [cart]);
   return (
     <>
       <Grow timeout={10} in={open}>
@@ -53,549 +62,45 @@ const AsideCart = ({ open }) => {
             alignItems={"center"}
           >
             <ShoppingBagOutlined />
-            <Typography ml={2}>0 Item</Typography>
+            <Typography ml={2}>{cart.length} Item</Typography>
           </Box>
           <Box sx={{ px: 2, flex: 1, overflow: "auto" }}>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
+            {cart.map((item, i) => (
+              <Box key={item.name + i}>
+                <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
+                  <Box display={"flex"} flexDirection="column">
+                    <PlusBtn type={true} />
+                    <Typography
+                      align="center"
+                      fontSize={"18px"}
+                      fontWeight="cold"
+                    >
+                      {item.soni}
+                    </Typography>
+                    <PlusBtn type={false} disabled={item.soni === 1} />
+                  </Box>
+                  <img
+                    style={{ width: "100px", marginLeft: "10px" }}
+                    src={item.img}
+                    alt={"car"}
+                  />
+                  <Box flex={1} px={1}>
+                    <Typography variant="p" fontWeight="600">
+                      {item.name}
+                    </Typography>
+                    <Typography lineHeight={"20px"} fontSize={"12px"}>
+                      ${item.price} x {item.soni}
+                    </Typography>
+                    <Typography color="error" variant="p" fontWeight={"600"}>
+                      ${item.price * item.soni}
+                    </Typography>
+                  </Box>
+                  <IconButton>
+                    <Close />
+                  </IconButton>
                 </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
               </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
-            <Box>
-              <Box display={"flex"} alignItems="center" sx={{ py: 2 }}>
-                <Box display={"flex"} flexDirection="column">
-                  <PlusBtn type={true} />
-                  <Typography
-                    align="center"
-                    fontSize={"18px"}
-                    fontWeight="cold"
-                  >
-                    1
-                  </Typography>
-                  <PlusBtn type={false} />
-                </Box>
-                <img
-                  style={{ width: "100px", marginLeft: "10px" }}
-                  src={
-                    "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png"
-                  }
-                  alt={"car"}
-                />
-                <Box flex={1} px={1}>
-                  <Typography variant="p" fontWeight="600">
-                    {"Ford 2019"}
-                  </Typography>
-                  <Typography lineHeight={"20px"} fontSize={"12px"}>
-                    ${"300"} x {"5"}
-                  </Typography>
-                  <Typography color="error" variant="p" fontWeight={"600"}>
-                    ${1500}
-                  </Typography>
-                </Box>
-                <IconButton>
-                  <Close />
-                </IconButton>
-              </Box>
-            </Box>
+            ))}
           </Box>
           <Box px={2} pt={1}>
             <Button
@@ -605,7 +110,7 @@ const AsideCart = ({ open }) => {
               sx={{ textTransform: "capitalize" }}
               variant="contained"
             >
-              Chechout Now (${"750"})
+              Chechout Now (${sum})
             </Button>
             <Button
               size={"large"}
