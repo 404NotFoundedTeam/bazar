@@ -14,10 +14,7 @@ export const database = {
         youtube: "https://www.youtube.com/",
         instagram: "https://www.instagram.com/e_sala29/",
       },
-      products: [1, 2, 3, 4, 5],
-      groups: ["group1", "group2"],
-      categories: ["category1", "category2"],
-      brands: ["brand1", "brand2"],
+      products: [1, 2, 3, 5],
       rated: 2,
       star: 10,
       rating: function () {
@@ -37,7 +34,7 @@ export const database = {
         youtube: "https://www.youtube.com/",
         instagram: "https://www.instagram.com/e_sala29/",
       },
-      products: [1, 5],
+      products: [1, 2, 5],
       rated: 5,
       star: 10,
       rating: function () {
@@ -200,7 +197,7 @@ export const database = {
       price: 200,
       stock: 10,
       seller: "Good zone",
-      category: "category1",
+      category: "Watches",
       rated: 20,
       star: 80,
       productsImg:
@@ -211,12 +208,12 @@ export const database = {
       off: 0,
     },
     2: {
-      name: "Watch1",
-      brand: "Mi",
+      name: "LD TV ",
+      brand: "Samsung",
       price: 200,
       stock: 10,
       seller: "Good zone",
-      category: "category2",
+      category: "Televizor",
       rated: 10,
       star: 30,
       productsImg:
@@ -259,9 +256,9 @@ export const database = {
       off: 0,
     },
     5: {
-      name: "Watch3",
+      name: "Redmi 9 A",
       brand: "Mi",
-      category: "category1",
+      category: "Phones",
       price: 400,
       stock: 10,
       seller: "Good zone3",
@@ -309,7 +306,7 @@ export const database = {
   categories: {
     category1: {
       name: "category1",
-      products: [1, 2, 3],
+      products: [1, 2],
       brands: ["brand1", "brand2"],
     },
     category2: {

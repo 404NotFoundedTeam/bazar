@@ -1,6 +1,6 @@
 import { ADD_PRODUCT } from "../types";
 
-const initState = {
+const vendorState = {
   vendors: {
     0: {
       id: 0,
@@ -20,7 +20,7 @@ const initState = {
         youtube: "https://www.youtube.com/",
         instagram: "https://www.instagram.com/e_sala29/",
       },
-      products: [1, 5],
+      products: [1, 2, 4, 3, 5],
       rated: 10,
       star: 50,
       rating: function () {
@@ -51,9 +51,7 @@ const initState = {
   },
 };
 
-const Products = () => {};
-
-const VendorReducer = (state = initState, action) => {
+const VendorReducer = (state = vendorState, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
       return {

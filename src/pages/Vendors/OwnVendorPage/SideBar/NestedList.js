@@ -51,32 +51,11 @@ export default function NestedList({ arr }) {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <ListItemButton onClick={handleClick}>
-        <ListItemText primary="Bath Preparations" />
-        {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Bubble Bath" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Bath Capsules" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Others" />
-          </ListItemButton>
-        </List>
-      </Collapse>
-      <ListItemButton>
-        <ListItemText primary="Eye Makeup Preparations" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemText primary="Fragrance" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemText primary="Hair Preparations" />
-      </ListItemButton>
+      {arr.map((text) => (
+        <ListItemButton>
+          <ListItemText primary={text} />
+        </ListItemButton>
+      ))}
     </List>
   );
 }

@@ -15,7 +15,8 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   activeStyle: {
@@ -86,7 +87,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Dashboard = () => {
-  const vendorData = [];
+  const { vendors } = useSelector((state) => state.vendors);
+  //TODO id olib kelish kere kirgan vendornikini
+  const vendor = vendors[0];
   return (
     <div>
       <Grid container spacing={2}>
@@ -102,7 +105,7 @@ export const Dashboard = () => {
               Earnings (before taxes)
             </Typography>
             <Typography variant="h4" fontWeight="bold" sx={{ my: 1 }}>
-              $30450.00
+              ${vendor.balance.toFixed(2)}
             </Typography>
             <Typography color="textSecondary">
               after associated vendor fees
@@ -119,10 +122,10 @@ export const Dashboard = () => {
           >
             <Typography color="textSecondary">Your balance</Typography>
             <Typography variant="h4" fontWeight="bold" sx={{ my: 1 }}>
-              $4000.00
+              ${vendor.dailyBalance}
             </Typography>
             <Typography color="textSecondary">
-              processed on Feb 15, 2021
+              processed on {new Date().toDateString()}
             </Typography>
           </Paper>
         </Grid>
@@ -130,7 +133,7 @@ export const Dashboard = () => {
           <Paper sx={{ padding: "24px", textAlign: "center" }}>
             <Typography color="textSecondary">Pending Orders</Typography>
             <Typography variant="h4" fontWeight="bold" sx={{ my: 1 }}>
-              08
+              {vendor.orders.length}
             </Typography>
             <Typography color="textSecondary">7/3/2020 - 8/1/2020</Typography>
           </Paper>
@@ -151,6 +154,7 @@ export const Dashboard = () => {
     </div>
   );
 };
+
 export const VendorProducts = () => {
   const classes = useStyles();
   const orders = [

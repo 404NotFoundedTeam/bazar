@@ -45,16 +45,12 @@ const useStyles = makeStyles({
   }),
 });
 
-export default function SideBar({ ownCategories, ownGroups, ownBrands }) {
-  console.log(ownBrands, "   ownBrands");
+export default function SideBar({ categories, brands }) {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
-  const { categories, groups, brands } = database;
-
-  console.log(categories, groups, brands);
 
   const props = {
     color: "rgb(43, 52, 69)",
@@ -86,7 +82,7 @@ export default function SideBar({ ownCategories, ownGroups, ownBrands }) {
       }}
     >
       <Typography className={`${classes.mainTypo}`}>Categories</Typography>
-      <NestedList />
+      <NestedList arr={categories} />
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Price Range</Typography>
@@ -99,7 +95,7 @@ export default function SideBar({ ownCategories, ownGroups, ownBrands }) {
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Brands</Typography>
-      <CheckboxesGroup ownBrands={ownBrands} />
+      <CheckboxesGroup ownBrands={brands} />
 
       <hr className={`${hrClass.hr}`} />
 

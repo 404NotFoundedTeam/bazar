@@ -22,20 +22,25 @@ export default function VendorOwnPage() {
     setIsOpen(open);
   };
 
+  // vendors reducer
   const obj = useSelector((state) => state.vendors?.vendors[`${vendorId?.id}`]);
 
   const data = obj.products || [];
 
-  const allProducts = database.products;
-  console.log(allProducts, "   allProducts");
+  //products reducer
+  const allProducts = useSelector((state) => state.products?.products);
 
-  console.log(database.seller[`seller_${vendorId?.id}`]);
+  // categories and brands
+  const ownBrands = [];
+  const ctgryProducts = [];
 
-  // const categories = database.seller[`seller_${vendorId?.id}`]["categories"];
-  // const groups = database.seller[`seller_${vendorId?.id}`].groups;
-  const brands = database.seller[`seller_${vendorId?.id}`].brands;
+  data.map((id) => {
+    ownBrands.push(database.products[id].brand);
+    ctgryProducts.push(database.products[id].category);
+  });
 
-  console.log(brands, " brand");
+  const noDuplicateownBrands = [...new Set(ownBrands)];
+  const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
 
   return (
     <Container
@@ -62,7 +67,10 @@ export default function VendorOwnPage() {
             display: { xs: "none", sm: "none", md: "block" },
           }}
         >
-          <SideBar ownBrands={brands} />
+          <SideBar
+            brands={noDuplicateownBrands}
+            categories={noDuplicateCtgryProducts}
+          />
           <Drawer
             anchor="left"
             open={isOpen}
@@ -78,7 +86,10 @@ export default function VendorOwnPage() {
               },
             }}
           >
-            <SideBar ownBrands={brands} />
+            <SideBar
+              brands={noDuplicateownBrands}
+              categories={noDuplicateCtgryProducts}
+            />
           </Drawer>
         </Grid>
         <Grid item lg={9} md={8} sm={12}>
