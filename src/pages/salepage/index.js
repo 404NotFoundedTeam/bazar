@@ -16,29 +16,26 @@ import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
 
 export default function SalePage() {
+  const [page, setPage] = useState(1);
   const reduxProducts = useSelector((state) => {
     console.log("state  = >", state.products);
     return state.products;
   });
 
-  const products = Object.values(reduxProducts);
-  const [currentProducts, setCurrentProducts] = useState(products);
-  console.log(currentProducts);
+  const currentProducts = Object.entries(reduxProducts);
 
-  // data.sort((a, b) => b.off - a.off);
-  var _ = require("lodash");
+  const _ = require("lodash");
   const data2 = _.chunk(currentProducts, 4);
 
-  const [page, setPage] = useState(0);
   return (
     <SalePageWrapper>
       <CssBaseline />
       <Container maxWidth="lg">
         <SaleTab />
         <Grid container spacing={3} sx={{ mt: 4 }}>
-          {data2[0].map((item, index) => (
+          {data2[page - 1].map((item, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3}>
-              <MainCard key={index} data={item} />
+              <MainCard key={index} data={item[1]} id={item[0]} />
             </Grid>
           ))}
         </Grid>
@@ -57,10 +54,10 @@ export default function SalePage() {
           </Typography>
           <Stack spacing={2}>
             <Pagination
-              count={currentProducts.length - data2.length}
+              count={data2.length}
               page={page}
               variant="outlined"
-              color="secondary"
+              onChange={(e, p) => setPage(p)}
             />
           </Stack>
         </Box>
