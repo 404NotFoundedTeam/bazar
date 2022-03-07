@@ -4,7 +4,7 @@ const categoryState = {
   categories: {
     category_id: {
       name: "category1",
-      brands: [" group1  ", "group2"],
+      brands: [" Apple  ", "group2"],
     },
     2: {
       name: "category2",
@@ -16,6 +16,10 @@ const categoryState = {
     },
     phones: {
       name: "phones",
+      brands: [" group1  ", "group2"],
+    },
+    category2: {
+      name: "category2",
       brands: [" group1  ", "group2"],
     },
   },

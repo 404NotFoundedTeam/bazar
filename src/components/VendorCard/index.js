@@ -22,6 +22,19 @@ export default function VendorCard({ obj }) {
       }}
       color="secondary"
     >
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(43, 52, 69, 0.8), rgba(43, 52, 69, 0.8))",
+          backdropFilter: "blur(3px)",
+          opacity: 0.15,
+          zIndex: -2,
+        }}
+      ></Box>
       <CardContent
         sx={{
           color: "#fff !important",

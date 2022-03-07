@@ -19,6 +19,9 @@ const brandState = {
   Kingnous: {
     name: "Kingnous",
   },
+  Mi2: {
+    name: "Mi2",
+  },
 };
 
 const BrandsReducer = (state = brandState, action) => {
