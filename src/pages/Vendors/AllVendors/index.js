@@ -8,7 +8,10 @@ import { useSelector } from "react-redux";
 
 export default function AllVendors({ obj }) {
   // console.log(database.seller);
-  const reduxVendors = useSelector((state) => state.vendors?.vendors);
+  const reduxVendors = useSelector((state) => {
+    console.log(state);
+    return state.vendors;
+  });
 
   const vendors = Object.entries(reduxVendors);
   console.log(reduxVendors);
