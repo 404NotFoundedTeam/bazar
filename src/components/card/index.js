@@ -13,6 +13,7 @@ import {
   addProduct__K,
   deleteProduct__K,
 } from "../../redux/actions/userActions";
+import RatingSIze from "../rating";
 
 export default function MainCard({ data, id }) {
   const cart = useSelector((state) => state.user.korzina);
@@ -79,6 +80,7 @@ export default function MainCard({ data, id }) {
               alignItems="center"
               sx={{ mt: 1 }}
             >
+              <RatingSIze score={data.rating()} />
               <Typography color="primary" variant="body1">
                 ${data.price || 0}
               </Typography>
