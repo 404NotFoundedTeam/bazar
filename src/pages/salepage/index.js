@@ -11,18 +11,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { ThemeProvider } from "@mui/system";
 import MainCard from "../../components/card";
 
 import { useSelector } from "react-redux";
-
-const saleTheme = createTheme({
-  palette: {
-    primary: {
-      main: "rgb(210, 63, 87)",
-    },
-  },
-});
 
 export default function SalePage() {
   const reduxProducts = useSelector((state) => {
@@ -40,43 +31,41 @@ export default function SalePage() {
 
   const [page, setPage] = useState(0);
   return (
-    <ThemeProvider theme={saleTheme}>
-      <SalePageWrapper>
-        <CssBaseline />
-        <Container maxWidth="lg">
-          <SaleTab />
-          {/* <Checkout /> */}
-          <Grid container spacing={3} sx={{ mt: 4 }}>
-            {data2[0].map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <MainCard key={index} data={item} />
-              </Grid>
-            ))}
-          </Grid>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              p: 1,
-              my: 5,
-              bgcolor: "background.paper",
-              borderRadius: 1,
-            }}
-          >
-            <Typography>
-              Showing {data2[0].length} of {currentProducts.length} products
-            </Typography>
-            <Stack spacing={2}>
-              <Pagination
-                count={currentProducts.length - data2.length}
-                page={page}
-                variant="outlined"
-                color="secondary"
-              />
-            </Stack>
-          </Box>
-        </Container>
-      </SalePageWrapper>
-    </ThemeProvider>
+    <SalePageWrapper>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <SaleTab />
+        {/* <Checkout /> */}
+        <Grid container spacing={3} sx={{ mt: 4 }}>
+          {data2[0].map((item, index) => (
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <MainCard key={index} data={item} />
+            </Grid>
+          ))}
+        </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            p: 1,
+            my: 5,
+            bgcolor: "background.paper",
+            borderRadius: 1,
+          }}
+        >
+          <Typography>
+            Showing {data2[0].length} of {currentProducts.length} products
+          </Typography>
+          <Stack spacing={2}>
+            <Pagination
+              count={currentProducts.length - data2.length}
+              page={page}
+              variant="outlined"
+              color="secondary"
+            />
+          </Stack>
+        </Box>
+      </Container>
+    </SalePageWrapper>
   );
 }
