@@ -23,24 +23,35 @@ export default function VendorOwnPage() {
   };
 
   // vendors reducer
-  const obj = useSelector((state) => state.vendors?.vendors[`${vendorId?.id}`]);
+  const obj = useSelector((state) => state.vendors[`${vendorId?.id}`]);
+  const categories = useSelector((state) => state.categories.categories);
 
   const data = obj.products || [];
 
   //products reducer
-  const allProducts = useSelector((state) => state.products?.products);
+  const allProducts = useSelector((state) => {
+    console.log(state);
+    return state.products;
+  });
+  console.log(allProducts, " allProducts");
 
   // categories and brands
   const ownBrands = [];
   const ctgryProducts = [];
 
   data.map((id) => {
-    ownBrands.push(database.products[id].brand);
-    ctgryProducts.push(database.products[id].category);
+    // ownBrands.push(database.products[id].brand);
+    console.log(categories[id], ` categories${id}`);
+
+    ctgryProducts.push(categories[id]?.name);
   });
+
+  console.log(ctgryProducts, " ctgryProducts");
 
   const noDuplicateownBrands = [...new Set(ownBrands)];
   const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
+
+  console.log(noDuplicateCtgryProducts, " noDuplicateCtgryProducts");
 
   return (
     <Container
@@ -94,9 +105,9 @@ export default function VendorOwnPage() {
         </Grid>
         <Grid item lg={9} md={8} sm={12}>
           <Grid container spacing={2}>
-            {data.map((i) => (
-              <Grid key={i} item lg={4} md={6} sm={6} xs={12}>
-                <MainCard key={i} data={allProducts[`${i}`]} />
+            {data.map((id) => (
+              <Grid key={id} item lg={4} md={6} sm={6} xs={12}>
+                <MainCard key={id} data={allProducts[`${id}`]} />
               </Grid>
             ))}
           </Grid>

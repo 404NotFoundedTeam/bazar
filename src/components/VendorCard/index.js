@@ -13,6 +13,7 @@ import RatingSIze from "../Mini-components/Rating";
 import { Link } from "react-router-dom";
 
 export default function VendorCard({ obj }) {
+  const rating = obj.rating() || 0;
   return (
     <Card
       sx={{
@@ -36,7 +37,7 @@ export default function VendorCard({ obj }) {
           <span className="mr-2">{obj.vendorName}</span>
         </Typography>
         <Typography>
-          <RatingSIze score={obj.rating()} sx={{ color: "yellow" }} />
+          <RatingSIze score={rating} sx={{ color: "yellow" }} />
         </Typography>
         <Box sx={{ marginTop: "10px" }}>
           <Typography
