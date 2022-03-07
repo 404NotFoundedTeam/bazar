@@ -102,9 +102,13 @@ function Home() {
   ];
 
   const categoriesObj = useSelector((state) => state.categories.categories);
-  const categories = Object.entries(categoriesObj).sort(
-    (a, b) => a[1].products?.length - b[1].products?.length
-  );
+  const categories = Object.entries(categoriesObj)
+    .sort(
+      (a, b) =>
+        Object.values(a[1].products).length -
+        Object.values(b[1].products).length
+    )
+    .reverse();
 
   const products = useSelector((state) => state.products);
   const productsArr = Object.entries(products);

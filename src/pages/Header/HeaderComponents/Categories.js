@@ -14,6 +14,7 @@ import {
 import { BiCategory } from "react-icons/bi";
 import { FaAccusoft } from "react-icons/fa";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const Categories = ({ variant = "big" }) => {
   const [show, setShow] = useState(false);
@@ -22,6 +23,7 @@ const Categories = ({ variant = "big" }) => {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
+  const categories = Object.values(useSelector((s) => s.categories.categories));
   return (
     <>
       <Button
@@ -46,7 +48,7 @@ const Categories = ({ variant = "big" }) => {
             component={"p"}
             sx={{ textTransform: "capitalize" }}
           >
-            {variant === "mini" ? "" : "Categories"}
+            {variant === "small" ? "" : "Categories"}
           </Typography>
         </Box>
         {show ? <FiChevronDown /> : <FiChevronRight />}
@@ -63,28 +65,26 @@ const Categories = ({ variant = "big" }) => {
             boxShadow: (theme) => theme.shadowsHeader.header,
           }}
         >
-          <List
-            component="nav"
-            aria-label="main mailbox folders"
-            sx={{
-              "& .Mui-selected": {
-                // bgcolor: (theme) => theme.palette.error.light,
-                color: (theme) => theme.palette.error.main,
-              },
-            }}
-          >
-            <ListItemButton
-              selected={selectedIndex === 0}
-              onClick={(event) => handleListItemClick(event, 0)}
-            >
-              <ListItemText primary="Inbox" />
-            </ListItemButton>
-            <ListItemButton
-              selected={selectedIndex === 1}
-              onClick={(event) => handleListItemClick(event, 1)}
-            >
-              <ListItemText primary="Drafts" />
-            </ListItemButton>
+          <List component="nav" aria-label="main mailbox folders">
+            {categories.map((item, i) => (
+              <ListItemButton
+                key={i}
+                sx={{
+                  "& .MuiListItemButton-root": {
+                    backgroundColor: "transparent",
+                    color: (theme) => theme.palette.error.main,
+                    "& .MuiSvgIcon-root": {
+                      color: (theme) => theme.palette.error.main,
+                    },
+                  },
+                }}
+                selected={selectedIndex === i}
+                onClick={(event) => handleListItemClick(event, i)}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            ))}
           </List>
         </Box>
       </Zoom>
