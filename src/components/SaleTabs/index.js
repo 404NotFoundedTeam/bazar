@@ -3,6 +3,19 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import { useSelector } from "react-redux";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  tabs: {
+    "& .MuiTabs-indicator": {
+      backgroundColor: "#d61f56",
+      height: 2,
+    },
+    "& .MuiTab-root.Mui-selected": {
+      color: "#d61f56",
+    },
+  },
+});
 
 export default function SaleTab() {
   const [value, setValue] = React.useState(0);
@@ -18,8 +31,14 @@ export default function SaleTab() {
     setValue(newValue);
   };
 
+  const classes = useStyles();
   return (
-    <Tabs value={value} color={"error"} onChange={handleChange}>
+    <Tabs
+      value={value}
+      sx={{}}
+      onChange={handleChange}
+      className={classes.tabs}
+    >
       {currentCategory.map((item, index) => (
         <Tab
           key={index}
