@@ -1,22 +1,21 @@
-import { ADD_PRODUCT } from "../types";
+import { ADD_PRODUCT, DELETE_PRODUCT } from "../types";
 
 const productState = {
-  products: {
-    1: {
-      name: "Watch",
-      brand: "Mi",
-      price: 200,
-      stock: 10,
-      seller: "Good zone",
-      category: "Watches",
-      rated: 20,
-      star: 80,
-      productsImg:
-        "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-      rating: function () {
-        return (this.star / this.rated).toFixed(1);
-      },
-      off: 0,
+  1: {
+    id: 1,
+    name: "Watch",
+    brand: "Mi",
+    price: 200,
+    off: 0,
+    stock: 10,
+    vendor: "vendor-id",
+    category: "Notebooks",
+    description: "product information",
+    rated: 20,
+    star: 80,
+    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    rating: function () {
+      return (this.star / this.rated).toFixed(1);
     },
     2: {
       name: "LD TV ",
@@ -88,19 +87,24 @@ const productState = {
 const ProductReducer = (state = productState, action) => {
   switch (action.type) {
     case ADD_PRODUCT:
+      console.log("ADD Product working");
       return {
         ...state,
-        products: {
-          ...state.products,
-          [`${action.payload.productData.id}`]: {
-            ...action.payload.productData,
-            rated: 0,
-            star: 0,
-            rating: function () {
-              return (this.star / this.rated).toFixed(1);
-            },
+        [`${action.payload.id}`]: {
+          ...action.payload,
+          rated: 0,
+          star: 0,
+          rating: function () {
+            return (this.star / this.rated).toFixed(1);
           },
         },
+      };
+    case DELETE_PRODUCT:
+      let newState = { ...state };
+      delete newState[action.payload.id];
+      console.log(newState);
+      return {
+        ...newState,
       };
     default:
       return state;

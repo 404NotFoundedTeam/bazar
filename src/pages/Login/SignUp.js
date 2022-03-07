@@ -29,11 +29,7 @@ export default function SignUp() {
       options: { required: true },
     },
     {
-      name: "role",
       type: "select",
-      title: "Your role",
-      options: { required: true },
-      elements: [{ val: "Vendor", }, { val: "Consumer",}],
     },
   ];
   const onSubmit = (data) => {
@@ -64,7 +60,7 @@ export default function SignUp() {
         </Typography>
         <Box px={{ sx: 0, md: "15px", lg: "25px" }}>
           <HookForm data={signUpInputs} submit={onSubmit} type={"error"} />
-          <Links text={"Have account?"} link={"/login"} />
+          <Links text={"Have account?"} alt='Sign In' link={"/login"} />
         </Box>
       </Box>
     </LoginContainer>

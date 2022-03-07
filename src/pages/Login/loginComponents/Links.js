@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Links = ({ text, link }) => {
+const Links = ({ text, link, alt }) => {
   return (
     <Typography
       display={"block"}
@@ -21,7 +21,7 @@ const Links = ({ text, link }) => {
         }}
         to={link}
       >
-        Sign Up
+        {alt}
       </Link>
     </Typography>
   );
