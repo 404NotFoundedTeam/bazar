@@ -75,6 +75,27 @@ export default function VendorDashboard(props) {
       link: "account-settings",
     },
   };
+  const linkData = {
+    ...dashboardMainData,
+    "edit-product": {
+      text: "Edit product",
+      icon: <AssignmentOutlinedIcon />,
+      link: "edit-product",
+      action: {
+        text: "Back to product list",
+        func: () => navigate("/vendor-dashboard/products"),
+      },
+    },
+    "order-info": {
+      text: "Order details",
+      icon: <AssignmentOutlinedIcon />,
+      link: "order-info",
+      action: {
+        text: "Back to orders list",
+        func: () => navigate("/vendor-dashboard/orders"),
+      },
+    },
+  };
   return (
     <div style={{ padding: "24px" }}>
       <Grid container spacing={3}>
@@ -83,7 +104,7 @@ export default function VendorDashboard(props) {
             <DashboardList listData={Object.values(dashboardMainData)} />
           </Paper>
         </Grid>
-        <Grid item lg={9}>
+        <Grid item xs={12} lg={9}>
           <div className={classes.main}>
             <Stack
               direction="row"
@@ -94,21 +115,19 @@ export default function VendorDashboard(props) {
             >
               <Typography sx={{ fontSize: "28px" }}>
                 <span style={{ marginRight: 10 }}>
-                  {dashboardMainData[part ? part : "dashboard"].icon}
+                  {linkData[part ? part : "dashboard"].icon}
                 </span>
-                {dashboardMainData[part ? part : "dashboard"].text}
+                {linkData[part ? part : "dashboard"].text}
               </Typography>
-              {dashboardMainData[part ? part : "dashboard"]?.action ? (
+              {linkData[part ? part : "dashboard"]?.action ? (
                 <Button
                   className={classes.btn}
                   variant="outlined"
                   color="error"
                   sx={{ margin: { xs: "20px 0" } }}
-                  onClick={
-                    dashboardMainData[part ? part : "orders"]?.action.func
-                  }
+                  onClick={linkData[part ? part : "orders"]?.action.func}
                 >
-                  {dashboardMainData[part ? part : "orders"]?.action.text}
+                  {linkData[part ? part : "orders"]?.action.text}
                 </Button>
               ) : (
                 false

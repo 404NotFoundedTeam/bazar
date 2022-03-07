@@ -22,6 +22,8 @@ import VendorDashboard from "./pages/VendorDashboard";
 import {
   AddProduct,
   Dashboard,
+  EditProduct,
+  ProductForm,
   VendorOrders,
   VendorProducts,
   VendorSettings,
@@ -51,8 +53,10 @@ export default function App() {
           <Route exact path="/vendor-dashboard" element={<VendorDashboard />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<VendorProducts />} />
+            <Route path="edit-product" element={<EditProduct />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="orders" element={<VendorOrders />} />
+            <Route path="order-info" element={<div>My orders</div>} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
           <Route path="/vendor" element={<VendorOwnPage />} />

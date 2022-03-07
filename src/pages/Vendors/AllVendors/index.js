@@ -4,10 +4,17 @@ import { Container, Grid, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import BasicPagination from "../../../components/Mini-components/Pagination";
 import { database } from "../../../data/data";
+import { useSelector } from "react-redux";
 
 export default function AllVendors({ obj }) {
   // console.log(database.seller);
-  const vendors = Object.entries(database.seller);
+  const reduxVendors = useSelector((state) => {
+    console.log(state);
+    return state.vendors;
+  });
+
+  const vendors = Object.entries(reduxVendors);
+  console.log(reduxVendors);
 
   const [currentVendors, setcurrentVendors] = useState(vendors);
   const [currentPage, setCurrentPage] = useState(1);
