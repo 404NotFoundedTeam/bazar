@@ -37,3 +37,6 @@ export const EDITE_PRODUCT_K = "EDITE_PRODUCT_K";
 export const DELETE_PRODUCT_K = "DELETE_PRODUCT_K";
 export const CHANGE_CART = "CHANGE_CART";
 export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
+
+//Filter products
+export const FILTER_PRODUCT = "FILTER_PRODUCT";

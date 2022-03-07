@@ -31,6 +31,7 @@ import {
 } from "./components/DashboardComponents/VendorDashboard";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import Checkout from "./components/stepper/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="addresses" element={<UserAddress />} />
             <Route path="payment-methods" element={<UserPayment />} />
           </Route>
+          <Route path="cart" element={<Checkout />} />
           <Route exact path="/vendor-dashboard" element={<VendorDashboard />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<VendorProducts />} />

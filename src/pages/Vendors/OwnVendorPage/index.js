@@ -6,6 +6,7 @@ import SideBar from "./SideBar/index";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useParams } from "react-router-dom";
 import { database } from "../../../data/data";
+import { useSelector } from "react-redux";
 
 export default function VendorOwnPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,10 +22,41 @@ export default function VendorOwnPage() {
     setIsOpen(open);
   };
 
-  const obj = database.seller[`seller_${vendorId?.id}`];
+  // vendors reducer
+  const obj = useSelector((state) => state.vendors[`${vendorId?.id}`]);
+  const categories = useSelector((state) => state.categories.categories);
+  const brands = useSelector((state) => state.brands);
+
   const data = obj.products || [];
-  const allProducts = database.products;
-  console.log(allProducts);
+
+  //products reducer
+  const allProducts = useSelector((state) => {
+    console.log(state);
+    return state.products;
+  });
+  console.log(allProducts, " allProducts");
+
+  // categories and brands
+  const ownBrands = [];
+  const ctgryProducts = [];
+
+  data.map((id) => {
+    const category_id = allProducts[id].category;
+    const brand_id = allProducts[id].brand;
+
+    console.log(brand_id, "  brand_id");
+    console.log(brands, "  brands");
+
+    ownBrands.push(brands[brand_id]);
+    ctgryProducts.push(categories[category_id]?.name);
+  });
+
+  console.log(ctgryProducts, " ctgryProducts");
+
+  const noDuplicateownBrands = [...new Set(ownBrands)];
+  const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
+
+  console.log(noDuplicateCtgryProducts, " noDuplicateCtgryProducts");
 
   return (
     <Container
@@ -51,7 +83,10 @@ export default function VendorOwnPage() {
             display: { xs: "none", sm: "none", md: "block" },
           }}
         >
-          <SideBar />
+          <SideBar
+            brands={noDuplicateownBrands}
+            categories={noDuplicateCtgryProducts}
+          />
           <Drawer
             anchor="left"
             open={isOpen}
@@ -67,14 +102,17 @@ export default function VendorOwnPage() {
               },
             }}
           >
-            <SideBar />
+            <SideBar
+              brands={noDuplicateownBrands}
+              categories={noDuplicateCtgryProducts}
+            />
           </Drawer>
         </Grid>
         <Grid item lg={9} md={8} sm={12}>
           <Grid container spacing={2}>
-            {data.map((i) => (
-              <Grid key={i} item lg={4} md={6} sm={6} xs={12}>
-                <MainCard key={i} data={allProducts[`${i}`]} />
+            {data.map((id) => (
+              <Grid key={id} item lg={4} md={6} sm={6} xs={12}>
+                <MainCard key={id} data={allProducts[`${id}`]} />
               </Grid>
             ))}
           </Grid>

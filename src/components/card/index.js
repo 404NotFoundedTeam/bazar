@@ -19,7 +19,7 @@ export default function MainCard({ data }) {
         fontFamily: "roboto !important",
       }}
     >
-      {data.off > 0 && (
+      {(data.off || 0) > 0 && (
         <Box
           component={"div"}
           color="primary"

@@ -31,31 +31,56 @@ export default function CheckboxesGroupRating() {
           {}
           <FormControlLabel
             control={
-              <Checkbox checked={one} onChange={handleChange} name="one" />
+              <Checkbox
+                checked={one}
+                onChange={handleChange}
+                name="one"
+                size="small"
+              />
             }
             label={<RatingSIze score={5} />}
           />
           <FormControlLabel
             control={
-              <Checkbox checked={two} onChange={handleChange} name="two" />
+              <Checkbox
+                checked={two}
+                onChange={handleChange}
+                name="two"
+                size="small"
+              />
             }
             label={<RatingSIze score={4} />}
           />
           <FormControlLabel
             control={
-              <Checkbox checked={three} onChange={handleChange} name="three" />
+              <Checkbox
+                checked={three}
+                onChange={handleChange}
+                name="three"
+                size="small"
+              />
             }
             label={<RatingSIze score={3} />}
           />
           <FormControlLabel
             control={
-              <Checkbox checked={four} onChange={handleChange} name="four" />
+              <Checkbox
+                checked={four}
+                onChange={handleChange}
+                name="four"
+                size="small"
+              />
             }
             label={<RatingSIze score={2} />}
           />
           <FormControlLabel
             control={
-              <Checkbox checked={five} onChange={handleChange} name="five" />
+              <Checkbox
+                checked={five}
+                onChange={handleChange}
+                name="five"
+                size="small"
+              />
             }
             label={<RatingSIze score={1} />}
           />

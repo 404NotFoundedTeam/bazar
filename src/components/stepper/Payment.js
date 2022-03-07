@@ -7,6 +7,7 @@ import Radio from "@mui/material/Radio";
 import { Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { Box } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const StyledFormControlLabel = styled((props) => (
   <FormControlLabel {...props} />
@@ -36,6 +37,7 @@ MyFormControlLabel.propTypes = {
 };
 
 export default function Payment() {
+  const navigate = useNavigate();
   const [chek, setChek] = React.useState(true);
   const [chek1, setChek1] = React.useState(false);
   const [chek2, setChek2] = React.useState(false);
@@ -179,6 +181,14 @@ export default function Payment() {
             }
           />
         </RadioGroup>
+
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => navigate("../user-dashboard/orders")}
+        >
+          Review
+        </Button>
       </Box>
     </>
   );
