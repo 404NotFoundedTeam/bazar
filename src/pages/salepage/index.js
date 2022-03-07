@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import SalePageWrapper from "./SalePageWrapper";
@@ -11,10 +11,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { spacing, ThemeProvider } from "@mui/system";
+import { ThemeProvider } from "@mui/system";
 import { nanoid } from "nanoid";
 import MainCard from "../../components/card";
-import Checkout from "../../components/stepper/Checkout";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 const saleTheme = createTheme({
   palette: {
@@ -104,7 +110,7 @@ export default function SalePage() {
         <CssBaseline />
         <Container maxWidth="lg">
           <SaleTab />
-          <Checkout />
+          {/* <Checkout /> */}
           <Grid container spacing={3} sx={{ mt: 4 }}>
             {data2[0].map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3}>

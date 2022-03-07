@@ -2,10 +2,12 @@ import { Close, ShoppingBagOutlined } from "@mui/icons-material";
 import { Button, Grow, IconButton, Slide, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PlusBtn from "../../components/PlusBtn";
 import { changeOpenCart } from "../../redux/actions/userActions";
 
 const AsideCart = ({ open }) => {
+  const navigate = useNavigate();
   const cart = [];
   return (
     <>
@@ -616,6 +618,7 @@ const AsideCart = ({ open }) => {
               }}
               color="error"
               variant="outlined"
+              onClick={() => navigate("/cart")}
             >
               View Cart
             </Button>
