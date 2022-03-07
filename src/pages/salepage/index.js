@@ -12,15 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
-import { nanoid } from "nanoid";
 import MainCard from "../../components/card";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+
+import { useSelector } from "react-redux";
 
 const saleTheme = createTheme({
   palette: {
@@ -31,77 +25,18 @@ const saleTheme = createTheme({
 });
 
 export default function SalePage() {
-  const [data, setData] = useState([
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 2,
-      off: 0,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 1,
-      off: 0,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 4,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 2,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 1,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 4,
-      off: 30,
-    },
-  ]);
+  const reduxProducts = useSelector((state) => {
+    console.log("state  = >", state.products);
+    return state.products;
+  });
 
-  data.sort((a, b) => b.off - a.off);
+  const products = Object.values(reduxProducts);
+  const [currentProducts, setCurrentProducts] = useState(products);
+  console.log(currentProducts);
+
+  // data.sort((a, b) => b.off - a.off);
   var _ = require("lodash");
-  const data2 = _.chunk(data, 2);
-  console.log(data2);
+  const data2 = _.chunk(currentProducts, 4);
 
   const [page, setPage] = useState(0);
   return (
@@ -129,11 +64,11 @@ export default function SalePage() {
             }}
           >
             <Typography>
-              Showing {data2[0].length} of {data.length} products
+              Showing {data2[0].length} of {currentProducts.length} products
             </Typography>
             <Stack spacing={2}>
               <Pagination
-                count={data.length - data2.length}
+                count={currentProducts.length - data2.length}
                 page={page}
                 variant="outlined"
                 color="secondary"
