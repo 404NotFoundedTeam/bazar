@@ -26,8 +26,6 @@ import {
   VendorProducts,
   VendorSettings,
 } from "./components/DashboardComponents/VendorDashboard";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +58,7 @@ export default function App() {
           <Route path="/vendor" element={<VendorOwnPage />} />
           <Route path="/allVendor" element={<AllVendors />} />
           <Route path="/vendor/:id" element={<VendorOwnPage />} />
+          <Route path="*" element={<p>Hello 404</p>} />
         </Routes>
       </MainThemeProvider>
     </QueryClientProvider>
