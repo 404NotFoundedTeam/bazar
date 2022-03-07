@@ -6,35 +6,33 @@ import {
 } from "../types";
 
 const initialState = {
-  korzina: [
-    {
-      name: "Ford 2019",
-      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
-      soni: 1,
-      price: 1000,
-    },
-    {
-      name: "Ford 2019",
-      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
-      soni: 3,
-      price: 1000,
-    },
-    {
-      name: "Ford 2020",
-      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
-      soni: 2,
-      price: 3000,
-    },
-  ],
+  korzina: {
+    0: 1,
+    1: 2,
+    2: 3,
+  },
   openCart: false,
 };
 
 const userReducer = (state = initialState, action) => {
+  const ap = action.payload;
   switch (action.type) {
+    case EDITE_PRODUCT_K:
+      return {
+        ...state,
+        korzina: { ...state.korzina, [ap.id]: state.korzina[ap.id] + ap.add },
+      };
     case ADD_PRODUCT_K:
-      return { ...state, korzina: [...state.korzina, action.payload] };
+      return {
+        ...state,
+        korzina: { ...state.korzina, [ap]: 1 },
+      };
+    case DELETE_PRODUCT_K:
+      const obj = { ...state.korzina };
+      delete obj[ap];
+      return { ...state, korzina: obj };
     case CHANGE_CART:
-      return { ...state, openCart: action.payload };
+      return { ...state, openCart: ap };
     default:
       return state;
   }

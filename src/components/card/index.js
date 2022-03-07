@@ -7,9 +7,25 @@ import { Box } from "@mui/system";
 import { GoPlus } from "react-icons/go";
 import { HiMinus } from "react-icons/hi";
 import { Button, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
+import {
+  changeSoniProduct,
+  addProduct__K,
+  deleteProduct__K,
+} from "../../redux/actions/userActions";
 
-export default function MainCard({ data }) {
-  const [value, setValue] = useState(0);
+export default function MainCard({ data, id }) {
+  const cart = useSelector((state) => state.user.korzina);
+  const value = cart[id] || 0;
+  const changeSoni = (isTrue) => {
+    if (cart[id]) {
+      if (!isTrue && cart[id] === 1) deleteProduct__K(id);
+      else changeSoniProduct(id, isTrue);
+    } else {
+      addProduct__K(id);
+    }
+  };
+
   return (
     <Card
       sx={{
@@ -91,7 +107,9 @@ export default function MainCard({ data }) {
                     fontWeight: "bold",
                   },
                 }}
-                onClick={() => setValue(value + 1)}
+                onClick={() => {
+                  changeSoni(true);
+                }}
               >
                 <GoPlus />
               </Button>
@@ -112,7 +130,9 @@ export default function MainCard({ data }) {
                   </Typography>
                   <Button
                     variant="outlined"
-                    onClick={() => setValue(value - 1)}
+                    onClick={() => {
+                      changeSoni(false);
+                    }}
                     sx={{
                       minWidth: "0px",
                       px: "8px",

@@ -192,12 +192,12 @@ function Home() {
         <Box component={"main"} sx={{ bgcolor: "#F6F9FC", mt: "60px" }}>
           <Container>
             <HomeBlock
-              title="Flash Deals"
-              link={"#"}
+              title="All Products"
+              link={"/salepage"}
               icon={<AiFillThunderbolt />}
             >
               <Grid container spacing={3}>
-                {productsArr.slice(0, 4).map((item, i) => (
+                {productsArr.map((item, i) => (
                   <Grid item xs={12} sm={6} md={4} lg={3}>
                     <MainCard key={i} data={item[1]} id={item[0]} />
                   </Grid>
