@@ -100,7 +100,10 @@ const AsideCart = ({ open }) => {
                     </Box>
                     <img
                       style={{ width: "100px", marginLeft: "10px" }}
-                      src={item.img}
+                      src={
+                        item.productsImg ||
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx3-HBdZNC4ZdhEpF3H-QcM8XzYXsBbjWMrg&usqp=CAU"
+                      }
                       alt={"car"}
                     />
                     <Box flex={1} px={1}>
