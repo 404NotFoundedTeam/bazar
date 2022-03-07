@@ -1,4 +1,9 @@
-import { ADD_PRODUCT, DELETE_PRODUCT } from "../types";
+import {
+  ADD_PRODUCT,
+  DELETE_PRODUCT,
+  ADD_PRODUCT_CATEGORY,
+  DELETE_PRODUCT_CATEGORY,
+} from "../types";
 import {
   FaAddressBook,
   FaBasketballBall,
