@@ -2,6 +2,7 @@ import {
   ADD_PRODUCT_TO_VENDOR,
   DELETE_PRODUCT,
   DELETE_PRODUCT_FV,
+  UPDATE_VENDOR_PROFILE,
 } from "../types";
 
 const vendorState = {
@@ -43,10 +44,18 @@ const VendorReducer = (state = vendorState, action) => {
             ],
           },
         };
-
+    case UPDATE_VENDOR_PROFILE:
+      console.log("Vendor");
+      return {
+        ...state,
+        [`${action.payload.vendorId}`]: {
+          ...action.payload.vendorInfo,
+        },
+      };
     case DELETE_PRODUCT_FV:
       let newProducts = state[action.payload.vendorId].products;
       newProducts.splice(newProducts.indexOf(action.payload.productId), 1);
+      return { state };
     default:
       return state;
   }
