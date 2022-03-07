@@ -10,7 +10,6 @@ import { Button, Grid } from "@mui/material";
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0);
-  console.log(data);
   return (
     <Card
       sx={{
@@ -38,7 +37,7 @@ export default function MainCard({ data }) {
             fontWeight: "600",
           }}
         >
-          <Typography>{data.off}%</Typography>
+          <Typography>{data.off || 0}%</Typography>
           <Typography sx={{ fontSize: "12px" }}> off</Typography>
         </Box>
       )}
@@ -55,10 +54,8 @@ export default function MainCard({ data }) {
         <Grid container spacing={2}>
           <Grid item lg={6} md={6} sm={6}>
             <Typography gutterBottom variant="body1" component="div">
-              {data.name}
+              {data.name || "undefined"}
             </Typography>
-
-            <RatingSIze score={data.rating()} />
             <Grid
               container
               direction="row"
@@ -67,7 +64,7 @@ export default function MainCard({ data }) {
               sx={{ mt: 1 }}
             >
               <Typography color="primary" variant="body1">
-                ${data.price}
+                ${data.price || 0}
               </Typography>
             </Grid>
           </Grid>

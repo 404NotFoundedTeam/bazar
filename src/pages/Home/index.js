@@ -11,6 +11,8 @@ import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
 import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
+import MainCard from "../../components/card";
+import { useSelector } from "react-redux";
 function Home() {
   const scidka = [
     {
@@ -144,10 +146,11 @@ function Home() {
       price: 300,
     },
   ];
+
+  const products = useSelector((state) => state.products);
   return (
     <>
       <HomeWrapper className="py-5 bg-white text-[#2B3445]">
-        {/* Cart */}
         <Container maxWidth="md" sx={{ mb: 15 }}>
           <MySlider>
             {scidka.map((item, i) => (
@@ -192,54 +195,11 @@ function Home() {
               link={"#"}
               icon={<AiFillThunderbolt />}
             >
-              <MySlider
-                settings={{
-                  nextArrow: <FaAlignCenter />,
-                  prevArrow: <FaAdjust />,
-                  dots: false,
-                  slidesToShow: 4,
-                  responsive: [
-                    {
-                      breakpoint: 1024,
-                      settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true,
-                      },
-                    },
-                    {
-                      breakpoint: 600,
-                      settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2,
-                        initialSlide: 2,
-                      },
-                    },
-                    {
-                      breakpoint: 480,
-                      settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                      },
-                    },
-                  ],
-                }}
-              >
-                {scidka.map((item, i) => (
-                  <Box>
-                    <Grid
-                      container
-                      direction={"row"}
-                      sx={{ alignItems: "center" }}
-                    >
-                      <Grid item xs={12}>
-                        <ImgBox src={item.img} alt={"Praduct"} />
-                      </Grid>
-                    </Grid>
-                  </Box>
-                ))}
-              </MySlider>
+              <Box>
+                {/* {products.map((item, i) => (
+                  <MainCard key={i} data={item} />
+                ))} */}
+              </Box>
             </HomeBlock>
             <HomeBlock title={"Top Categories"} link="#" icon={<BiCategory />}>
               <MySlider

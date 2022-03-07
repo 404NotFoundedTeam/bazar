@@ -3,10 +3,12 @@ import { Box } from "@mui/system";
 import React from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { changeOpenCart } from "../../../redux/actions/userActions";
 
 const UserIconsHeader = () => {
+  const cart = useSelector((state) => state.user.korzina);
   return (
     <Box
       sx={{
@@ -29,8 +31,12 @@ const UserIconsHeader = () => {
           <FaRegUser />
         </Fab>
       </NavLink>
-      <Box onClick={() => {changeOpenCart(true)}}>
-        <Badge badgeContent={124} color={"error"} max={99}>
+      <Box
+        onClick={() => {
+          changeOpenCart(true);
+        }}
+      >
+        <Badge badgeContent={cart.length} color={"error"} max={99}>
           <Fab
             variant="contained"
             size="medium"
