@@ -11,46 +11,44 @@ const categoryState = {
       name: "category1",
       icon: <FaAddressBook />,
       brands: [" group1  ", "group2"],
+      products: [],
     },
     2: {
       name: "category2",
       icon: <FaBasketballBall />,
       brands: [" group1  ", "group2"],
+      products: [],
     },
     watches: {
       name: "watches",
       icon: <FaClock />,
       brands: [" group1  ", "group2"],
+      products: [],
     },
     phones: {
       name: "phones",
       icon: <FaCouch />,
       brands: [" group1  ", "group2"],
+      products: [],
     },
   },
 };
 
 const CategoryReducer = (state = categoryState, action) => {
+  const ap = action.payload;
+  let allCategories = { ...state.categories };
   switch (action.type) {
-    case ADD_PRODUCT:
-      console.log("ADD Product working");
+    case ADD_PRODUCT_CATEGORY:
+      allCategories[ap.cid].products[ap.pid] = ap.pid;
       return {
         ...state,
-        [`${action.payload.id}`]: {
-          ...action.payload,
-          rated: 0,
-          star: 0,
-          rating: function () {
-            return (this.star / this.rated).toFixed(1);
-          },
-        },
+        categories: allCategories,
       };
-    case DELETE_PRODUCT:
-      let newState = { ...state };
-      delete newState[action.payload.id];
-      console.log(newState);
+    case DELETE_PRODUCT_CATEGORY:
+      delete allCategories[ap.cid].products[ap.pid];
       return {
-        ...newState,
+        ...state,
+        categories: allCategories,
       };
     default:
       return state;

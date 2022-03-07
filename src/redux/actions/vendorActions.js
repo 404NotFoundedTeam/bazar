@@ -6,8 +6,10 @@ import {
   DELETE_PRODUCT,
   UPDATE_VENDOR_PROFILE,
 } from "../types";
+import { addProductToCategory } from "./categoryAction";
 
 export const addNewProduct = (action) => {
+  addProductToCategory(action.category, action.id);
   dispatch({ type: ADD_PRODUCT, payload: action });
 };
 

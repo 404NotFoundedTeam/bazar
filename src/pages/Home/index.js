@@ -197,7 +197,7 @@ function Home() {
               icon={<AiFillThunderbolt />}
             >
               <Grid container spacing={3}>
-                {productsArr.map((item, i) => (
+                {productsArr.slice(0, 4).map((item, i) => (
                   <Grid item xs={12} sm={6} md={4} lg={3}>
                     <MainCard key={i} data={item[1]} id={item[0]} />
                   </Grid>
