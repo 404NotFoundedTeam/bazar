@@ -151,7 +151,7 @@ function Home() {
 
   const categoriesObj = useSelector((state) => state.categories.categories);
   const categories = Object.entries(categoriesObj).sort(
-    (a, b) => a[1].products.length - b[1].products.length
+    (a, b) => a[1].products?.length - b[1].products?.length
   );
 
   const products = useSelector((state) => state.products);
