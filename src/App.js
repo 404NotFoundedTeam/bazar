@@ -27,6 +27,7 @@ import {
   VendorOrders,
   VendorProducts,
   VendorSettings,
+  VendorOrderDetails,
 } from "./components/DashboardComponents/VendorDashboard";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -58,7 +59,7 @@ export default function App() {
             <Route path="edit-product" element={<EditProduct />} />
             <Route path="add-product" element={<AddProduct />} />
             <Route path="orders" element={<VendorOrders />} />
-            <Route path="order-info" element={<div>My orders</div>} />
+            <Route path="order-info" element={<VendorOrderDetails />} />
             <Route path="account-settings" element={<VendorSettings />} />
           </Route>
           <Route path="/vendor" element={<VendorOwnPage />} />
