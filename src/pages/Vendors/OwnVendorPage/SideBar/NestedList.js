@@ -53,7 +53,11 @@ export default function NestedList({ arr }) {
     >
       {arr.map((text) => (
         <ListItemButton>
-          <ListItemText primary={text} />
+          <ListItemText
+            primary={
+              text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
+            }
+          />
         </ListItemButton>
       ))}
     </List>

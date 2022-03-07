@@ -30,6 +30,31 @@ const vendorState = {
       instagram: "https://www.instagram.com/e_sala29/",
     },
   },
+  1: {
+    id: 1,
+    balance: 10000,
+    dailyBalance: 500,
+    orders: [0],
+    countries: [],
+    products: [3, "watch1"],
+    monitorDay: new Date().getDay(),
+    avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
+    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    vendorName: "Salauat Yerejepov",
+    location: "Allisher Navoiy street 109 , Tashkent city",
+    phoneNumber: "(90)651-02-93",
+    rated: 10,
+    star: 20,
+    rating: function () {
+      return (this.star / this.rated).toFixed(1);
+    },
+    socail_links: {
+      twitter: "https://www.google.com/",
+      facebook: "https://www.facebook.com/salauat.erejepov.3",
+      youtube: "https://www.youtube.com/",
+      instagram: "https://www.instagram.com/e_sala29/",
+    },
+  },
 };
 
 const VendorReducer = (state = vendorState, action) => {

@@ -54,7 +54,10 @@ export default function CheckboxesGroup({ ownBrands }) {
                   name={item.name}
                 />
               }
-              label={item.name}
+              label={
+                item.name.slice(0, 1).toUpperCase() +
+                item.name.slice(1).toLowerCase()
+              }
             />
           ))}
         </FormGroup>
