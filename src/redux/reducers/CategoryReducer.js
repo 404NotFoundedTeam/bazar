@@ -36,6 +36,10 @@ const categoryState = {
       brands: [" group1  ", "group2"],
       products: [],
     },
+    category2: {
+      name: "category2",
+      brands: [" group1  ", "group2"],
+    },
   },
 };
 

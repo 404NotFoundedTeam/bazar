@@ -69,7 +69,7 @@ const productState = {
   },
   4: {
     name: "Watch2",
-    brand: "Mi",
+    brand: "Mi2",
     price: 200,
     stock: 10,
     seller: "Good zone2",
