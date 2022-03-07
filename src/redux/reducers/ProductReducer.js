@@ -13,7 +13,7 @@ const productState = {
     description: "product information",
     rated: 20,
     star: 80,
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    productsImg: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
@@ -30,7 +30,7 @@ const productState = {
     description: "product information",
     rated: 20,
     star: 80,
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    productsImg: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
