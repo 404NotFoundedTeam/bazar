@@ -34,7 +34,7 @@ const productState = {
     },
     off: 0,
   },
-  'watch1': {
+  watch1: {
     name: "Watch",
     brand: "Kingnous",
     price: 100,
