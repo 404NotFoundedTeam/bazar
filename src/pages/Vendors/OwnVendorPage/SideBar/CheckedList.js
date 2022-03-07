@@ -13,8 +13,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CheckboxesGroup() {
+export default function CheckboxesGroup({ ownBrands }) {
   ///styles Block
+
   const itemStyles = {
     color: "#2B3445",
     fontSize: "14px",
@@ -22,11 +23,7 @@ export default function CheckboxesGroup() {
   const classes = useStyles(itemStyles);
 
   ///Logic Block
-  const [state, setState] = React.useState({
-    Maccs: true,
-    Karts: false,
-    antoine: false,
-  });
+  const [state, setState] = React.useState({});
 
   const handleChange = (event) => {
     setState({
@@ -35,45 +32,31 @@ export default function CheckboxesGroup() {
     });
   };
 
-  const { Maccs, Karts, antoine } = state;
+  React.useEffect(() => {
+    let temp = [];
+    ownBrands.map((val) => temp.push({ name: val, checked: false }));
+    setState(temp);
+  }, []);
+
+  // const { Maccs, Karts, antoine } = state;
 
   return (
     <Box sx={{ display: "flex" }}>
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormGroup className={`${classes.itemStyles}`}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={Maccs}
-                onChange={handleChange}
-                size="small"
-                name="Maccs"
-              />
-            }
-            label="Maccs"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={Karts}
-                onChange={handleChange}
-                size="small"
-                name="Karts"
-              />
-            }
-            label="Karts"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={antoine}
-                onChange={handleChange}
-                size="small"
-                name="antoine"
-              />
-            }
-            label="Antoine Llorca"
-          />
+          {ownBrands.map((item) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={item.checked}
+                  onChange={handleChange}
+                  size="small"
+                  name={item.name}
+                />
+              }
+              label={item}
+            />
+          ))}
         </FormGroup>
       </FormControl>
     </Box>

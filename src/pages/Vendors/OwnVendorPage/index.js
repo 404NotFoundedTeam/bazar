@@ -6,6 +6,7 @@ import SideBar from "./SideBar/index";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useParams } from "react-router-dom";
 import { database } from "../../../data/data";
+import { useSelector } from "react-redux";
 
 export default function VendorOwnPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,10 +22,25 @@ export default function VendorOwnPage() {
     setIsOpen(open);
   };
 
-  const obj = database.seller[`seller_${vendorId?.id}`];
+  // vendors reducer
+  const obj = useSelector((state) => state.vendors?.vendors[`${vendorId?.id}`]);
+
   const data = obj.products || [];
-  const allProducts = database.products;
-  console.log(allProducts);
+
+  //products reducer
+  const allProducts = useSelector((state) => state.products?.products);
+
+  // categories and brands
+  const ownBrands = [];
+  const ctgryProducts = [];
+
+  data.map((id) => {
+    ownBrands.push(database.products[id].brand);
+    ctgryProducts.push(database.products[id].category);
+  });
+
+  const noDuplicateownBrands = [...new Set(ownBrands)];
+  const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
 
   return (
     <Container
@@ -51,7 +67,10 @@ export default function VendorOwnPage() {
             display: { xs: "none", sm: "none", md: "block" },
           }}
         >
-          <SideBar />
+          <SideBar
+            brands={noDuplicateownBrands}
+            categories={noDuplicateCtgryProducts}
+          />
           <Drawer
             anchor="left"
             open={isOpen}
@@ -67,7 +86,10 @@ export default function VendorOwnPage() {
               },
             }}
           >
-            <SideBar />
+            <SideBar
+              brands={noDuplicateownBrands}
+              categories={noDuplicateCtgryProducts}
+            />
           </Drawer>
         </Grid>
         <Grid item lg={9} md={8} sm={12}>

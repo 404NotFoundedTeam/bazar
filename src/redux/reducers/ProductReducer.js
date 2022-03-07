@@ -17,6 +17,70 @@ const productState = {
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
+    2: {
+      name: "LD TV ",
+      brand: "Samsung",
+      price: 200,
+      stock: 10,
+      seller: "Good zone",
+      category: "Televizor",
+      rated: 10,
+      star: 30,
+      productsImg:
+        "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      rating: function () {
+        return (this.star / this.rated).toFixed(1);
+      },
+      off: 0,
+    },
+    3: {
+      name: "Watch",
+      brand: "Mi",
+      price: 200,
+      stock: 10,
+      seller: "Good zone1",
+      category: "category2",
+      rated: 2,
+      star: 10,
+      productsImg:
+        "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      rating: function () {
+        return (this.star / this.rated).toFixed(1);
+      },
+      off: 0,
+    },
+    4: {
+      name: "Watch2",
+      brand: "Mi",
+      price: 200,
+      stock: 10,
+      seller: "Good zone2",
+      category: "category2",
+      rated: 20,
+      star: 60,
+      productsImg:
+        "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      rating: function () {
+        return (this.star / this.rated).toFixed(1);
+      },
+      off: 0,
+    },
+    5: {
+      name: "Redmi 9 A",
+      brand: "Mi",
+      category: "Phones",
+      price: 400,
+      stock: 10,
+      seller: "Good zone3",
+      rated: 20,
+      star: 60,
+      productsImg:
+        "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      rating: function () {
+        return (this.star / this.rated).toFixed(1);
+      },
+      off: 0,
+    },
   },
 };
 
