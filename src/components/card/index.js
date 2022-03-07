@@ -31,7 +31,7 @@ export default function MainCard({ data }) {
             display: "flex",
             alignItems: "center",
             position: "absolute",
-            borderRadius: "20px",
+            borderRadius: "16px",
             color: "white",
             fontSize: "10px",
             fontWeight: "600",
@@ -44,11 +44,11 @@ export default function MainCard({ data }) {
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
         image={
           data.productsImg ||
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx3-HBdZNC4ZdhEpF3H-QcM8XzYXsBbjWMrg&usqp=CAU"
         }
+        sx={{ height: "150px", objectFit: "cover" }}
       />
       <CardContent>
         <Grid container spacing={2}>
@@ -74,9 +74,9 @@ export default function MainCard({ data }) {
                 display: "flex",
                 flexDirection: "column-reverse",
                 justifyContent: "space-between",
-                alignItems: "center",
-                height: "100%",
+                alignItems: "flex-end",
                 width: "100%",
+                height: "80px",
               }}
               aria-label="outlined primary button group"
             >
@@ -104,7 +104,8 @@ export default function MainCard({ data }) {
                       height: "100%",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      pr: "10px",
+                      justifyContent: "flex-end",
                     }}
                   >
                     {value}
