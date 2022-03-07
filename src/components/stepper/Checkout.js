@@ -114,7 +114,7 @@ export default function Checkout() {
                 </Step>
               ))}
             </Stepper>
-            {console.log(activeStep === steps.length)}
+            {/* {console.log(activeStep === steps.length)} */}
 
             {activeStep === 0 ? (
               <React.Fragment>

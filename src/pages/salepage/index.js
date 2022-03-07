@@ -21,6 +21,7 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const saleTheme = createTheme({
   palette: {
@@ -97,11 +98,18 @@ export default function SalePage() {
       off: 30,
     },
   ]);
+  const reduxProducts = useSelector((state) => {
+    console.log("state  = >", state.products);
+    return state.products;
+  });
 
-  data.sort((a, b) => b.off - a.off);
+  const products = Object.values(reduxProducts);
+  const [currentProducts, setCurrentProducts] = useState(products);
+  console.log(currentProducts);
+
+  // data.sort((a, b) => b.off - a.off);
   var _ = require("lodash");
-  const data2 = _.chunk(data, 2);
-  console.log(data2);
+  const data2 = _.chunk(currentProducts, 4);
 
   const [page, setPage] = useState(0);
   return (
@@ -129,7 +137,7 @@ export default function SalePage() {
             }}
           >
             <Typography>
-              Showing {data2[0].length} of {data.length} products
+              Showing {data2[0].length} of {currentProducts.length} products
             </Typography>
             <Stack spacing={2}>
               <Pagination
