@@ -3,14 +3,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import RatingSIze from "../rating";
 import { Box } from "@mui/system";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { GoPlus } from "react-icons/go";
+import { HiMinus } from "react-icons/hi";
 import { Button, Grid } from "@mui/material";
 
 export default function MainCard({ data }) {
   const [value, setValue] = useState(0);
-  console.log(data);
   return (
     <Card
       sx={{
@@ -38,7 +37,7 @@ export default function MainCard({ data }) {
             fontWeight: "600",
           }}
         >
-          <Typography>{data.off}%</Typography>
+          <Typography>{data.off || 0}%</Typography>
           <Typography sx={{ fontSize: "12px" }}> off</Typography>
         </Box>
       )}
@@ -55,10 +54,8 @@ export default function MainCard({ data }) {
         <Grid container spacing={2}>
           <Grid item lg={6} md={6} sm={6}>
             <Typography gutterBottom variant="body1" component="div">
-              {data.name}
+              {data.name || "undefined"}
             </Typography>
-
-            {/* <RatingSIze score={data.rating()} /> */}
             <Grid
               container
               direction="row"
@@ -67,7 +64,7 @@ export default function MainCard({ data }) {
               sx={{ mt: 1 }}
             >
               <Typography color="primary" variant="body1">
-                ${data.price}
+                ${data.price || 0}
               </Typography>
             </Grid>
           </Grid>
@@ -96,7 +93,7 @@ export default function MainCard({ data }) {
                 }}
                 onClick={() => setValue(value + 1)}
               >
-                <FaPlus />
+                <GoPlus />
               </Button>
 
               {value > 0 && (
@@ -126,7 +123,7 @@ export default function MainCard({ data }) {
                       },
                     }}
                   >
-                    <FaMinus />
+                    <HiMinus />
                   </Button>
                 </>
               )}
