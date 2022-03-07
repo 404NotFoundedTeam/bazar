@@ -17,6 +17,7 @@ import {
 export default function MainCard({ data, id }) {
   const cart = useSelector((state) => state.user.korzina);
   const value = cart[id] || 0;
+
   const changeSoni = (isTrue) => {
     if (cart[id]) {
       if (!isTrue && cart[id] === 1) deleteProduct__K(id);
@@ -97,6 +98,7 @@ export default function MainCard({ data, id }) {
               aria-label="outlined primary button group"
             >
               <Button
+                color={"error"}
                 variant="outlined"
                 sx={{
                   minWidth: "0px",
@@ -129,6 +131,7 @@ export default function MainCard({ data, id }) {
                     {value}
                   </Typography>
                   <Button
+                    color={"error"}
                     variant="outlined"
                     onClick={() => {
                       changeSoni(false);
