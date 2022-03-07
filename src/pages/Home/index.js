@@ -14,6 +14,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
 import { Category } from "@mui/icons-material";
+import CategoryCard from "../../components/card/CategoryCard";
 function Home() {
   const scidka = [
     {
@@ -148,8 +149,9 @@ function Home() {
     },
   ];
 
-  const categories = useSelector((state) => state.categories.categories).sort(
-    (a, b) => a.products.length - b.products.length
+  const categoriesObj = useSelector((state) => state.categories.categories);
+  const categories = Object.entries(categoriesObj).sort(
+    (a, b) => a[1].products?.length - b[1].products?.length
   );
 
   const products = useSelector((state) => state.products);
