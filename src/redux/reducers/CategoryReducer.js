@@ -1,24 +1,38 @@
-import { ADD_PRODUCT_CATEGORY, DELETE_PRODUCT_CATEGORY } from "../types";
-
+import {
+  ADD_PRODUCT,
+  DELETE_PRODUCT,
+  ADD_PRODUCT_CATEGORY,
+  DELETE_PRODUCT_CATEGORY,
+} from "../types";
+import {
+  FaAddressBook,
+  FaBasketballBall,
+  FaClock,
+  FaCouch,
+} from "react-icons/fa";
 const categoryState = {
   categories: {
     category_id: {
       name: "category1",
+      icon: <FaAddressBook />,
       brands: [" group1  ", "group2"],
       products: [],
     },
     2: {
       name: "category2",
+      icon: <FaBasketballBall />,
       brands: [" group1  ", "group2"],
       products: [],
     },
     watches: {
       name: "watches",
+      icon: <FaClock />,
       brands: [" group1  ", "group2"],
       products: [],
     },
     phones: {
       name: "phones",
+      icon: <FaCouch />,
       brands: [" group1  ", "group2"],
       products: [],
     },

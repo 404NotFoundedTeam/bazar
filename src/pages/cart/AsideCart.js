@@ -158,7 +158,10 @@ const AsideCart = ({ open }) => {
               }}
               color="error"
               variant="outlined"
-              onClick={() => navigate("/cart")}
+              onClick={() => {
+                changeOpenCart(false);
+                navigate("/cart");
+              }}
             >
               View Cart
             </Button>

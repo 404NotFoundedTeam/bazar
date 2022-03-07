@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
 
-export default function PaymentCard() {
+export default function PaymentCard({ sum }) {
   const {
     register,
     handleSubmit,
@@ -36,7 +36,7 @@ export default function PaymentCard() {
                 color="text.secondary"
                 gutterBottom
               >
-                Subtotal:
+                Subtotal: {sum}
               </Typography>
 
               <Typography
