@@ -32,6 +32,7 @@ import {
   addNewProductToVendor,
   deleteOrderProduct,
   deleteProduct,
+  updateVendor,
 } from "../../redux/actions/vendorActions";
 import { deleteOrder, updateOrder } from "../../redux/actions/orderActions";
 
@@ -784,7 +785,12 @@ export const VendorSettings = () => {
     formState: { errors },
   } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
   const onSubmit = (data) => {
-    updateOrder({ vendorId: defVal.id, vendorInfo: data });
+    data = {
+      ...defVal,
+      ...data,
+    };
+    console.log(data);
+    updateVendor({ vendorId: defVal.id, vendorInfo: data });
     setOpen(true);
     setTimeout(() => setOpen(false), 3000);
   };
