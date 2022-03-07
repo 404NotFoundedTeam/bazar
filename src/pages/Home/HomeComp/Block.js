@@ -1,16 +1,10 @@
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import {
-  IconButton,
-  Link,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { IconButton, Link, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { BiCaretRight } from "react-icons/bi";
 import { IconBase } from "react-icons/lib";
+import { NavLink } from "react-router-dom";
 
 const HomeBlock = ({ title, icon, link, children }) => {
   return (
@@ -24,16 +18,18 @@ const HomeBlock = ({ title, icon, link, children }) => {
             {title}
           </Typography>
         </Box>
-        <Link
-          href={link}
-          color="primary.light"
-          display="flex"
-          alignItems={"center"}
-          underline="none"
-          fontSize={"16px !important"}
-        >
-          View all <BiCaretRight style={{ marginLeft: "10px" }} />
-        </Link>
+        <Typography color="primary.light">
+          <NavLink
+            to={link}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: "16px !important",
+            }}
+          >
+            View all <BiCaretRight style={{ marginLeft: "10px" }} />
+          </NavLink>
+        </Typography>
       </Box>
       <Box mt={3}>{children}</Box>
     </Box>

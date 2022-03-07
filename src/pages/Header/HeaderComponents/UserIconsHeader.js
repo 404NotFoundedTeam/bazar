@@ -8,7 +8,8 @@ import { Link, NavLink } from "react-router-dom";
 import { changeOpenCart } from "../../../redux/actions/userActions";
 
 const UserIconsHeader = () => {
-  const cart = useSelector((state) => state.user.korzina);
+  const carts = useSelector((state) => state.user.korzina);
+  const cart = Object.values(carts);
   return (
     <Box
       sx={{
