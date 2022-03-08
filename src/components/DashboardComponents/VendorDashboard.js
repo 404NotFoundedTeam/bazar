@@ -232,7 +232,7 @@ export const VendorProducts = () => {
                         display: "inline-block",
                         margin: "0 auto",
                       }}
-                      src={product.img}
+                      src={product.productsImg}
                       alt=""
                     />
                   </Typography>
@@ -451,11 +451,11 @@ export const ProductForm = ({ defVal, formType, message }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              {...register("img", { required: true })}
+              {...register("productsImg", { required: true })}
               id="outlined-required"
               label="Image link"
               fullWidth
-              error={errors["img"]}
+              error={errors["productsImg"]}
             />
           </Grid>
           <Grid item xs={12}>
@@ -655,7 +655,7 @@ export const VendorOrderDetails = () => {
               >
                 <Stack direction="row" alignItems="center" spacing={2}>
                   <img
-                    src={product.img}
+                    src={product.productsImg}
                     alt=""
                     style={{
                       width: "50px",
@@ -842,11 +842,11 @@ export const VendorSettings = () => {
         </div>
         <div style={{ marginTop: "15px" }}>
           <TextField
-            {...register("img", { required: true })}
+            {...register("productsImg", { required: true })}
             id="outlined-required"
             label="Wallpaper"
             fullWidth
-            error={errors["img"]}
+            error={errors["productsImg"]}
           />
         </div>
         <div style={{ marginTop: "15px" }}>

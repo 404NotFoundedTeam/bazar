@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 import { GoPlus } from "react-icons/go";
 import { HiMinus } from "react-icons/hi";
-import { Button, Grid } from "@mui/material";
+import { Button, Chip, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import {
   changeSoniProduct,
@@ -32,32 +32,18 @@ export default function MainCard({ data, id }) {
     <Card
       sx={{
         width: "100%",
+        position: "relative",
         boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
         fontFamily: "roboto !important",
       }}
     >
       {(data.off || 0) > 0 && (
-        <Box
-          component={"div"}
-          color="primary"
-          variant="contained"
-          sx={{
-            background: "rgb(210, 63, 87)",
-            px: "8px",
-            py: "4px",
-
-            display: "flex",
-            alignItems: "center",
-            position: "absolute",
-            borderRadius: "16px",
-            color: "white",
-            fontSize: "10px",
-            fontWeight: "600",
-          }}
-        >
-          <Typography>{data.off || 0}%</Typography>
-          <Typography sx={{ fontSize: "12px" }}> off</Typography>
-        </Box>
+        <Chip
+          sx={{ position: "absolute", zIndex: 100, top: "6px", left: "6px" }}
+          color={"error"}
+          size={"small"}
+          label={`${data.off || 0}% off`}
+        />
       )}
       <CardMedia
         component="img"
@@ -66,7 +52,7 @@ export default function MainCard({ data, id }) {
           data.productsImg ||
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx3-HBdZNC4ZdhEpF3H-QcM8XzYXsBbjWMrg&usqp=CAU"
         }
-        sx={{ height: "150px", objectFit: "cover" }}
+        sx={{ height: "180px", objectFit: "cover" }}
       />
       <CardContent>
         <Grid container spacing={2}>

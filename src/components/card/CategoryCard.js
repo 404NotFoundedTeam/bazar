@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import React from "react";
 
 const CategoryCard = ({ data, id }) => {
+  const products = Object.values(data.products);
   return (
     <Box
       sx={{
@@ -25,7 +26,7 @@ const CategoryCard = ({ data, id }) => {
         justifyContent="space-between"
       >
         <Chip label={data.name} color={"primary"} size={"small"} />
-        <Chip color="error" size={"small"} label={data.products?.length} />
+        <Chip color="error" size={"small"} label={products.length} />
       </Box>
       <img
         style={{
