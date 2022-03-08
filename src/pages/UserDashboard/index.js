@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "8px !important",
   },
   main: {
-    padding: "0 24px",
+    padding: "0 0 50px",
     "& span": { color: theme.palette.error.main },
     width: "100%",
   },

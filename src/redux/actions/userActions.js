@@ -7,6 +7,7 @@ import {
   UPDATE_METHOD,
   DELETE_PRODUCT_K,
   UPDATE_USER_PROFILE,
+  CANCEL_ORDER,
 } from "../types";
 import { EDITE_PRODUCT_K } from "../types";
 
@@ -40,4 +41,8 @@ export const updateMethod = (data) => {
 
 export const updateUserProfile = (data) => {
   dispatch({ type: UPDATE_USER_PROFILE, payload: data });
+};
+
+export const cancelOrder = (data) => {
+  dispatch({ type: CANCEL_ORDER, payload: data });
 };

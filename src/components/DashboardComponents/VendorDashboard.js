@@ -626,6 +626,7 @@ export const VendorOrderDetails = () => {
             >
               <MenuItem value={"delivered"}>Delivered</MenuItem>
               <MenuItem value={"pending"}>Pending</MenuItem>
+              <MenuItem value={"canceled"}>Canceled</MenuItem>
             </Select>
           </FormControl>
         </Stack>

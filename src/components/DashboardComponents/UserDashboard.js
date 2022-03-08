@@ -48,6 +48,7 @@ import {
   addMethod,
   updateMethod,
   updateUserProfile,
+  cancelOrder,
 } from "../../redux/actions/userActions";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -225,11 +226,89 @@ function OrderDetails() {
   const orderId = location.state;
   const orders = useSelector((state) => state.orders);
   const orderData = orders[orderId];
-  const status = orderData.status == "pending" ? 1 : 2;
+  const products = useSelector((state) => state.products);
+  const filteredProducts = [];
+  Object.entries(orderData.products).map(([productId, amount]) =>
+    filteredProducts.push([products[productId], amount])
+  );
+
+  const status =
+    orderData.status == "pending" ? 1 : orderData.status == "delivered" ? 2 : 0;
   return (
     <div>
       <Paper elevation={1} sx={{ marginTop: "20px", padding: "40px 24px" }}>
         <CustomizedSteppers step={status} />
+        <Paper sx={{ margin: "20px 0 50px" }} elevation={0}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{
+              "& p": { minWidth: "30%", textAlign: "center" },
+            }}
+            spacing={2}
+          >
+            <p>Order ID: {orderData.id}</p>
+            <p>Date: {orderData.date.toLocaleDateString()}</p>
+            <p>Status: {orderData.status}</p>
+          </Stack>
+        </Paper>
+        {filteredProducts &&
+          filteredProducts.map(([product, amount]) => {
+            return (
+              <Paper sx={{ padding: "10px", marginTop: "15px" }} elevation={0}>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  spacing={2}
+                >
+                  <Stack direction="row" alignItems="center" spacing={2}>
+                    <img
+                      src={product.productsImg}
+                      alt=""
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <span>{product.name}</span>
+                    <span>x</span>
+                    <span>{amount}</span>
+                    <span>=</span>
+                    <span>${amount * product.price}</span>
+                  </Stack>
+                </Stack>
+              </Paper>
+            );
+          })}
+        <Typography
+          className="!text-[20px] font-bold"
+          sx={{ padding: "10px 0", marginTop: "10px" }}
+        >
+          Address: {orderData.address}
+        </Typography>
+        <Stack
+          direction="row"
+          alignItems="center"
+          flexWrap="wrap"
+          justifyContent={"space-between"}
+        >
+          <h1 class="text-[22px] font-bold mt-4">Total: ${orderData.price}</h1>
+          {orderData.status == "pending" ? (
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => cancelOrder({ orderId: orderData.id })}
+            >
+              Cancel
+            </Button>
+          ) : (
+            false
+          )}
+        </Stack>
       </Paper>
     </div>
   );
