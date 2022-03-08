@@ -459,20 +459,6 @@ export const ProductForm = ({ defVal, formType, message }) => {
             <Button type="submit" variant="contained" color="error">
               {formType}
             </Button>
-            {defVal && (
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{ marginLeft: "15px" }}
-                onClick={() => {
-                  console.log("Def form", defVal.id);
-                  deleteProduct({ id: defVal.id });
-                  navigate("../products");
-                }}
-              >
-                Delete
-              </Button>
-            )}
           </Grid>
         </Grid>
       </Paper>
@@ -537,7 +523,7 @@ export const VendorOrders = () => {
                       <span>{order.status}</span>
                     </Typography>
                     <Typography>{order.date.toLocaleDateString()}</Typography>
-                    <Typography>${order.total()}</Typography>
+                    <Typography>${order.price}</Typography>
                     <Typography
                       color="textSecondary"
                       sx={{
@@ -572,6 +558,8 @@ export const VendorOrderDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const defVal = orders[location.state];
+  console.log(defVal);
+  console.log(products[defVal.products[0][0]]);
   let sum = 0;
   const productAmount = Object.entries(defVal.products).map(([id, amount]) => {
     sum += products[id].price * amount;

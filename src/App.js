@@ -5,6 +5,8 @@ import UserDashboard from "./pages/UserDashboard";
 import MainThemeProvider from "./Theme/ThemeContext";
 import Header from "./pages/Header";
 import {
+  AddNewPayment,
+  EditPayment,
   OrderDetails,
   UserAddress,
   UserOrders,
@@ -47,6 +49,8 @@ export default function App() {
           <Route path="/salepage" element={<SalePage />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />
+            <Route path="add-method" element={<AddNewPayment />} />
+            <Route path="edit-method" element={<EditPayment />} />
             <Route path="order-details" element={<OrderDetails />} />
             <Route path="wishlist" element={<UserWishlist />} />
             <Route path="support" element={<UserSupport />} />

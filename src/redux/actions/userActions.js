@@ -1,5 +1,11 @@
 import { dispatch } from "../store";
-import { ADD_PRODUCT_K, CHANGE_CART, DELETE_PRODUCT_K } from "../types";
+import {
+  ADD_NEW_METHOD,
+  ADD_PRODUCT_K,
+  CHANGE_CART,
+  DELETE_METHOD,
+  DELETE_PRODUCT_K,
+} from "../types";
 import { EDITE_PRODUCT_K } from "../types";
 
 export const changeOpenCart = (action) => {
@@ -14,4 +20,11 @@ export const deleteProduct__K = (id) => {
 };
 export const addProduct__K = (id) => {
   dispatch({ type: ADD_PRODUCT_K, payload: id });
+};
+
+export const deleteMethod = (data) => {
+  dispatch({ type: DELETE_METHOD, payload: data });
+};
+export const addMethod = (data) => {
+  dispatch({ type: ADD_NEW_METHOD, payload: data });
 };
