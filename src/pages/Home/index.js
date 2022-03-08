@@ -5,7 +5,6 @@ import ImgBox from "../../components/ImgBox";
 import MainButton from "../../components/Button";
 import { Box } from "@mui/system";
 import MySlider from "../../components/MySlider";
-import { FaAdjust, FaAlignCenter } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
@@ -13,7 +12,6 @@ import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
 import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
-import { Category } from "@mui/icons-material";
 import CategoryCard from "../../components/card/CategoryCard";
 function Home() {
   const scidka = [
@@ -102,9 +100,13 @@ function Home() {
   ];
 
   const categoriesObj = useSelector((state) => state.categories.categories);
-  const categories = Object.entries(categoriesObj).sort(
-    (a, b) => a[1].products?.length - b[1].products?.length
-  );
+  const categories = Object.entries(categoriesObj)
+    .sort(
+      (a, b) =>
+        Object.values(a[1].products).length -
+        Object.values(b[1].products).length
+    )
+    .reverse();
 
   const products = useSelector((state) => state.products);
   const productsArr = Object.entries(products);
