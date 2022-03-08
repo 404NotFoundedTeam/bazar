@@ -1,7 +1,6 @@
 import { Box, Container, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Categories from "./Categories";
 import HeaderSearch from "./HeaderSearch";
 import UserIconsHeader from "./UserIconsHeader";
 

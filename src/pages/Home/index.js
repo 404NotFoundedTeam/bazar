@@ -5,7 +5,6 @@ import ImgBox from "../../components/ImgBox";
 import MainButton from "../../components/Button";
 import { Box } from "@mui/system";
 import MySlider from "../../components/MySlider";
-import { FaAdjust, FaAlignCenter } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
@@ -13,7 +12,6 @@ import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
 import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
-import { Category } from "@mui/icons-material";
 import CategoryCard from "../../components/card/CategoryCard";
 function Home() {
   const scidka = [
