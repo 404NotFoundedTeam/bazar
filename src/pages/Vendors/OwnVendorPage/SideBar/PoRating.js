@@ -28,7 +28,6 @@ export default function CheckboxesGroupRating() {
     <Box sx={{ display: "flex" }}>
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormGroup>
-          {}
           <FormControlLabel
             control={
               <Checkbox

@@ -5,6 +5,8 @@ import {
   EDITE_PRODUCT_K,
   ADD_NEW_METHOD,
   DELETE_METHOD,
+  UPDATE_METHOD,
+  UPDATE_USER_PROFILE,
 } from "../types";
 
 const initialState = {
@@ -12,12 +14,14 @@ const initialState = {
     firstName: "Abdurahim",
     lastName: "Nurmatov",
     phone: "998 99 999 99 99",
+    balance: 100,
     email: "super@gmail.com",
+    status: "Silver user",
     birthDate: new Date(),
     img: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     all_orders: [],
     wishList: [],
-    address: [],
+    address: "Amir Temur ko'chasi",
     payment_methods: [
       {
         fullName: "John Smith",
@@ -28,30 +32,17 @@ const initialState = {
     ],
     cart: [],
   },
-  korzina: [
-    {
-      name: "Ford 2019",
-      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
-      soni: 1,
-      price: 1000,
-    },
-    {
-      name: "Ford 2019",
-      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
-      soni: 3,
-      price: 1000,
-    },
-    {
-      name: "Ford 2020",
-      img: "https://bazar-react.vercel.app/assets/images/products/Automotive/1.Ford2019.png",
-      soni: 2,
-      price: 3000,
-    },
-  ],
+
+  korzina: {
+    0: 1,
+    1: 2,
+    2: 3,
+  },
   openCart: false,
 };
 
 const userReducer = (state = initialState, action) => {
+  const ap = action.payload;
   switch (action.type) {
     case ADD_NEW_METHOD:
       return {
@@ -64,10 +55,34 @@ const userReducer = (state = initialState, action) => {
           ],
         },
       };
+    case UPDATE_USER_PROFILE:
+      console.log("updateUserProfile");
+      return {
+        ...state,
+        [action.payload.userId]: {
+          ...action.payload.userInfo,
+        },
+      };
+    case UPDATE_METHOD:
+      let index;
+      let method = state[action.payload.userId].payment_methods.find(
+        (method, i) => {
+          if (action.payload.methodInfo.number == method.number) {
+            index = i;
+            return true;
+          } else return false;
+        }
+      );
+      let newMethods = [...state[action.payload.userId].payment_methods];
+      newMethods[index] = action.payload.methodInfo;
+      return {
+        ...state,
+        [action.payload.userId]: {
+          ...state[action.payload.userId],
+          payment_methods: newMethods,
+        },
+      };
     case DELETE_METHOD:
-      console.log("====================================");
-      console.log("Delete method");
-      console.log("====================================");
       let newMethod = [...state[action.payload.userId].payment_methods];
       newMethod = state[action.payload.userId].payment_methods.filter(
         (method) => method.number != action.payload.number
@@ -79,10 +94,22 @@ const userReducer = (state = initialState, action) => {
           payment_methods: newMethod,
         },
       };
+    case EDITE_PRODUCT_K:
+      return {
+        ...state,
+        korzina: { ...state.korzina, [ap.id]: state.korzina[ap.id] + ap.add },
+      };
     case ADD_PRODUCT_K:
-      return { ...state, korzina: [...state.korzina, action.payload] };
+      return {
+        ...state,
+        korzina: { ...state.korzina, [ap]: 1 },
+      };
+    case DELETE_PRODUCT_K:
+      const obj = { ...state.korzina };
+      delete obj[ap];
+      return { ...state, korzina: obj };
     case CHANGE_CART:
-      return { ...state, openCart: action.payload };
+      return { ...state, openCart: ap };
     default:
       return state;
   }

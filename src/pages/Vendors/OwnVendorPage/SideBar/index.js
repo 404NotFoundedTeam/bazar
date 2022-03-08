@@ -1,77 +1,47 @@
 import {
   Box,
-  Collapse,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
   List,
   ListItemButton,
   ListItemText,
+  Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
-import NestedList from "./NestedList";
-import TextFieldHiddenLabel from "./Price";
-import CheckboxesGroup from "./CheckedList";
+// import TextFieldHiddenLabel from "./Price";
 import CheckboxesGroupRating from "./PoRating";
-import { database } from "../../../../data/data";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { StyleClasses } from "./StylesClasses";
+import { itemStyles, hrProps, props, ListStyle, priceStyles } from "./styles";
 
-const useStyles = makeStyles({
-  foo: (props) => ({
-    backgroundColor: props.backgroundColor,
-    padding: props.padding,
-    borderRadius: props.borderRadius,
-  }),
-  mainTypo: {
-    color: (props) => props.color,
-    fontSize: (props) => props.fontSize,
-    fontWeight: (props) => props.fontWeight,
-  },
-  pricesBox: {
-    display: (props) => props.display,
-    alignItems: (props) => props.alignItems,
-    paddingInline: (props) => props.paddingInline,
-    marginBlock: (props) => props.marginBlock,
-    backgroundColor: (props) => props.backgroundColor,
-  },
-  hr: {
-    display: (props) => props.display,
-    marginBlock: (props) => props.marginBlock,
-  },
-  marginT: (props) => props.marginTop,
-  root: (props) => ({
-    backgroundColor: props.backgroundColor,
-    color: props.color,
-  }),
-});
+const useStyles = makeStyles(StyleClasses);
 
 export default function SideBar({ categories, brands }) {
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const props = {
-    color: "rgb(43, 52, 69)",
-    backgroundColor: "white",
-    padding: "16px",
-    fontSize: "16px",
-    marginBlock: "16px",
-    marginTop: "50px",
-    borderRadius: "6px",
-    display: "flex",
-    alignItems: "center",
-    paddingInline: "16px",
-  };
-
-  const hrProps = {
-    marginBlock: "20px",
-    display: "block",
-  };
+  const itemStylesClass = useStyles(itemStyles);
 
   const hrClass = useStyles(hrProps);
   const classes = useStyles(props);
+  const ListStyleClass = useStyles(ListStyle);
+  const priceStyleClass = useStyles(priceStyles);
+
+  const [state, setState] = React.useState({});
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  React.useEffect(() => {
+    let temp = [];
+    brands.map((val) => temp.push({ name: val, checked: false }));
+    setState(temp);
+  }, []);
 
   return (
     <Box
@@ -82,20 +52,96 @@ export default function SideBar({ categories, brands }) {
       }}
     >
       <Typography className={`${classes.mainTypo}`}>Categories</Typography>
-      <NestedList arr={categories} />
+      <List
+        className={`${ListStyleClass.ListStyle}`}
+        sx={{
+          width: "100%",
+          maxWidth: 360,
+        }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+      >
+        {categories.map((text) => (
+          <ListItemButton>
+            <ListItemText
+              primary={
+                text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
+              }
+            />
+          </ListItemButton>
+        ))}
+      </List>
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Price Range</Typography>
       <Box className={`${classes.pricesBox}`} mb={2}>
-        <TextFieldHiddenLabel defaultValue={4} />{" "}
+        <Stack
+          component="form"
+          sx={{
+            backgroundColor: "#fff !important",
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            className={priceStyleClass.priceTextField}
+            type="number"
+            InputProps={{ inputProps: { min: 0 } }}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            defaultValue={4}
+            variant="filled"
+            size="small"
+          />
+        </Stack>
         <span style={{ marginInline: "10px" }}>-</span>
-        <TextFieldHiddenLabel defaultValue={250} />
+        <Stack
+          component="form"
+          sx={{
+            backgroundColor: "#fff !important",
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            className={priceStyleClass.priceTextField}
+            type="number"
+            InputProps={{ inputProps: { min: 0 } }}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            defaultValue={250}
+            variant="filled"
+            size="small"
+          />
+        </Stack>
       </Box>
 
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Brands</Typography>
-      <CheckboxesGroup ownBrands={brands} />
+      <Box sx={{ display: "flex" }}>
+        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+          <FormGroup className={`${itemStylesClass.itemStyles}`}>
+            {brands.map((item, i) => (
+              <FormControlLabel
+                key={i}
+                control={
+                  <Checkbox
+                    checked={item.checked}
+                    onChange={handleChange}
+                    size="small"
+                    name={item}
+                  />
+                }
+                label={
+                  item.name.trim().slice(0, 1).toUpperCase() +
+                  item.name.trim().slice(1).toLowerCase()
+                }
+              />
+            ))}
+          </FormGroup>
+        </FormControl>
+      </Box>
 
       <hr className={`${hrClass.hr}`} />
 

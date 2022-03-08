@@ -3,13 +3,30 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import RatingSIze from "../rating";
 import { Box } from "@mui/system";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { GoPlus } from "react-icons/go";
+import { HiMinus } from "react-icons/hi";
 import { Button, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
+import {
+  changeSoniProduct,
+  addProduct__K,
+  deleteProduct__K,
+} from "../../redux/actions/userActions";
+import RatingSIze from "../rating";
 
-export default function MainCard({ data }) {
-  const [value, setValue] = useState(0);
+export default function MainCard({ data, id }) {
+  const cart = useSelector((state) => state.user.korzina);
+  const value = cart[id] || 0;
+
+  const changeSoni = (isTrue) => {
+    if (cart[id]) {
+      if (!isTrue && cart[id] === 1) deleteProduct__K(id);
+      else changeSoniProduct(id, isTrue);
+    } else {
+      addProduct__K(id);
+    }
+  };
 
   return (
     <Card
@@ -32,33 +49,31 @@ export default function MainCard({ data }) {
             display: "flex",
             alignItems: "center",
             position: "absolute",
-            borderRadius: "20px",
+            borderRadius: "16px",
             color: "white",
             fontSize: "10px",
             fontWeight: "600",
           }}
         >
-          <Typography>{data.off}%</Typography>
+          <Typography>{data.off || 0}%</Typography>
           <Typography sx={{ fontSize: "12px" }}> off</Typography>
         </Box>
       )}
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
         image={
           data.productsImg ||
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx3-HBdZNC4ZdhEpF3H-QcM8XzYXsBbjWMrg&usqp=CAU"
         }
+        sx={{ height: "150px", objectFit: "cover" }}
       />
       <CardContent>
         <Grid container spacing={2}>
           <Grid item lg={6} md={6} sm={6}>
             <Typography gutterBottom variant="body1" component="div">
-              {data.name}
+              {data.name || "undefined"}
             </Typography>
-
-            {/* <RatingSIze score={data.rating()} />   */}
             <Grid
               container
               direction="row"
@@ -66,8 +81,9 @@ export default function MainCard({ data }) {
               alignItems="center"
               sx={{ mt: 1 }}
             >
+              <RatingSIze score={data.rating()} />
               <Typography color="primary" variant="body1">
-                ${data.price}
+                ${data.price || 0}
               </Typography>
             </Grid>
           </Grid>
@@ -77,26 +93,29 @@ export default function MainCard({ data }) {
                 display: "flex",
                 flexDirection: "column-reverse",
                 justifyContent: "space-between",
-                alignItems: "center",
-                height: "100%",
+                alignItems: "flex-end",
                 width: "100%",
+                height: "80px",
               }}
               aria-label="outlined primary button group"
             >
               <Button
+                color={"error"}
                 variant="outlined"
                 sx={{
                   minWidth: "0px",
                   px: "8px",
                   py: "4px",
                   svg: {
-                    fontSize: "20px",
+                    fontSize: "16px",
                     fontWeight: "bold",
                   },
                 }}
-                onClick={() => setValue(value + 1)}
+                onClick={() => {
+                  changeSoni(true);
+                }}
               >
-                <FaPlus />
+                <GoPlus />
               </Button>
 
               {value > 0 && (
@@ -107,25 +126,29 @@ export default function MainCard({ data }) {
                       height: "100%",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      pr: "10px",
+                      justifyContent: "flex-end",
                     }}
                   >
                     {value}
                   </Typography>
                   <Button
+                    color={"error"}
                     variant="outlined"
-                    onClick={() => setValue(value - 1)}
+                    onClick={() => {
+                      changeSoni(false);
+                    }}
                     sx={{
                       minWidth: "0px",
                       px: "8px",
                       py: "4px",
                       svg: {
-                        fontSize: "20px",
+                        fontSize: "16px",
                         fontWeight: "bold",
                       },
                     }}
                   >
-                    <FaMinus />
+                    <HiMinus />
                   </Button>
                 </>
               )}

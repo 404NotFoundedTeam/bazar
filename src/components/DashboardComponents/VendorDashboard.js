@@ -723,7 +723,7 @@ export const VendorOrderDetails = () => {
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
               }
-              label="Price"
+              label="Shipment"
               error={errors["shipping"]}
             />
           </FormControl>

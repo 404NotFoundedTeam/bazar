@@ -65,14 +65,7 @@ export default function UserDashboard(props) {
       link: "profile-info",
       action: {
         text: "Edit profile",
-      },
-    },
-    addresses: {
-      text: "Addresses",
-      icon: <LocationOnIcon />,
-      link: "addresses",
-      action: {
-        text: "Add new address",
+        func: () => navigate("/user-dashboard/edit-profile"),
       },
     },
     "payment-methods": {
@@ -99,7 +92,8 @@ export default function UserDashboard(props) {
         icon: <ShoppingBagOutlined />,
         link: "order-details",
         action: {
-          text: "Order again",
+          text: "Back to orders",
+          func: () => navigate("/user-dashboard/orders"),
         },
       },
       "add-method": {
@@ -118,6 +112,15 @@ export default function UserDashboard(props) {
         action: {
           text: "Back to method list",
           func: () => navigate("/user-dashboard/payment-methods"),
+        },
+      },
+      "edit-profile": {
+        text: "Edit profile",
+        icon: <PersonIcon />,
+        link: "Edit-method",
+        action: {
+          text: "Back to method list",
+          func: () => navigate("/user-dashboard/profile-info"),
         },
       },
     }),

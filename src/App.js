@@ -7,6 +7,7 @@ import Header from "./pages/Header";
 import {
   AddNewPayment,
   EditPayment,
+  EditProfile,
   OrderDetails,
   UserAddress,
   UserOrders,
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="orders" element={<UserOrders />} />
             <Route path="add-method" element={<AddNewPayment />} />
             <Route path="edit-method" element={<EditPayment />} />
+            <Route path="edit-profile" element={<EditProfile />} />
             <Route path="order-details" element={<OrderDetails />} />
             <Route path="wishlist" element={<UserWishlist />} />
             <Route path="support" element={<UserSupport />} />

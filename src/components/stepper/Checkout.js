@@ -20,61 +20,18 @@ import ProductCards from "./ProductCards";
 import PaymentCard from "./PaymentCard";
 import Payment from "./Payment";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  changeSoniProduct,
+  deleteProduct__K,
+} from "../../redux/actions/userActions";
 
 const steps = ["Cart", "Details", "Payment", "Review"];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Payment />;
-    // case 3:
-    //   return <Review />;
-    case 5:
-      return <PaymentCard />;
-    case 10:
-      return <PaymentCard />;
-    // case 15:
-    //   return <PaymentCard />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
 
 const theme = createTheme();
 
 export default function Checkout() {
   const navigate = useNavigate();
-
-  const [data, setData] = React.useState([
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 2,
-      off: 0,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 1,
-      off: 0,
-    },
-    {
-      id: nanoid(),
-      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2FBikes%2F11.Kawasaki2020.png&w=1920&q=75",
-      name: "Kawasaki 2020",
-      price: 20000,
-      score: 5,
-      off: 30,
-    },
-  ]);
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -85,6 +42,40 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const korzina = useSelector((state) => state.user.korzina);
+  const cart = Object.entries(korzina);
+  const products = useSelector((state) => state.products);
+  const [sum, setSum] = React.useState(0);
+
+  React.useEffect(() => {
+    let s = 0;
+    cart.forEach((i) => {
+      s += products[i[0]].price * i[1];
+    });
+    setSum(s);
+  }, [cart]);
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Payment />;
+      // case 3:
+      //   return <Review />;
+      case 5:
+        return <PaymentCard sum={sum} />;
+      case 10:
+        return <PaymentCard />;
+      // case 15:
+      //   return <PaymentCard />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,8 +110,19 @@ export default function Checkout() {
             {activeStep === 0 ? (
               <React.Fragment>
                 <Box sx={{ flexGrow: 1 }}>
-                  {data.map((item, index) => {
-                    return <ProductCards data={item} key={index} />;
+                  {cart.map((element, i) => {
+                    const item = products[element[0]];
+                    return (
+                      <ProductCards
+                        data={item}
+                        key={item.name + 1}
+                        deleteProduct__K={deleteProduct__K}
+                        changeSoniProduct={changeSoniProduct}
+                        element={element}
+                        cart={cart}
+                        products={products}
+                      />
+                    );
                   })}
                 </Box>
               </React.Fragment>
@@ -176,8 +178,9 @@ export default function Checkout() {
                         type="submit"
                         variant="contained"
                         color="error"
+                        fullWidth
                         onClick={handleNext}
-                        sx={{ mt: 3, ml: 1 }}
+                        sx={{ mt: 3 }}
                       >
                         {activeStep === steps.length - 1
                           ? "Place order"

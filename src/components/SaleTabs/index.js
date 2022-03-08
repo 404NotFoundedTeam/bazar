@@ -1,116 +1,55 @@
-import * as React from 'react'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import {
-  FaAddressBook,
-  FaBasketballBall,
-  FaClock,
-  FaCouch,
-  FaCreativeCommonsNcEu,
-  FaPhotoVideo,
-  FaTshirt,
-} from 'react-icons/fa'
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
-import {
-  GiBabyBottle,
-  GiCarWheel,
-  GiDrill,
-  GiPhotoCamera,
-} from 'react-icons/gi'
+import { useSelector } from "react-redux";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  tabs: {
+    "& .MuiTabs-indicator": {
+      backgroundColor: "#d61f56",
+      height: 2,
+    },
+    "& .MuiTab-root.Mui-selected": {
+      color: "#d61f56",
+    },
+  },
+});
 
 export default function SaleTab() {
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = React.useState(0);
+  const reduxCategory = useSelector((state) => {
+    console.log("categories  = >", state.categories.categories);
+    return state.categories.categories;
+  });
 
+  const category = Object.values(reduxCategory);
+  const [currentCategory, setCurrentCategory] = React.useState(category);
+  console.log(currentCategory);
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
+  const classes = useStyles();
   return (
-    <Tabs value={value} onChange={handleChange}>
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaTshirt />}
-        label="Men"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaAddressBook />}
-        label="Women"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaCreativeCommonsNcEu />}
-        label="Cosmetics"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaClock />}
-        label="Accessories"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<GiPhotoCamera />}
-        label="Eelctronics"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaCouch />}
-        label="Furniture"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaBasketballBall />}
-        label="Sport"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<GiCarWheel />}
-        label="Automobile"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<GiDrill />}
-        label="Hardware"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<GiBabyBottle />}
-        label="Baby products"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaPhotoVideo />}
-        label="Photos"
-      />
-      <Tab
-        sx={{
-          fontSize: '14px',
-        }}
-        icon={<FaTshirt />}
-        label="Clothes"
-      />
+    <Tabs
+      value={value}
+      sx={{}}
+      onChange={handleChange}
+      className={classes.tabs}
+    >
+      {currentCategory.map((item, index) => (
+        <Tab
+          key={index}
+          sx={{
+            fontSize: "14px",
+            pt: 3,
+          }}
+          icon={item.icon}
+          label={item.name}
+        />
+      ))}
     </Tabs>
-  )
+  );
 }

@@ -3,8 +3,6 @@ import {
   DELETE_ORDERS,
   DELETE_ORDER_PRODUCT,
   UPDATE_ORDERS,
-  UPDATE_ORDER_ADDRESS,
-  UPDATE_ORDER_PRODUCT,
 } from "../types";
 
 const OrdersState = {

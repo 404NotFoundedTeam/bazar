@@ -1,18 +1,28 @@
 import { Button, Grid, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 
-export default function ProductCards({ data }) {
-  const [dataP, setDataP] = useState(data);
-  const [value, setValue] = useState(0);
-  const remove = (id) => {
-    const temp = Object.entries(dataP);
+export default function ProductCards({
+  data,
+  deleteProduct__K,
+  element,
+  changeSoniProduct,
+  cart,
+  products,
+}) {
+  const [sum, setSum] = useState(0);
 
-    const t = temp[0].filter((i) => i.id !== id);
+  useEffect(() => {
+    let s = 0;
+    cart.forEach((i) => {
+      s += products[i[0]].price * i[1];
+    });
+    setSum(s);
+  }, [cart]);
 
-    return setDataP(t);
-  };
+  console.log("data=>", data);
+
   return (
     <Grid
       container
@@ -27,7 +37,12 @@ export default function ProductCards({ data }) {
       }}
     >
       <Grid item xs={3} sx={{ bg: "red" }}>
-        <img src={dataP.img} width="100%" height="100%" alt={dataP.name} />
+        <img
+          src={data.productsImg}
+          width="100%"
+          height="100%"
+          alt={data.name}
+        />
       </Grid>
       <Grid item xs={9}>
         <Box
@@ -40,9 +55,9 @@ export default function ProductCards({ data }) {
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h6">{dataP.name}</Typography>
+          <Typography variant="h6">{data.name}</Typography>
           <IconButton
-            onClick={() => remove(dataP.id)}
+            onClick={() => deleteProduct__K(element[0])}
             aria-label="delete"
             color="error"
           >
@@ -60,10 +75,10 @@ export default function ProductCards({ data }) {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="body2">${dataP.price}*</Typography>
-            <Typography variant="body2">{value}</Typography>
+            <Typography variant="body2">${data.price}*</Typography>
+            <Typography variant="body2">{element[1]}</Typography>
             <Typography variant="body1" sx={{ mx: 1 }} color={"error"}>
-              ${value * dataP.price}
+              ${element[1] * data.price}
             </Typography>
           </Box>
           <Box
@@ -77,8 +92,11 @@ export default function ProductCards({ data }) {
               <Button
                 variant="outlined"
                 color="error"
-                disabled={value <= 0}
-                onClick={() => setValue(value - 1)}
+                disabled={sum <= 0}
+                type={false}
+                onClick={() => {
+                  changeSoniProduct(element[0], false);
+                }}
                 sx={{
                   minWidth: "0px",
                   px: "8px",
@@ -102,13 +120,14 @@ export default function ProductCards({ data }) {
                   px: 1,
                 }}
               >
-                {value}
+                {element[1]}
               </Typography>
             </>
 
             <Button
               variant="outlined"
               color="error"
+              type={true}
               sx={{
                 minWidth: "0px",
                 px: "8px",
@@ -118,7 +137,9 @@ export default function ProductCards({ data }) {
                   fontWeight: "bold",
                 },
               }}
-              onClick={() => setValue(value + 1)}
+              onClick={() => {
+                changeSoniProduct(element[0], true);
+              }}
             >
               <FaPlus />
             </Button>

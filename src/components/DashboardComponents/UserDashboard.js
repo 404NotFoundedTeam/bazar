@@ -18,6 +18,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import PaymentIcon from "@mui/icons-material/Payment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -35,12 +36,19 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
 import SettingsIcon from "@mui/icons-material/Settings";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
+import InputIcon from "@mui/icons-material/Input";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
-import { deleteMethod, addMethod } from "../../redux/actions/userActions";
+import {
+  deleteMethod,
+  addMethod,
+  updateMethod,
+  updateUserProfile,
+} from "../../redux/actions/userActions";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import TransitionAlerts from "./VendorDashboard";
@@ -153,57 +161,8 @@ function DashboardList({ listData }) {
 
 function UserOrders() {
   const classes = useStyles();
-  const orders = [
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-  ];
-  const [currentOrders, setCurrentOrders] = useState(orders);
+  const orders = useSelector((state) => state.orders);
+  const [currentOrders, setCurrentOrders] = useState(Object.values(orders));
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(5);
 
@@ -230,18 +189,18 @@ function UserOrders() {
       <div className={classes.ordersBox}>
         {presentOrders.map((order) => {
           return (
-            <Link to="../order-details">
+            <Link to="../order-details" state={`${order.id}`}>
               <Paper elevation={1}>
                 <Typography
                   sx={{
                     display: { xs: "none !important", sm: "flex !important" },
                   }}
                 >
-                  {order.order_id}
+                  {order.id}
                 </Typography>
                 <Typography>{order.status}</Typography>
-                <Typography>{order.date}</Typography>
-                <Typography>${order.total.toFixed(2)}</Typography>
+                <Typography>{order.date.toLocaleDateString()}</Typography>
+                <Typography>${order.price}</Typography>
                 <Typography color="textSecondary">
                   <ArrowRightAlt />
                 </Typography>
@@ -262,10 +221,15 @@ function UserOrders() {
 
 function OrderDetails() {
   const classes = useStyles();
+  const location = useLocation();
+  const orderId = location.state;
+  const orders = useSelector((state) => state.orders);
+  const orderData = orders[orderId];
+  const status = orderData.status == "pending" ? 1 : 2;
   return (
     <div>
       <Paper elevation={1} sx={{ marginTop: "20px", padding: "40px 24px" }}>
-        <CustomizedSteppers />
+        <CustomizedSteppers step={status} />
       </Paper>
     </div>
   );
@@ -322,9 +286,9 @@ function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
 
   const icons = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <InputIcon />,
+    2: <LocalShippingIcon />,
+    3: <MarkunreadMailboxIcon />,
   };
 
   return (
@@ -361,12 +325,12 @@ const steps = [
   "Create an ad",
 ];
 
-export default function CustomizedSteppers() {
+export default function CustomizedSteppers({ step }) {
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={1}
+        activeStep={step}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (
@@ -451,15 +415,9 @@ function UserSupport() {
 
 function UserProfile() {
   const classes = useStyles();
-  const userData = [
-    {
-      firstName: "John",
-      lastName: "Simth",
-      email: "john@gmail.com",
-      phone: "998 99 8979883",
-      birthDate: new Date(),
-    },
-  ];
+  const users = useSelector((state) => state.user);
+  const userData = users[0];
+
   return (
     <div>
       <Grid container spacing={2}>
@@ -488,13 +446,15 @@ function UserProfile() {
               >
                 <Avatar
                   alt="Remy Sharp"
-                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src={userData.img}
                   sx={{ width: 56, height: 56 }}
                 />
                 <div>
-                  <Typography fontWeight="bold">John Smith</Typography>
+                  <Typography fontWeight="bold">
+                    {userData.firstName} {userData.lastName}
+                  </Typography>
                   <Typography fontSize={14} color="textSecondary">
-                    Balance: $500
+                    Balance: {userData.balance}
                   </Typography>
                 </div>
               </Stack>
@@ -505,7 +465,7 @@ function UserProfile() {
         <Grid item xs={12} md={6} lg={4} sx={{ display: "flex" }}>
           <Paper sx={{ padding: "20px", flex: 1 }}>
             <Typography variant="h6" textAlign={"center"} color="error.main">
-              16
+              {userData.all_orders.length}
             </Typography>
             <Typography color="textSecondary" textAlign="center">
               All Orders
@@ -515,30 +475,30 @@ function UserProfile() {
         <Grid item xs={12} md={4}>
           <Paper sx={{ padding: "20px" }}>
             <Typography variant="h6" textAlign={"center"} color="error.main">
-              02
+              {userData.email}
             </Typography>
             <Typography color="textSecondary" textAlign="center">
-              Awaiting Payments
+              User Email
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
           <Paper sx={{ padding: "20px" }}>
             <Typography variant="h6" textAlign={"center"} color="error.main">
-              16
+              {userData.phone}
             </Typography>
             <Typography color="textSecondary" textAlign="center">
-              Awaiting Shipment
+              Phone Number
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
           <Paper sx={{ padding: "20px" }}>
             <Typography variant="h6" textAlign={"center"} color="error.main">
-              16
+              {userData.address}
             </Typography>
             <Typography color="textSecondary" textAlign="center">
-              Awaiting Delivery
+              Address
             </Typography>
           </Paper>
         </Grid>
@@ -672,6 +632,7 @@ function UserPayment() {
 function AddNewPayment() {
   return <AddMethodForm />;
 }
+
 function EditPayment() {
   const location = useLocation();
   const number = location.state;
@@ -681,7 +642,9 @@ function EditPayment() {
   let defVal = users[userId].payment_methods.find(
     (method) => method.number == number
   );
-  return <AddMethodForm defVal={defVal} formType={"Edit"} message="Save" />;
+  return (
+    <AddMethodForm defVal={defVal} formType={"Update"} message="Updated" />
+  );
 }
 
 const AddMethodForm = ({ defVal, formType = "Add", message = "Added" }) => {
@@ -699,15 +662,16 @@ const AddMethodForm = ({ defVal, formType = "Add", message = "Added" }) => {
         id: defVal.id,
         ...data,
       };
+      updateMethod({ userId, methodInfo: data });
     } else {
       let id = nanoid();
       data = {
         ...data,
         id,
       };
+      addMethod({ userId, methodInfo: data });
     }
 
-    addMethod({ userId, methodInfo: data, edit: !!defVal });
     setOpen(true);
     setTimeout(() => setOpen(false), 3000);
   };
@@ -775,6 +739,109 @@ const AddMethodForm = ({ defVal, formType = "Add", message = "Added" }) => {
   );
 };
 
+const EditProfile = ({ formType = "Update", message = "Updated" }) => {
+  const userId = 0;
+  const users = useSelector((state) => state.user);
+  const defVal = users[userId];
+  const [open, setOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+  const onSubmit = (data) => {
+    console.log(data);
+    data = {
+      ...defVal,
+      ...data,
+    };
+    updateUserProfile({ userId, userInfo: data });
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
+      <Paper sx={{ padding: "20px" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("firstName", { required: true })}
+              id="outlined-required"
+              label="First name"
+              fullWidth
+              error={errors["firstName"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("lastName", { required: true })}
+              id="outlined-required"
+              label="Last name"
+              fullWidth
+              error={errors["lastName"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("email", { required: true })}
+              id="outlined-required"
+              label="Email"
+              fullWidth
+              error={errors["email"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("phone", { required: true })}
+              id="outlined-required"
+              label="Phone"
+              fullWidth
+              error={errors["phone"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("img", { required: true })}
+              id="outlined-required"
+              label="Image link"
+              fullWidth
+              error={errors["img"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("address", { required: true })}
+              id="outlined-required"
+              label="Address"
+              fullWidth
+              error={errors["address"]}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="error">
+              {formType}
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </form>
+  );
+};
+
 export {
   DashboardList,
   UserAddress,
@@ -786,4 +853,5 @@ export {
   OrderDetails,
   AddNewPayment,
   EditPayment,
+  EditProfile,
 };
