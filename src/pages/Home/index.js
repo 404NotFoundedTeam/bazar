@@ -5,7 +5,6 @@ import ImgBox from "../../components/ImgBox";
 import MainButton from "../../components/Button";
 import { Box } from "@mui/system";
 import MySlider from "../../components/MySlider";
-import { FaAdjust, FaAlignCenter } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
@@ -13,7 +12,8 @@ import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
 import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
-import { Category } from "@mui/icons-material";
+
+import CategoryCard from "../../components/card/CategoryCard";
 function Home() {
   const scidka = [
     {
@@ -148,8 +148,9 @@ function Home() {
     },
   ];
 
-  const categories = useSelector((state) => state.categories.categories).sort(
-    (a, b) => a.products.length - b.products.length
+  const categoriesObj = useSelector((state) => state.categories.categories);
+  const categories = Object.entries(categoriesObj).sort(
+    (a, b) => a.products?.length - b.products?.length
   );
 
   const products = useSelector((state) => state.products);
@@ -169,7 +170,7 @@ function Home() {
                         variant={"h3"}
                         className={"!font-bold !mb-3"}
                       >
-                        50% Of For Your First Shoppign.
+                        lengt 50% Of For Your First Shoppign.
                       </Typography>
                       <Typography
                         sx={{ fontSize: "14px" }}
