@@ -1,6 +1,6 @@
-import * as React from 'react'
-import Grid from '@mui/material/Grid'
-import TextField from '@mui/material/TextField'
+import * as React from "react";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 import {
   Button,
   FormControl,
@@ -9,12 +9,13 @@ import {
   OutlinedInput,
   Select,
   Typography,
-} from '@mui/material'
-import { useQuery } from 'react-query'
-import { useForm } from 'react-hook-form'
+} from "@mui/material";
+import { useQuery } from "react-query";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
-const ITEM_HEIGHT = 60
-const ITEM_PADDING_TOP = 30
+const ITEM_HEIGHT = 60;
+const ITEM_PADDING_TOP = 30;
 const MenuProps = {
   PaperProps: {
     style: {
@@ -22,36 +23,43 @@ const MenuProps = {
       width: 250,
     },
   },
-}
+};
 
 export default function AddressForm({ sum }) {
-  let [countryName, setCountryName] = React.useState([])
-  let [cityName, setCityName] = React.useState([])
+  let [countryName, setCountryName] = React.useState([]);
+  let [cityName, setCityName] = React.useState([]);
+
+  const reduxOrders = useSelector((state) => {
+    console.log("orders  = >", state.orders);
+    return state.orders;
+  });
+  const orders = Object.entries(reduxOrders);
+
+  console.log(orders);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => console.log(data);
 
-  const { isLoading, error, data } = useQuery('repoData', () =>
-    fetch('https://restcountries.com/v2/all?limit=20').then((res) =>
-      res.json(),
-    ),
-  )
-  if (isLoading) return 'Loading...'
-  if (error) return 'An error has occurred: ' + error.message
+  const { isLoading, error, data } = useQuery("repoData", () =>
+    fetch("https://restcountries.com/v2/all?limit=20").then((res) => res.json())
+  );
+  if (isLoading) return "Loading...";
+  if (error) return "An error has occurred: " + error.message;
 
   const handleChange = (e) => {
-    e.preventDefault()
-    setCountryName(e.target.value)
-  }
+    e.preventDefault();
+    setCountryName(e.target.value);
+  };
 
   const handleChange2 = (event) => {
-    event.preventDefault()
-    setCityName(event.target.value)
-  }
+    event.preventDefault();
+    setCityName(event.target.value);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,15 +68,15 @@ export default function AddressForm({ sum }) {
           item
           xs={12}
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          <Typography color={'gray'} component={'h3'} variant="h6">
+          <Typography color={"gray"} component={"h3"} variant="h6">
             Total:
           </Typography>
-          <Typography component={'h3'} variant="h6">
+          <Typography component={"h3"} variant="h6">
             ${sum}
           </Typography>
         </Grid>
@@ -82,18 +90,18 @@ export default function AddressForm({ sum }) {
             autoComplete="shipping address-line1"
             variant="outlined"
             color="error"
-            {...register('vaucher')}
+            {...register("vaucher")}
           />
           <Button variant="outlined" color="error" sx={{ mt: 3 }} fullWidth>
             Apply Vaucher
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <Typography mb={'10px'}>Shipping Estimates</Typography>
+          <Typography mb={"10px"}>Shipping Estimates</Typography>
           <FormControl fullWidth color="error">
             <InputLabel id="demo-multiple-name-label">Country</InputLabel>
             <Select
-              {...register('country')}
+              {...register("country")}
               labelId="demo-multiple-name-label"
               id="demo-multiple-name"
               value={countryName}
@@ -112,7 +120,7 @@ export default function AddressForm({ sum }) {
           <FormControl fullWidth sx={{ mt: 2 }} color="error">
             <InputLabel id="demo-multiple-name-label2">City</InputLabel>
             <Select
-              {...register('city')}
+              {...register("city")}
               labelId="demo-multiple-name-label2"
               id="demo-multiple-name2"
               value={cityName}
@@ -138,7 +146,7 @@ export default function AddressForm({ sum }) {
             autoComplete="shipping address-line1"
             variant="outlined"
             color="error"
-            {...register('zip-code')}
+            {...register("zip-code")}
             type="number"
             placeholder="3110"
           />
@@ -159,5 +167,5 @@ export default function AddressForm({ sum }) {
         </Grid>
       </Grid>
     </form>
-  )
+  );
 }

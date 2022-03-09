@@ -130,7 +130,7 @@ function Home() {
                         variant={"h3"}
                         className={"!font-bold !mb-3"}
                       >
-                        50% Of For Your First Shoppign.
+                        lengt 50% Of For Your First Shoppign.
                       </Typography>
                       <Typography
                         sx={{ fontSize: "14px" }}
