@@ -5,14 +5,19 @@ import ImgBox from "../../components/ImgBox";
 import MainButton from "../../components/Button";
 import { Box } from "@mui/system";
 import MySlider from "../../components/MySlider";
-import { BiCategory } from "react-icons/bi";
+import { BiCategory, BiSupport } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
 import { MdFiberNew } from "react-icons/md";
-import { AiFillThunderbolt } from "react-icons/ai";
+import { AiFillThunderbolt, AiOutlineSafety } from "react-icons/ai";
 import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
 import CategoryCard from "../../components/card/CategoryCard";
+import InfoCard from "../../components/card/InfoCard";
+import { FaRedRiver } from "react-icons/fa";
+import { BsTruck } from "react-icons/bs";
+import { RiSecurePaymentLine } from "react-icons/ri";
+// import { BsTruck } from "react-icons/bs";
 function Home() {
   const scidka = [
     {
@@ -158,11 +163,14 @@ function Home() {
               icon={<AiFillThunderbolt />}
             >
               <Grid container spacing={3}>
-                {productsArr.slice(0, 4).map((item, i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <MainCard key={i} data={item[1]} id={item[0]} />
-                  </Grid>
-                ))}
+                {productsArr
+                  .reverse()
+                  .slice(0, 4)
+                  .map((item, i) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                      <MainCard key={i} data={item[1]} id={item[0]} />
+                    </Grid>
+                  ))}
               </Grid>
             </HomeBlock>
             <HomeBlock title={"Top Categories"} link="#" icon={<BiCategory />}>
@@ -187,6 +195,46 @@ function Home() {
             <HomeBlock icon={<MdFiberNew />} title={"New Arrivals"} link={"#"}>
               <Arriwals data={arrivals} />
             </HomeBlock>
+            <Box py={7}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <InfoCard
+                    icon={<BsTruck />}
+                    title={"Worldwide Delivery"}
+                    desc={
+                      "We offer competitive prices on our 100 million plus product any range."
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <InfoCard
+                    icon={<BiSupport />}
+                    title={"24/7 Support"}
+                    desc={
+                      "We offer competitive prices on our 100 million plus product any range."
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <InfoCard
+                    icon={<RiSecurePaymentLine />}
+                    title={"Safe Payment"}
+                    desc={
+                      "We offer competitive prices on our 100 million plus product any range."
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <InfoCard
+                    icon={<AiOutlineSafety />}
+                    title={"Shop With Confidence"}
+                    desc={
+                      "We offer competitive prices on our 100 million plus product any range."
+                    }
+                  />
+                </Grid>
+              </Grid>
+            </Box>
           </Container>
         </Box>
       </HomeWrapper>
