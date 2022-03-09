@@ -13,14 +13,13 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
-// import TextFieldHiddenLabel from "./Price";
 import CheckboxesGroupRating from "./PoRating";
 import { StyleClasses } from "./StylesClasses";
 import { itemStyles, hrProps, props, ListStyle, priceStyles } from "./styles";
 
 const useStyles = makeStyles(StyleClasses);
 
-export default function SideBar({ categories, brands }) {
+export default function SideBar({ categories, brands, products, setProducts }) {
   //classes
   const itemStylesClass = useStyles(itemStyles);
   const hrClass = useStyles(hrProps);
@@ -37,7 +36,20 @@ export default function SideBar({ categories, brands }) {
     });
   };
 
-  console.log(brands, "   brand");
+  const handleProducts = (event) => {
+    console.log(products);
+    if (event.target.id === "minPrice") {
+      setProducts((state) => ({
+        ...state,
+        minPrice: parseInt(event.target.value),
+      }));
+    } else if (event.target.id === "maxPrice") {
+      setProducts((state) => ({
+        ...state,
+        maxPrice: parseInt(event.target.value),
+      }));
+    }
+  };
 
   React.useEffect(() => {
     let temp = [];
@@ -90,10 +102,11 @@ export default function SideBar({ categories, brands }) {
             type="number"
             InputProps={{ inputProps: { min: 0 } }}
             hiddenLabel
-            id="filled-hidden-label-small"
+            id="minPrice"
             defaultValue={4}
             variant="filled"
             size="small"
+            onChange={handleProducts}
           />
         </Stack>
         <span style={{ marginInline: "10px" }}>-</span>
@@ -110,10 +123,11 @@ export default function SideBar({ categories, brands }) {
             type="number"
             InputProps={{ inputProps: { min: 0 } }}
             hiddenLabel
-            id="filled-hidden-label-small"
+            id="maxPrice"
             defaultValue={250}
             variant="filled"
             size="small"
+            onChange={handleProducts}
           />
         </Stack>
       </Box>
@@ -125,7 +139,6 @@ export default function SideBar({ categories, brands }) {
         <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
           <FormGroup className={`${itemStylesClass.itemStyles}`}>
             {brands.map((item, i) => {
-              console.log(item, "  item");
               return (
                 <FormControlLabel
                   key={i}
