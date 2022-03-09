@@ -33,7 +33,7 @@ export default function MediaCard({ obj }) {
         position: "relative",
         minHeight: "350px",
         overflow: "hidden",
-        borderRadius: "2px",
+        borderRadius: "4px",
         backgroundColor: "#fff",
         backgroundImage: `url(${obj.img})`,
         backgroundRepeat: "no-repeat",
@@ -49,9 +49,6 @@ export default function MediaCard({ obj }) {
           mx={2}
           sx={{
             boxSizing: "border-box",
-            // transform: {
-            //   lg: "translateY(-30%)",
-            // },
             display: "flex",
             width: "100%",
             flexWrap: "wrap",
