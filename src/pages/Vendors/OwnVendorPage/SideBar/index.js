@@ -13,16 +13,15 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
-// import TextFieldHiddenLabel from "./Price";
 import CheckboxesGroupRating from "./PoRating";
 import { StyleClasses } from "./StylesClasses";
 import { itemStyles, hrProps, props, ListStyle, priceStyles } from "./styles";
 
 const useStyles = makeStyles(StyleClasses);
 
-export default function SideBar({ categories, brands }) {
+export default function SideBar({ categories, brands, products, setProducts }) {
+  //classes
   const itemStylesClass = useStyles(itemStyles);
-
   const hrClass = useStyles(hrProps);
   const classes = useStyles(props);
   const ListStyleClass = useStyles(ListStyle);
@@ -35,6 +34,21 @@ export default function SideBar({ categories, brands }) {
       ...state,
       [event.target.name]: event.target.checked,
     });
+  };
+
+  const handleProducts = (event) => {
+    console.log(products);
+    if (event.target.id === "minPrice") {
+      setProducts((state) => ({
+        ...state,
+        minPrice: parseInt(event.target.value),
+      }));
+    } else if (event.target.id === "maxPrice") {
+      setProducts((state) => ({
+        ...state,
+        maxPrice: parseInt(event.target.value),
+      }));
+    }
   };
 
   React.useEffect(() => {
@@ -61,8 +75,8 @@ export default function SideBar({ categories, brands }) {
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
-        {categories.map((text) => (
-          <ListItemButton>
+        {categories.map((text, index) => (
+          <ListItemButton key={index}>
             <ListItemText
               primary={
                 text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
@@ -88,10 +102,11 @@ export default function SideBar({ categories, brands }) {
             type="number"
             InputProps={{ inputProps: { min: 0 } }}
             hiddenLabel
-            id="filled-hidden-label-small"
+            id="minPrice"
             defaultValue={4}
             variant="filled"
             size="small"
+            onChange={handleProducts}
           />
         </Stack>
         <span style={{ marginInline: "10px" }}>-</span>
@@ -108,10 +123,11 @@ export default function SideBar({ categories, brands }) {
             type="number"
             InputProps={{ inputProps: { min: 0 } }}
             hiddenLabel
-            id="filled-hidden-label-small"
+            id="maxPrice"
             defaultValue={250}
             variant="filled"
             size="small"
+            onChange={handleProducts}
           />
         </Stack>
       </Box>
@@ -122,23 +138,25 @@ export default function SideBar({ categories, brands }) {
       <Box sx={{ display: "flex" }}>
         <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
           <FormGroup className={`${itemStylesClass.itemStyles}`}>
-            {brands.map((item, i) => (
-              <FormControlLabel
-                key={i}
-                control={
-                  <Checkbox
-                    checked={item.checked}
-                    onChange={handleChange}
-                    size="small"
-                    name={item}
-                  />
-                }
-                label={
-                  item.name.trim().slice(0, 1).toUpperCase() +
-                  item.name.trim().slice(1).toLowerCase()
-                }
-              />
-            ))}
+            {brands.map((item, i) => {
+              return (
+                <FormControlLabel
+                  key={i}
+                  control={
+                    <Checkbox
+                      checked={item.checked}
+                      onChange={handleChange}
+                      size="small"
+                      name={item}
+                    />
+                  }
+                  label={
+                    item.name.trim().slice(0, 1).toUpperCase() +
+                    item.name.trim().slice(1).toLowerCase()
+                  }
+                />
+              );
+            })}
           </FormGroup>
         </FormControl>
       </Box>

@@ -35,6 +35,7 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import Checkout from "./components/stepper/Checkout";
+import ProductPage from "./pages/productPage";
 import SaleTab from "./components/SaleTabs";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/salepage" element={<SaleTab />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />
             <Route path="add-method" element={<AddNewPayment />} />

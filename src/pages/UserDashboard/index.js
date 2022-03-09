@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "8px !important",
   },
   main: {
-    padding: "0 24px",
+    padding: "0 0 50px",
     "& span": { color: theme.palette.error.main },
     width: "100%",
   },
@@ -49,14 +49,14 @@ export default function UserDashboard(props) {
   const navigate = useNavigate();
   let dashboardMainData = {
     orders: { text: "Orders", icon: <ShoppingBagOutlined />, link: "orders" },
-    wishlist: {
-      text: "Wishlist",
-      icon: <FavoriteBorderOutlined />,
-      link: "wishlist",
-      action: {
-        text: "Add all to cart",
-      },
-    },
+    // wishlist: {
+    //   text: "Wishlist",
+    //   icon: <FavoriteBorderOutlined />,
+    //   link: "wishlist",
+    //   action: {
+    //     text: "Add all to cart",
+    //   },
+    // },
   };
   let accountSettings = {
     "profile-info": {

@@ -25,6 +25,9 @@ import {
   changeSoniProduct,
   deleteProduct__K,
 } from "../../redux/actions/userActions";
+import { ADD_TO_ORDERS } from "../../redux/types";
+import { addOrder } from "../../redux/actions/orderActions";
+import { addOrderToVendor } from "../../redux/actions/vendorActions";
 
 const steps = ["Cart", "Details", "Payment", "Review"];
 
@@ -35,19 +38,13 @@ export default function Checkout() {
 
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
   const korzina = useSelector((state) => state.user.korzina);
+  const orders = useSelector((state) => state.orders);
   const cart = Object.entries(korzina);
   const products = useSelector((state) => state.products);
   const [sum, setSum] = React.useState(0);
 
+  console.log(products);
   React.useEffect(() => {
     let s = 0;
     cart.forEach((i) => {
@@ -55,6 +52,32 @@ export default function Checkout() {
     });
     setSum(s);
   }, [cart]);
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+    let id = nanoid();
+    addOrderToVendor({ orderId: id, vendorId: 0 });
+    addOrder({
+      orderId: id,
+      orderData: {
+        id,
+        date: new Date(),
+        status: "pending",
+        products: Object.fromEntries(cart),
+        price: sum,
+        address: "Amir Temur",
+        payment: "debit card",
+        off: 10,
+        shipping: 12,
+      },
+    });
+    addOrder({});
+    console.log("orders++++++++>", orders);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
   function getStepContent(step) {
     switch (step) {

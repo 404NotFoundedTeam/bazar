@@ -3,6 +3,7 @@ import {
   DELETE_ORDERS,
   DELETE_ORDER_PRODUCT,
   UPDATE_ORDERS,
+  CANCEL_ORDER,
 } from "../types";
 
 const OrdersState = {
@@ -35,6 +36,15 @@ export const OrdersReducer = (state = OrdersState, action) => {
         ...state,
         [`${action.payload.orderId}`]: {
           ...action.payload.orderData,
+        },
+      };
+    case CANCEL_ORDER:
+      console.log("Cancel order");
+      return {
+        ...state,
+        [action.payload.orderId]: {
+          ...state[action.payload.orderId],
+          status: "canceled",
         },
       };
     case DELETE_ORDER_PRODUCT:

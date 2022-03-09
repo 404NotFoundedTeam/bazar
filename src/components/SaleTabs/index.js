@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import SalePage from "../../pages/salepage";
 import { Box } from "@mui/system";
+import { Container } from "@mui/material";
 
 const useStyles = makeStyles({
   tabs: {
@@ -36,8 +37,7 @@ export default function SaleTab() {
 
   const classes = useStyles();
   return (
-    <>
-      {" "}
+    <Container maxWidth="lg">
       <Tabs
         value={value}
         sx={{}}
@@ -58,6 +58,6 @@ export default function SaleTab() {
         ))}
       </Tabs>
       <SalePage value={value} />
-    </>
+    </Container>
   );
 }
