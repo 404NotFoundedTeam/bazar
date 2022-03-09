@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import RatingSIze from "../../../../components/rating";
 
-export default function CheckboxesGroupRating() {
+export default function CheckboxesGroupRating({ products, setProducts }) {
   const [state, setState] = React.useState({
     one: false,
     two: false,

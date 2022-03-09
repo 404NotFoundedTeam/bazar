@@ -5,7 +5,6 @@ import MediaCard from "./mainSection";
 import SideBar from "./SideBar/index";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useParams } from "react-router-dom";
-import { database } from "../../../data/data";
 import { useSelector } from "react-redux";
 
 export default function VendorOwnPage() {

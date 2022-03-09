@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import VendorCard from "../../../components/VendorCard";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Pagination, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import BasicPagination from "../../../components/Mini-components/Pagination";
-import { database } from "../../../data/data";
 import { useSelector } from "react-redux";
 
 export default function AllVendors({ obj }) {
@@ -63,7 +61,7 @@ export default function AllVendors({ obj }) {
           <Typography className="text-slate-400 text-base">
             Showing 1-9 of 300 Shops
           </Typography>
-          <BasicPagination
+          <Pagination
             onChange={(e, page) => setCurrentPage(page)}
             variant="outlined"
             count={pageNumbers}
