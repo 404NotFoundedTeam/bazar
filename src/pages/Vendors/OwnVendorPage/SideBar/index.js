@@ -37,6 +37,8 @@ export default function SideBar({ categories, brands }) {
     });
   };
 
+  console.log(brands, "   brand");
+
   React.useEffect(() => {
     let temp = [];
     brands.map((val) => temp.push({ name: val, checked: false }));
@@ -61,8 +63,8 @@ export default function SideBar({ categories, brands }) {
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
-        {categories.map((text) => (
-          <ListItemButton>
+        {categories.map((text, index) => (
+          <ListItemButton key={index}>
             <ListItemText
               primary={
                 text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase()
@@ -122,23 +124,26 @@ export default function SideBar({ categories, brands }) {
       <Box sx={{ display: "flex" }}>
         <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
           <FormGroup className={`${itemStylesClass.itemStyles}`}>
-            {brands.map((item, i) => (
-              <FormControlLabel
-                key={i}
-                control={
-                  <Checkbox
-                    checked={item.checked}
-                    onChange={handleChange}
-                    size="small"
-                    name={item}
-                  />
-                }
-                label={
-                  item.name.trim().slice(0, 1).toUpperCase() +
-                  item.name.trim().slice(1).toLowerCase()
-                }
-              />
-            ))}
+            {brands.map((item, i) => {
+              console.log(item, "  item");
+              return (
+                <FormControlLabel
+                  key={i}
+                  control={
+                    <Checkbox
+                      checked={item.checked}
+                      onChange={handleChange}
+                      size="small"
+                      name={item}
+                    />
+                  }
+                  label={
+                    item.name.trim().slice(0, 1).toUpperCase() +
+                    item.name.trim().slice(1).toLowerCase()
+                  }
+                />
+              );
+            })}
           </FormGroup>
         </FormControl>
       </Box>

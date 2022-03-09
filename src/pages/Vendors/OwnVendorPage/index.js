@@ -50,7 +50,7 @@ export default function VendorOwnPage() {
 
   data.map((id) => {
     const category_id = allProducts[id].category;
-    const brand_id = allProducts[id].brand;
+    const brand_id = allProducts[id].brand.toLowerCase();
 
     ownBrands.push(brands[brand_id]);
     ctgryProducts.push(categories[category_id]?.name);
@@ -58,8 +58,6 @@ export default function VendorOwnPage() {
 
   const noDuplicateownBrands = [...new Set(ownBrands)];
   const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
-
-  console.log(products);
 
   return (
     <Container
