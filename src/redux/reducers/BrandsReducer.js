@@ -1,11 +1,13 @@
 // import { ADD_PRODUCT, DELETE_PRODUCT } from "../types";
 
+import { ADD_PRODUCT_BRAND } from "../types";
+
 const brandState = {
   apple: {
     name: "Apple",
     // brands: [" group1  ", "group2"],
   },
-  Samsung: {
+  samsung: {
     name: "samsung",
     // brands: [" group1  ", "group2"],
   },
@@ -25,27 +27,16 @@ const brandState = {
 };
 
 const BrandsReducer = (state = brandState, action) => {
+  const ap = action.payload;
+  let allBrands = { ...state.brands };
   switch (action.type) {
-    // case ADD_PRODUCT:
-    //   console.log("ADD Product working");
-    //   return {
-    //     ...state,
-    //     [`${action.payload.id}`]: {
-    //       ...action.payload,
-    //       rated: 0,
-    //       star: 0,
-    //       rating: function () {
-    //         return (this.star / this.rated).toFixed(1);
-    //       },
-    //     },
-    //   };
-    // case DELETE_PRODUCT:
-    //   let newState = { ...state };
-    //   delete newState[action.payload.id];
-    //   console.log(newState);
-    //   return {
-    //     ...newState,
-    //   };
+    case ADD_PRODUCT_BRAND:
+      console.log("Add product category");
+      allBrands[ap.bid].products[ap.pid] = ap.pid;
+      return {
+        ...state,
+        categories: allBrands,
+      };
 
     default:
       return state;
