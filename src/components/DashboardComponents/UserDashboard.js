@@ -1,8 +1,4 @@
-import {
-  ArrowRight,
-  ArrowRightAlt,
-  ShoppingBagOutlined,
-} from "@mui/icons-material";
+import { ArrowRightAlt } from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -28,17 +24,12 @@ import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
-import MainCard from "../card";
 import * as React from "react";
 import PropTypes from "prop-types";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Check from "@mui/icons-material/Check";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import InputIcon from "@mui/icons-material/Input";
 import StepConnector, {
   stepConnectorClasses,
@@ -221,7 +212,6 @@ function UserOrders() {
 }
 
 function OrderDetails() {
-  const classes = useStyles();
   const location = useLocation();
   const orderId = location.state;
   const orders = useSelector((state) => state.orders);

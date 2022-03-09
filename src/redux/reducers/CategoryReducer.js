@@ -1,13 +1,5 @@
-import {
-  ADD_PRODUCT_CATEGORY,
-  DELETE_PRODUCT_CATEGORY,
-} from "../types";
-import {
-  FaBasketballBall,
-  FaClock,
-  FaCouch,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { ADD_PRODUCT_CATEGORY, DELETE_PRODUCT_CATEGORY } from "../types";
+import { FaBasketballBall, FaClock, FaCouch, FaPhoneAlt } from "react-icons/fa";
 import { GiClothes } from "react-icons/gi";
 const categoryState = {
   categories: {
@@ -55,6 +47,7 @@ const CategoryReducer = (state = categoryState, action) => {
   let allCategories = { ...state.categories };
   switch (action.type) {
     case ADD_PRODUCT_CATEGORY:
+      console.log("Add product category");
       allCategories[ap.cid].products[ap.pid] = ap.pid;
       return {
         ...state,
