@@ -20,20 +20,17 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { dispatch, store } from "../../redux/store";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { nanoid } from "nanoid";
 import {
   addNewProduct,
   addNewProductToVendor,
-  deleteOrderProduct,
-  deleteProduct,
   updateVendor,
 } from "../../redux/actions/vendorActions";
+import { addProductToCategory } from "../../redux/actions/categoryAction";
 import { deleteOrder, updateOrder } from "../../redux/actions/orderActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -302,6 +299,11 @@ export const EditProduct = () => {
 };
 
 export const ProductForm = ({ defVal, formType, message }) => {
+  const categories = Object.entries(
+    useSelector((state) => state.categories.categories)
+  );
+  console.log(categories);
+
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const vendorId = 0;
@@ -327,6 +329,7 @@ export const ProductForm = ({ defVal, formType, message }) => {
     } else {
       let id = nanoid();
       addNewProductToVendor({ vendorId, productId: id });
+      addProductToCategory(data.category, id);
       data = {
         ...data,
         id,
@@ -399,9 +402,9 @@ export const ProductForm = ({ defVal, formType, message }) => {
                 error={errors["category"]}
                 defaultValue={defVal ? defVal.category : null}
               >
-                <MenuItem value={"Notebooks"}>Notebooks</MenuItem>
-                <MenuItem value={"Home Appliances"}>Home appliances</MenuItem>
-                <MenuItem value={"Mobile phones"}>Mobile phones</MenuItem>
+                {categories.map(([key, value]) => {
+                  return <MenuItem value={key}>{value.name}</MenuItem>;
+                })}
               </Select>
             </FormControl>
           </Grid>

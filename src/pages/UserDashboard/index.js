@@ -49,14 +49,14 @@ export default function UserDashboard(props) {
   const navigate = useNavigate();
   let dashboardMainData = {
     orders: { text: "Orders", icon: <ShoppingBagOutlined />, link: "orders" },
-    wishlist: {
-      text: "Wishlist",
-      icon: <FavoriteBorderOutlined />,
-      link: "wishlist",
-      action: {
-        text: "Add all to cart",
-      },
-    },
+    // wishlist: {
+    //   text: "Wishlist",
+    //   icon: <FavoriteBorderOutlined />,
+    //   link: "wishlist",
+    //   action: {
+    //     text: "Add all to cart",
+    //   },
+    // },
   };
   let accountSettings = {
     "profile-info": {
