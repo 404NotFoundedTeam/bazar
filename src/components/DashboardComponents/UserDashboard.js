@@ -15,8 +15,10 @@ import {
   Paper,
   Stack,
   styled,
+  TextField,
   Typography,
 } from "@mui/material";
+import MarkunreadMailboxIcon from "@mui/icons-material/MarkunreadMailbox";
 import PaymentIcon from "@mui/icons-material/Payment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -24,7 +26,7 @@ import IconButton from "@mui/material/IconButton";
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import MainCard from "../card";
 import * as React from "react";
@@ -34,11 +36,22 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
 import SettingsIcon from "@mui/icons-material/Settings";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
+import InputIcon from "@mui/icons-material/Input";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
+import {
+  deleteMethod,
+  addMethod,
+  updateMethod,
+  updateUserProfile,
+} from "../../redux/actions/userActions";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import TransitionAlerts from "./VendorDashboard";
 
 const CustomListItemButton = styled(ListItemButton)(({ theme }) => ({
   "&": {
@@ -103,23 +116,14 @@ const useStyles = makeStyles((theme) => ({
   },
   addressBox: {
     "& div": {
-      boxShadow: "rgba(3, 0, 71, 0.09) 0px 1px 3px 0px",
       borderRadius: 8,
-      padding: "14px 18px",
-      marginBottom: "16px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      width: "100%",
-      gap: "10px",
+      padding: "10px",
       "& p": {
         width: "100%",
         fontWeight: 100,
         margin: 0,
         textAlign: "center",
       },
-      "& p:last-child": { width: "50%" },
-      "& p:first-child": { width: "50%" },
     },
   },
 }));
@@ -131,7 +135,7 @@ function DashboardList({ listData }) {
       sx={{
         display: { xs: "flex", lg: "block" },
         flexWrap: "wrap",
-        justifyContent: { md: "space-between" },
+        justifyContent: { md: "flex-start" },
         width: { xs: "100%" },
       }}
     >
@@ -157,57 +161,8 @@ function DashboardList({ listData }) {
 
 function UserOrders() {
   const classes = useStyles();
-  const orders = [
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-    {
-      order_id: "12sdj2",
-      status: "pending",
-      date: new Date().getUTCDate(),
-      total: 340,
-    },
-  ];
-  const [currentOrders, setCurrentOrders] = useState(orders);
+  const orders = useSelector((state) => state.orders);
+  const [currentOrders, setCurrentOrders] = useState(Object.values(orders));
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(5);
 
@@ -221,21 +176,31 @@ function UserOrders() {
   return (
     <div>
       <Paper className={classes.tableHeader} elevation={0}>
-        <Typography>Order #</Typography>
+        <Typography
+          sx={{ display: { xs: "none !important", sm: "flex !important" } }}
+        >
+          Order #
+        </Typography>
         <Typography>Status</Typography>
-        <Typography>Date purchased</Typography>
+        <Typography>Date</Typography>
         <Typography>Total</Typography>
         <Typography></Typography>
       </Paper>
       <div className={classes.ordersBox}>
         {presentOrders.map((order) => {
           return (
-            <Link to="../order-details">
+            <Link to="../order-details" state={`${order.id}`}>
               <Paper elevation={1}>
-                <Typography>{order.order_id}</Typography>
+                <Typography
+                  sx={{
+                    display: { xs: "none !important", sm: "flex !important" },
+                  }}
+                >
+                  {order.id}
+                </Typography>
                 <Typography>{order.status}</Typography>
-                <Typography>{order.date}</Typography>
-                <Typography>${order.total.toFixed(2)}</Typography>
+                <Typography>{order.date.toLocaleDateString()}</Typography>
+                <Typography>${order.price}</Typography>
                 <Typography color="textSecondary">
                   <ArrowRightAlt />
                 </Typography>
@@ -256,10 +221,15 @@ function UserOrders() {
 
 function OrderDetails() {
   const classes = useStyles();
+  const location = useLocation();
+  const orderId = location.state;
+  const orders = useSelector((state) => state.orders);
+  const orderData = orders[orderId];
+  const status = orderData.status == "pending" ? 1 : 2;
   return (
     <div>
       <Paper elevation={1} sx={{ marginTop: "20px", padding: "40px 24px" }}>
-        <CustomizedSteppers />
+        <CustomizedSteppers step={status} />
       </Paper>
     </div>
   );
@@ -316,9 +286,9 @@ function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
 
   const icons = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <InputIcon />,
+    2: <LocalShippingIcon />,
+    3: <MarkunreadMailboxIcon />,
   };
 
   return (
@@ -355,12 +325,12 @@ const steps = [
   "Create an ad",
 ];
 
-export default function CustomizedSteppers() {
+export default function CustomizedSteppers({ step }) {
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={1}
+        activeStep={step}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (
@@ -445,118 +415,94 @@ function UserSupport() {
 
 function UserProfile() {
   const classes = useStyles();
-  const userData = [
-    {
-      firstName: "John",
-      lastName: "Simth",
-      email: "john@gmail.com",
-      phone: "998 99 8979883",
-      birthDate: new Date(),
-    },
-  ];
+  const users = useSelector((state) => state.user);
+  const userData = users[0];
+
   return (
     <div>
-      <Stack direction="row" justifyContent="space-between">
-        <Paper
-          sx={{
-            padding: "20px",
-            width: "40%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ width: "100%" }}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} lg={8} sx={{ display: "flex" }}>
+          <Paper
+            sx={{
+              padding: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flex: 1,
+            }}
           >
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                sx={{ width: 56, height: 56 }}
-              />
-              <div>
-                <Typography fontWeight="bold">John Smith</Typography>
-                <Typography fontSize={14} color="textSecondary">
-                  Balance: $500
-                </Typography>
-              </div>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              flexWrap="wrap"
+              sx={{ width: "100%" }}
+            >
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                alignItems="center"
+                spacing={1}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src={userData.img}
+                  sx={{ width: 56, height: 56 }}
+                />
+                <div>
+                  <Typography fontWeight="bold">
+                    {userData.firstName} {userData.lastName}
+                  </Typography>
+                  <Typography fontSize={14} color="textSecondary">
+                    Balance: {userData.balance}
+                  </Typography>
+                </div>
+              </Stack>
+              <Typography color="textSecondary">Silver User</Typography>
             </Stack>
-            <Typography color="textSecondary">Silver User</Typography>
-          </Stack>
-        </Paper>
-        <Paper sx={{ padding: "20px", width: "13%" }}>
-          <Typography variant="h6" textAlign={"center"} color="error.main">
-            16
-          </Typography>
-          <Typography color="textSecondary" textAlign="center">
-            All Orders
-          </Typography>
-        </Paper>
-        <Paper sx={{ padding: "20px", width: "13%" }}>
-          <Typography variant="h6" textAlign={"center"} color="error.main">
-            02
-          </Typography>
-          <Typography color="textSecondary" textAlign="center">
-            Awaiting Payments
-          </Typography>
-        </Paper>
-        <Paper sx={{ padding: "20px", width: "13%" }}>
-          <Typography variant="h6" textAlign={"center"} color="error.main">
-            16
-          </Typography>
-          <Typography color="textSecondary" textAlign="center">
-            Awaiting Shipment
-          </Typography>
-        </Paper>
-        <Paper sx={{ padding: "20px", width: "13%" }}>
-          <Typography variant="h6" textAlign={"center"} color="error.main">
-            16
-          </Typography>
-          <Typography color="textSecondary" textAlign="center">
-            Awaiting Delivery
-          </Typography>
-        </Paper>
-      </Stack>
-      <Paper sx={{ mt: 4, padding: "24px" }}>
-        <Stack direction="row">
-          <Typography sx={{ width: "100%", color: "gray" }}>
-            First Name
-          </Typography>
-          <Typography sx={{ width: "100%", color: "gray" }}>
-            Last Name
-          </Typography>
-          <Typography sx={{ width: "100%", color: "gray" }}>Email</Typography>
-          <Typography sx={{ width: "100%", color: "gray" }}>Phone</Typography>
-          <Typography sx={{ width: "100%", color: "gray" }}>
-            Birth Date
-          </Typography>
-        </Stack>
-        <div>
-          {userData.map((data) => {
-            return (
-              <Link to="/order-details">
-                <Stack direction="row">
-                  <Typography sx={{ width: "100%" }}>
-                    {data.firstName}
-                  </Typography>
-                  <Typography sx={{ width: "100%" }}>
-                    {data.lastName}
-                  </Typography>
-                  <Typography sx={{ width: "100%" }}>{data.email}</Typography>
-                  <Typography sx={{ width: "100%" }}>{data.phone}</Typography>
-                  <Typography sx={{ width: "100%" }}>
-                    {data.birthDate.toDateString()}
-                  </Typography>
-                </Stack>
-              </Link>
-            );
-          })}
-        </div>
-      </Paper>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4} sx={{ display: "flex" }}>
+          <Paper sx={{ padding: "20px", flex: 1 }}>
+            <Typography variant="h6" textAlign={"center"} color="error.main">
+              {userData.all_orders.length}
+            </Typography>
+            <Typography color="textSecondary" textAlign="center">
+              All Orders
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Paper sx={{ padding: "20px" }}>
+            <Typography variant="h6" textAlign={"center"} color="error.main">
+              {userData.email}
+            </Typography>
+            <Typography color="textSecondary" textAlign="center">
+              User Email
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Paper sx={{ padding: "20px" }}>
+            <Typography variant="h6" textAlign={"center"} color="error.main">
+              {userData.phone}
+            </Typography>
+            <Typography color="textSecondary" textAlign="center">
+              Phone Number
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Paper sx={{ padding: "20px" }}>
+            <Typography variant="h6" textAlign={"center"} color="error.main">
+              {userData.address}
+            </Typography>
+            <Typography color="textSecondary" textAlign="center">
+              Address
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
     </div>
   );
 }
@@ -588,17 +534,25 @@ function UserAddress() {
         {presentOrders.map((order) => {
           return (
             <Paper elevation={1}>
-              <Typography>{order.fullName}</Typography>
-              <Typography>{order.address}</Typography>
-              <Typography>{order.phone}</Typography>
-              <Typography>
-                <IconButton aria-label="delete">
-                  <EditIcon />
-                </IconButton>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </Typography>
+              <Grid container alignItems="start">
+                <Grid item xs={12} md={6} lg={3}>
+                  {order.fullName}
+                </Grid>
+                <Grid item xs={12} md={6} lg={3}>
+                  {order.address}
+                </Grid>
+                <Grid item xs={12} md={6} lg={3}>
+                  {order.phone}
+                </Grid>
+                <Grid item xs={12} md={6} lg={3}>
+                  <IconButton aria-label="delete">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
             </Paper>
           );
         })}
@@ -608,22 +562,14 @@ function UserAddress() {
 }
 
 function UserPayment() {
+  const userId = 0;
+  const users = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const methods = users[userId].payment_methods;
+  console.log(methods);
   const classes = useStyles();
-  const orders = [
-    {
-      icon: <PaymentIcon />,
-      fullName: "John Smith",
-      cardNumber: "1234 4564 9878 1299",
-      date: new Date(),
-    },
-    {
-      icon: <PaymentIcon />,
-      fullName: "John Smith",
-      cardNumber: "1234 4564 9878 1299",
-      date: new Date(),
-    },
-  ];
-  const [currentOrders, setCurrentOrders] = useState(orders);
+
+  const [currentOrders, setCurrentOrders] = useState(methods);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(5);
 
@@ -637,30 +583,264 @@ function UserPayment() {
   return (
     <div>
       <div className={classes.addressBox}>
-        {presentOrders.map((order) => {
-          return (
-            <Paper elevation={1}>
-              <Typography>
-                <span style={{ marginRight: "10px" }}>{order.icon}</span>
-                {order.fullName}
-              </Typography>
-              <Typography>{order.cardNumber}</Typography>
-              <Typography>{order.date.toDateString()}</Typography>
-              <Typography>
-                <IconButton aria-label="delete">
-                  <EditIcon />
-                </IconButton>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </Typography>
-            </Paper>
-          );
-        })}
+        {methods &&
+          methods.map((order) => {
+            return (
+              <Paper elevation={1} sx={{ marginBottom: "15px" }}>
+                <Grid container alignItems={"center"}>
+                  <Grid item xs={12} md={6} lg={3}>
+                    <span style={{ marginRight: "10px" }}>
+                      <PaymentIcon />,
+                    </span>
+                    {order.fullName}
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={3}>
+                    {order.number}
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={3}>
+                    {order.date}
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={3}>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => {
+                        navigate("/user-dashboard/edit-method", {
+                          state: order.number,
+                        });
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() =>
+                        deleteMethod({ userId, number: order.number })
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Paper>
+            );
+          })}
       </div>
     </div>
   );
 }
+
+function AddNewPayment() {
+  return <AddMethodForm />;
+}
+
+function EditPayment() {
+  const location = useLocation();
+  const number = location.state;
+  console.log("NUMBER", number);
+  const userId = 0;
+  const users = useSelector((state) => state.user);
+  let defVal = users[userId].payment_methods.find(
+    (method) => method.number == number
+  );
+  return (
+    <AddMethodForm defVal={defVal} formType={"Update"} message="Updated" />
+  );
+}
+
+const AddMethodForm = ({ defVal, formType = "Add", message = "Added" }) => {
+  const userId = 0;
+  const [open, setOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+  const onSubmit = (data) => {
+    if (defVal) {
+      data = {
+        id: defVal.id,
+        ...data,
+      };
+      updateMethod({ userId, methodInfo: data });
+    } else {
+      let id = nanoid();
+      data = {
+        ...data,
+        id,
+      };
+      addMethod({ userId, methodInfo: data });
+    }
+
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
+      <Paper sx={{ padding: "20px" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("number", { required: true })}
+              id="outlined-required"
+              label="Card Number"
+              fullWidth
+              error={errors["number"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("fullName", { required: true })}
+              id="outlined-required"
+              label="Name on Card"
+              fullWidth
+              error={errors["fullName"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("date", { required: true })}
+              id="outlined-required"
+              label="Exp. date"
+              fullWidth
+              error={errors["date"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("cvc", { required: true })}
+              id="outlined-required"
+              label="CVC"
+              fullWidth
+              error={errors["cvc"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Button type="submit" variant="contained" color="error">
+              {formType}
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </form>
+  );
+};
+
+const EditProfile = ({ formType = "Update", message = "Updated" }) => {
+  const userId = 0;
+  const users = useSelector((state) => state.user);
+  const defVal = users[userId];
+  const [open, setOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { ...(defVal ? defVal : {}) } });
+  const onSubmit = (data) => {
+    console.log(data);
+    data = {
+      ...defVal,
+      ...data,
+    };
+    updateUserProfile({ userId, userInfo: data });
+    setOpen(true);
+    setTimeout(() => setOpen(false), 3000);
+  };
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <TransitionAlerts
+        message={message}
+        open={open}
+        setOpen={setOpen}
+        sx={{
+          position: "absolute !important",
+          bottom: 0,
+          left: "25%",
+          trasnform: "translate(-50%, -50%)",
+          width: "70%",
+          zIndex: 10,
+        }}
+      />
+      <Paper sx={{ padding: "20px" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("firstName", { required: true })}
+              id="outlined-required"
+              label="First name"
+              fullWidth
+              error={errors["firstName"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("lastName", { required: true })}
+              id="outlined-required"
+              label="Last name"
+              fullWidth
+              error={errors["lastName"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("email", { required: true })}
+              id="outlined-required"
+              label="Email"
+              fullWidth
+              error={errors["email"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("phone", { required: true })}
+              id="outlined-required"
+              label="Phone"
+              fullWidth
+              error={errors["phone"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("img", { required: true })}
+              id="outlined-required"
+              label="Image link"
+              fullWidth
+              error={errors["img"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              {...register("address", { required: true })}
+              id="outlined-required"
+              label="Address"
+              fullWidth
+              error={errors["address"]}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" color="error">
+              {formType}
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </form>
+  );
+};
 
 export {
   DashboardList,
@@ -671,4 +851,7 @@ export {
   UserSupport,
   UserWishlist,
   OrderDetails,
+  AddNewPayment,
+  EditPayment,
+  EditProfile,
 };

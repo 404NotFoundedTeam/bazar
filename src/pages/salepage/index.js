@@ -15,13 +15,13 @@ import MainCard from "../../components/card";
 
 import { useSelector } from "react-redux";
 
-export default function SalePage() {
+export default function SalePage(props) {
   const [page, setPage] = useState(1);
   const reduxProducts = useSelector((state) => {
     console.log("state  = >", state.products);
     return state.products;
   });
-
+  console.log("props", props);
   const currentProducts = Object.entries(reduxProducts);
 
   const _ = require("lodash");
@@ -31,7 +31,6 @@ export default function SalePage() {
     <SalePageWrapper>
       <CssBaseline />
       <Container maxWidth="lg">
-        <SaleTab />
         <Grid container spacing={3} sx={{ mt: 4 }}>
           {data2[page - 1].map((item, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3}>

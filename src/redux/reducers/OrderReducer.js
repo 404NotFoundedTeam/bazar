@@ -11,7 +11,6 @@ const OrdersState = {
     date: new Date(),
     status: "pending",
     products: {
-      1: 2,
       0: 3,
     },
     price: 1000,
@@ -19,9 +18,6 @@ const OrdersState = {
     payment: "debit card",
     off: 10,
     shipping: 12,
-    total: function () {
-      return this.price - (this.price * this.off) / 100 + this.shipping;
-    },
   },
 };
 

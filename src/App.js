@@ -5,6 +5,9 @@ import UserDashboard from "./pages/UserDashboard";
 import MainThemeProvider from "./Theme/ThemeContext";
 import Header from "./pages/Header";
 import {
+  AddNewPayment,
+  EditPayment,
+  EditProfile,
   OrderDetails,
   UserAddress,
   UserOrders,
@@ -32,6 +35,7 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import Checkout from "./components/stepper/Checkout";
+import SaleTab from "./components/SaleTabs";
 
 const queryClient = new QueryClient();
 
@@ -44,9 +48,12 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/salepage" element={<SalePage />} />
+          <Route path="/salepage" element={<SaleTab />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />
+            <Route path="add-method" element={<AddNewPayment />} />
+            <Route path="edit-method" element={<EditPayment />} />
+            <Route path="edit-profile" element={<EditProfile />} />
             <Route path="order-details" element={<OrderDetails />} />
             <Route path="wishlist" element={<UserWishlist />} />
             <Route path="support" element={<UserSupport />} />
