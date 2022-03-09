@@ -16,8 +16,8 @@ const InfoCard = ({ icon, title, desc }) => {
       >
         <IconButton
           sx={{
-            width: { sm: "60px", lg: "80px", xs: "40px" },
-            height: { sm: "60px", lg: "80px", xs: "40px" },
+            width: "80px",
+            height: "80px",
             bgcolor: "#F5F5F5",
             mb: 3,
           }}

@@ -32,8 +32,6 @@ import {
   VendorSettings,
   VendorOrderDetails,
 } from "./components/DashboardComponents/VendorDashboard";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
 import Checkout from "./components/stepper/Checkout";
 import ProductPage from "./pages/productPage";
 import Footer from "./pages/Footer";

@@ -27,47 +27,49 @@ export default function AllVendors({ obj }) {
   const pageNumbers = Math.ceil(currentVendors.length / vendorsPerPage);
   // jvaklewfhuWIL
   return (
-    <Container>
-      <Box>
-        <Typography
-          component="h2"
-          sx={{
-            fontWeight: "bold",
-            fontSize: "28px",
-            color: "#2B3445",
-            marginTop: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          All Shops
-        </Typography>
-        <Grid container spacing={3}>
-          {presentVendors.map((item, i) => {
-            return (
-              <Grid item xs={12} sm={6} md={6} lg={4}>
-                <VendorCard obj={item[1]} key={i} />
-              </Grid>
-            );
-          })}
-        </Grid>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "20px",
-          }}
-        >
-          <Typography className="text-slate-400 text-base">
-            Showing 1-9 of 300 Shops
+    <Box sx={{ py: "60px" }}>
+      <Container>
+        <Box>
+          <Typography
+            component="h2"
+            sx={{
+              fontWeight: "bold",
+              fontSize: "28px",
+              color: "#2B3445",
+              marginTop: "20px",
+              marginBottom: "20px",
+            }}
+          >
+            All Shops
           </Typography>
-          <Pagination
-            onChange={(e, page) => setCurrentPage(page)}
-            variant="outlined"
-            count={pageNumbers}
-          />
+          <Grid container spacing={3}>
+            {presentVendors.map((item, i) => {
+              return (
+                <Grid item xs={12} sm={6} md={6} lg={4}>
+                  <VendorCard obj={item[1]} key={i} />
+                </Grid>
+              );
+            })}
+          </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <Typography className="text-slate-400 text-base">
+              Showing 1-9 of 300 Shops
+            </Typography>
+            <Pagination
+              onChange={(e, page) => setCurrentPage(page)}
+              variant="outlined"
+              count={pageNumbers}
+            />
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }

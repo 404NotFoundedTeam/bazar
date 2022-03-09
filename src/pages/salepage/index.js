@@ -17,11 +17,8 @@ import { useSelector } from "react-redux";
 
 export default function SalePage(props) {
   const [page, setPage] = useState(1);
-  const reduxProducts = useSelector((state) => {
-    console.log("state  = >", state.products);
-    return state.products;
-  });
-  console.log("props", props);
+  const reduxProducts = useSelector((state) => state.products);
+
   const currentProducts = Object.entries(reduxProducts);
 
   const _ = require("lodash");
