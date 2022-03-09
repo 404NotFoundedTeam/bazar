@@ -337,7 +337,6 @@ export const ProductForm = ({ defVal, formType, message }) => {
     setOpen(true);
     setTimeout(() => setOpen(false), 3000);
   };
-  const categories = useSelector((state) => state.categories.categories);
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
       <TransitionAlerts
@@ -400,11 +399,9 @@ export const ProductForm = ({ defVal, formType, message }) => {
                 error={errors["category"]}
                 defaultValue={defVal ? defVal.category : null}
               >
-                {Object.entries(categories).map((item, i) => (
-                  <MenuItem key={i} value={item[0]}>
-                    {item[1].name}
-                  </MenuItem>
-                ))}
+                <MenuItem value={"Notebooks"}>Notebooks</MenuItem>
+                <MenuItem value={"Home Appliances"}>Home appliances</MenuItem>
+                <MenuItem value={"Mobile phones"}>Mobile phones</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -462,20 +459,6 @@ export const ProductForm = ({ defVal, formType, message }) => {
             <Button type="submit" variant="contained" color="error">
               {formType}
             </Button>
-            {defVal && (
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{ marginLeft: "15px" }}
-                onClick={() => {
-                  console.log("Def form", defVal.id);
-                  deleteProduct({ id: defVal.id });
-                  navigate("../products");
-                }}
-              >
-                Delete
-              </Button>
-            )}
           </Grid>
         </Grid>
       </Paper>
@@ -540,7 +523,7 @@ export const VendorOrders = () => {
                       <span>{order.status}</span>
                     </Typography>
                     <Typography>{order.date.toLocaleDateString()}</Typography>
-                    <Typography>${order.total()}</Typography>
+                    <Typography>${order.price}</Typography>
                     <Typography
                       color="textSecondary"
                       sx={{
@@ -575,6 +558,8 @@ export const VendorOrderDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const defVal = orders[location.state];
+  console.log(defVal);
+  console.log(products[defVal.products[0][0]]);
   let sum = 0;
   const productAmount = Object.entries(defVal.products).map(([id, amount]) => {
     sum += products[id].price * amount;
@@ -641,6 +626,7 @@ export const VendorOrderDetails = () => {
             >
               <MenuItem value={"delivered"}>Delivered</MenuItem>
               <MenuItem value={"pending"}>Pending</MenuItem>
+              <MenuItem value={"canceled"}>Canceled</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -738,7 +724,7 @@ export const VendorOrderDetails = () => {
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
               }
-              label="Price"
+              label="Shipment"
               error={errors["shipping"]}
             />
           </FormControl>

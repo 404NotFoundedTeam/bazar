@@ -3,6 +3,7 @@ import {
   DELETE_ORDERS,
   DELETE_ORDER_PRODUCT,
   UPDATE_ORDERS,
+  CANCEL_ORDER,
 } from "../types";
 
 const OrdersState = {
@@ -11,7 +12,6 @@ const OrdersState = {
     date: new Date(),
     status: "pending",
     products: {
-      1: 2,
       0: 3,
     },
     price: 1000,
@@ -19,9 +19,6 @@ const OrdersState = {
     payment: "debit card",
     off: 10,
     shipping: 12,
-    total: function () {
-      return this.price - (this.price * this.off) / 100 + this.shipping;
-    },
   },
 };
 
@@ -39,6 +36,15 @@ export const OrdersReducer = (state = OrdersState, action) => {
         ...state,
         [`${action.payload.orderId}`]: {
           ...action.payload.orderData,
+        },
+      };
+    case CANCEL_ORDER:
+      console.log("Cancel order");
+      return {
+        ...state,
+        [action.payload.orderId]: {
+          ...state[action.payload.orderId],
+          status: "canceled",
         },
       };
     case DELETE_ORDER_PRODUCT:
