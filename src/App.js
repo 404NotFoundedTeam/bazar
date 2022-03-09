@@ -36,6 +36,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import Checkout from "./components/stepper/Checkout";
 import ProductPage from "./pages/productPage";
+import Footer from "./pages/Footer";
 import SaleTab from "./components/SaleTabs";
 
 const queryClient = new QueryClient();
@@ -78,6 +79,7 @@ export default function App() {
           <Route path="/vendor/:id" element={<VendorOwnPage />} />
           <Route path="*" element={<p>Hello 404</p>} />
         </Routes>
+        <Footer />
       </MainThemeProvider>
     </QueryClientProvider>
   );
