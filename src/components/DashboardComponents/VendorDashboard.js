@@ -302,6 +302,9 @@ export const EditProduct = () => {
 };
 
 export const ProductForm = ({ defVal, formType, message }) => {
+  const categories = Object.entries(
+    useSelector((state) => state.categories.categories)
+  );
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const vendorId = 0;
@@ -399,9 +402,9 @@ export const ProductForm = ({ defVal, formType, message }) => {
                 error={errors["category"]}
                 defaultValue={defVal ? defVal.category : null}
               >
-                <MenuItem value={"Notebooks"}>Notebooks</MenuItem>
-                <MenuItem value={"Home Appliances"}>Home appliances</MenuItem>
-                <MenuItem value={"Mobile phones"}>Mobile phones</MenuItem>
+                {categories.map(([key, value]) => {
+                  return <MenuItem value={key}>{value.name}</MenuItem>;
+                })}
               </Select>
             </FormControl>
           </Grid>
