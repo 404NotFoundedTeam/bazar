@@ -35,6 +35,7 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import Checkout from "./components/stepper/Checkout";
+import ProductPage from "./pages/productPage";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ export default function App() {
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/salepage" element={<SalePage />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
           <Route path="/user-dashboard" element={<UserDashboard />}>
             <Route path="orders" element={<UserOrders />} />
             <Route path="add-method" element={<AddNewPayment />} />
