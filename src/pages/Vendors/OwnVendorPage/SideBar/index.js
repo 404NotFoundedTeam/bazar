@@ -21,8 +21,8 @@ import { itemStyles, hrProps, props, ListStyle, priceStyles } from "./styles";
 const useStyles = makeStyles(StyleClasses);
 
 export default function SideBar({ categories, brands }) {
+  //classes
   const itemStylesClass = useStyles(itemStyles);
-
   const hrClass = useStyles(hrProps);
   const classes = useStyles(props);
   const ListStyleClass = useStyles(ListStyle);
