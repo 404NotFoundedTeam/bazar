@@ -3,34 +3,36 @@ import { ADD_PRODUCT, DELETE_PRODUCT } from "../types";
 const productState = {
   0: {
     id: 0,
-    name: "Watch",
-    brand: "Mi",
-    price: 200,
-    off: 0,
+    name: "Airpods Pro",
+    brand: "Apple",
+    price: 120,
+    off: 23,
     stock: 10,
     vendor: "vendor-id",
-    category: "Notebooks",
+    category: "phones",
     description: "product information",
     rated: 20,
     star: 80,
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    productsImg:
+      "https://www.apple.com/v/airpods-pro/e/images/meta/og__ch3csr9zmviq_overview.png",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
   },
   1: {
     id: 1,
-    name: "Watch",
-    brand: "Mi",
-    price: 200,
+    name: "Iphone 12 Pro",
+    brand: "Apple",
+    price: 2000,
     off: 0,
     stock: 10,
     vendor: "vendor-id",
-    category: "watches",
+    category: "phone",
     description: "product information",
     rated: 20,
-    star: 80,
-    img: "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+    star: 90,
+    productsImg:
+      "https://www.ixbt.com/img/n1/news/2020/9/5/apple_announce-iphone12pro_10132020_large_0_large.png",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
@@ -41,17 +43,17 @@ const productState = {
     price: 200,
     stock: 10,
     seller: "Good zone",
-    category: 2,
+    category: "furniture",
     rated: 10,
     star: 30,
     productsImg:
-      "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
+      "https://s.yimg.com/aah/yhst-39276693957820/hitachi-ld-50hk07a-50-multisystem-full-hd-led-tv-110-220-240-volts-pal-ntsc-31.gif",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },
     off: 0,
   },
-  watch1: {
+  3: {
     name: "Watch",
     brand: "Kingnous",
     price: 100,
@@ -68,7 +70,7 @@ const productState = {
     off: 0,
   },
   4: {
-    name: "Watch2",
+    name: "Clothes",
     brand: "Mi2",
     price: 200,
     stock: 10,
@@ -78,38 +80,6 @@ const productState = {
     star: 60,
     productsImg:
       "https://bazar-react.vercel.app/assets/images/banners/cycle.png",
-    rating: function () {
-      return (this.star / this.rated).toFixed(1);
-    },
-    off: 0,
-  },
-  5: {
-    name: "Redmi 9 A",
-    brand: "Mi",
-    category: "phones",
-    price: 400,
-    stock: 10,
-    seller: "Good zone3",
-    rated: 20,
-    star: 60,
-    productsImg:
-      "https://avatars.mds.yandex.net/i?id=74108ca467f6156c0cb44a52503e4ed5-5234070-images-thumbs&n=13",
-    rating: function () {
-      return (this.star / this.rated).toFixed(1);
-    },
-    off: 0,
-  },
-  3: {
-    name: "Samsung S21",
-    brand: "Samsung",
-    category: "phones",
-    price: 880,
-    stock: 10,
-    seller: "Good zone3",
-    rated: 20,
-    star: 80,
-    productsImg:
-      "https://avatars.mds.yandex.net/i?id=8e954a90deba43122bc9a685ead9105d-5887122-images-thumbs&n=13",
     rating: function () {
       return (this.star / this.rated).toFixed(1);
     },

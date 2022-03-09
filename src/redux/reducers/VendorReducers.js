@@ -12,7 +12,7 @@ const vendorState = {
     dailyBalance: 500,
     orders: [0],
     countries: [],
-    products: [3, "watch1", 5],
+    products: [0],
     monitorDay: new Date().getDay(),
     avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMB98haMTYYTLQ86iFreewqgVGJ9ZRWEMg4Q&usqp=CAU",

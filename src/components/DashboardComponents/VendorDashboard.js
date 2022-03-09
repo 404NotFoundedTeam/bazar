@@ -232,7 +232,7 @@ export const VendorProducts = () => {
                         display: "inline-block",
                         margin: "0 auto",
                       }}
-                      src={product.img}
+                      src={product.productsImg}
                       alt=""
                     />
                   </Typography>
@@ -448,31 +448,17 @@ export const ProductForm = ({ defVal, formType, message }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              {...register("img", { required: true })}
+              {...register("productsImg", { required: true })}
               id="outlined-required"
               label="Image link"
               fullWidth
-              error={errors["img"]}
+              error={errors["productsImg"]}
             />
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="error">
               {formType}
             </Button>
-            {defVal && (
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{ marginLeft: "15px" }}
-                onClick={() => {
-                  console.log("Def form", defVal.id);
-                  deleteProduct({ id: defVal.id });
-                  navigate("../products");
-                }}
-              >
-                Delete
-              </Button>
-            )}
           </Grid>
         </Grid>
       </Paper>
@@ -537,7 +523,7 @@ export const VendorOrders = () => {
                       <span>{order.status}</span>
                     </Typography>
                     <Typography>{order.date.toLocaleDateString()}</Typography>
-                    <Typography>${order.total()}</Typography>
+                    <Typography>${order.price}</Typography>
                     <Typography
                       color="textSecondary"
                       sx={{
@@ -572,6 +558,8 @@ export const VendorOrderDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const defVal = orders[location.state];
+  console.log(defVal);
+  console.log(products[defVal.products[0][0]]);
   let sum = 0;
   const productAmount = Object.entries(defVal.products).map(([id, amount]) => {
     sum += products[id].price * amount;
@@ -638,6 +626,7 @@ export const VendorOrderDetails = () => {
             >
               <MenuItem value={"delivered"}>Delivered</MenuItem>
               <MenuItem value={"pending"}>Pending</MenuItem>
+              <MenuItem value={"canceled"}>Canceled</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -652,7 +641,7 @@ export const VendorOrderDetails = () => {
               >
                 <Stack direction="row" alignItems="center" spacing={2}>
                   <img
-                    src={product.img}
+                    src={product.productsImg}
                     alt=""
                     style={{
                       width: "50px",
@@ -735,7 +724,7 @@ export const VendorOrderDetails = () => {
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
               }
-              label="Price"
+              label="Shipment"
               error={errors["shipping"]}
             />
           </FormControl>
@@ -839,11 +828,11 @@ export const VendorSettings = () => {
         </div>
         <div style={{ marginTop: "15px" }}>
           <TextField
-            {...register("img", { required: true })}
+            {...register("productsImg", { required: true })}
             id="outlined-required"
             label="Wallpaper"
             fullWidth
-            error={errors["img"]}
+            error={errors["productsImg"]}
           />
         </div>
         <div style={{ marginTop: "15px" }}>

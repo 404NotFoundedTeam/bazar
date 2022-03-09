@@ -5,7 +5,6 @@ import ImgBox from "../../components/ImgBox";
 import MainButton from "../../components/Button";
 import { Box } from "@mui/system";
 import MySlider from "../../components/MySlider";
-import { FaAdjust, FaAlignCenter } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import HomeBlock from "./HomeComp/Block";
 import Arriwals from "./HomeComp/NewProducts";
@@ -13,6 +12,7 @@ import { MdFiberNew } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
 import MainCard from "../../components/card";
 import { useSelector } from "react-redux";
+import CategoryCard from "../../components/card/CategoryCard";
 function Home() {
   const scidka = [
     {
@@ -20,55 +20,7 @@ function Home() {
       desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
     },
     {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
-    },
-    {
-      img: "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
+      img: "https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Fflash-2.png&w=384&q=75",
       desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora perferendis inventore aut obcaecati ipsum aliquam ratione pariatur veritatis dolorum amet.",
     },
   ];
@@ -147,6 +99,15 @@ function Home() {
     },
   ];
 
+  const categoriesObj = useSelector((state) => state.categories.categories);
+  const categories = Object.entries(categoriesObj)
+    .sort(
+      (a, b) =>
+        Object.values(a[1].products).length -
+        Object.values(b[1].products).length
+    )
+    .reverse();
+
   const products = useSelector((state) => state.products);
   const productsArr = Object.entries(products);
   return (
@@ -205,54 +166,23 @@ function Home() {
               </Grid>
             </HomeBlock>
             <HomeBlock title={"Top Categories"} link="#" icon={<BiCategory />}>
-              <MySlider
-                settings={{
-                  nextArrow: <FaAlignCenter />,
-                  prevArrow: <FaAdjust />,
-                  dots: false,
-                  slidesToShow: 4,
-                  responsive: [
-                    {
-                      breakpoint: 1024,
-                      settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true,
-                      },
-                    },
-                    {
-                      breakpoint: 600,
-                      settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2,
-                        initialSlide: 2,
-                      },
-                    },
-                    {
-                      breakpoint: 480,
-                      settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                      },
-                    },
-                  ],
+              <Box
+                sx={{
+                  width: "100%",
+                  padding: 2,
+                  borderRadius: 2,
+                  bgcolor: "#fff",
+                  boxShadow: (theme) => theme.shadowsHeader.block,
                 }}
               >
-                {scidka.map((item, i) => (
-                  <Box>
-                    <Grid
-                      container
-                      direction={"row"}
-                      sx={{ alignItems: "center" }}
-                    >
-                      <Grid item xs={12}>
-                        <ImgBox src={item.img} alt={"Praduct"} />
-                      </Grid>
+                <Grid container spacing={3}>
+                  {categories.slice(0, 4).map((item, i) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                      <CategoryCard key={i} data={item[1]} id={item[0]} />
                     </Grid>
-                  </Box>
-                ))}
-              </MySlider>
+                  ))}
+                </Grid>
+              </Box>
             </HomeBlock>
             <HomeBlock icon={<MdFiberNew />} title={"New Arrivals"} link={"#"}>
               <Arriwals data={arrivals} />
