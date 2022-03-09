@@ -1,4 +1,5 @@
 import {
+  ADD_ORDER_TO_VENDOR,
   ADD_PRODUCT_TO_VENDOR,
   DELETE_PRODUCT,
   DELETE_PRODUCT_FV,
@@ -12,7 +13,7 @@ const vendorState = {
     dailyBalance: 500,
     orders: [0],
     countries: [],
-    products: [0],
+    products: [0, 1],
     monitorDay: new Date().getDay(),
     avaImg: "https://bazar-react.vercel.app/assets/images/faces/propic.png",
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMB98haMTYYTLQ86iFreewqgVGJ9ZRWEMg4Q&usqp=CAU",
@@ -186,7 +187,7 @@ const vendorState = {
 const VendorReducer = (state = vendorState, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_VENDOR:
-      if (action.payload.productId in state[action.payload.vendorId])
+      if (action.payload.productId in state[action.payload.vendorId].products)
         return state;
       else
         return {
@@ -199,6 +200,21 @@ const VendorReducer = (state = vendorState, action) => {
             ],
           },
         };
+    case ADD_ORDER_TO_VENDOR:
+      if (action.payload.orderId in state[action.payload.vendorId].orders)
+        return state;
+      else
+        return {
+          ...state,
+          [`${action.payload.vendorId}`]: {
+            ...state[action.payload.vendorId],
+            orders: [
+              ...state[action.payload.vendorId].orders,
+              action.payload.orderId,
+            ],
+          },
+        };
+
     case UPDATE_VENDOR_PROFILE:
       console.log("Vendor");
       return {
