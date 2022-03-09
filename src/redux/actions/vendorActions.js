@@ -1,5 +1,6 @@
 import { dispatch } from "../store";
 import {
+  ADD_ORDER_TO_VENDOR,
   ADD_PRODUCT,
   ADD_PRODUCT_TO_VENDOR,
   DELETE_ORDER_PRODUCT,
@@ -27,4 +28,8 @@ export const deleteOrderProduct = (data) => {
 
 export const updateVendor = (data) => {
   dispatch({ type: UPDATE_VENDOR_PROFILE, payload: data });
+};
+
+export const addOrderToVendor = (data) => {
+  dispatch({ type: ADD_ORDER_TO_VENDOR, payload: data });
 };
