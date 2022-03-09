@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import VendorCard from "../../../components/VendorCard";
 import { Container, Grid, Pagination, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import BasicPagination from "../../../components/Mini-components/Pagination";
-import { database } from "../../../data/data";
 import { useSelector } from "react-redux";
 
 export default function AllVendors({ obj }) {
@@ -29,7 +27,7 @@ export default function AllVendors({ obj }) {
   const pageNumbers = Math.ceil(currentVendors.length / vendorsPerPage);
   // jvaklewfhuWIL
   return (
-    <Box sx={{ py: '60px' }}>
+    <Box sx={{ py: "60px" }}>
       <Container>
         <Box>
           <Typography

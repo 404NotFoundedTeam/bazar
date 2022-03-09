@@ -27,16 +27,16 @@ const brandState = {
 };
 
 const BrandsReducer = (state = brandState, action) => {
-  const ap = action.payload;
-  let allBrands = { ...state.brands };
+  // const ap = action.payload;
+  // let allBrands = { ...state.brands };
   switch (action.type) {
-    case ADD_PRODUCT_BRAND:
-      console.log("Add product category");
-      allBrands[ap.bid].products[ap.pid] = ap.pid;
-      return {
-        ...state,
-        categories: allBrands,
-      };
+    // case ADD_PRODUCT_BRAND:
+    //   console.log("Add product category");
+    //   allBrands[ap.bid].products[ap.pid] = ap.pid;
+    //   return {
+    //     ...state,
+    //     categories: allBrands,
+    //   };
 
     default:
       return state;
