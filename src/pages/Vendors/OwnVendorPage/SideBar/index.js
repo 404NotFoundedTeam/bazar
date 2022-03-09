@@ -135,7 +135,7 @@ export default function SideBar({ categories, brands, products, setProducts }) {
       <hr className={`${hrClass.hr}`} />
 
       <Typography className={`${classes.mainTypo}`}>Brands</Typography>
-      <Box sx={{ display: "flex" }}>
+      {/* <Box sx={{ display: "flex" }}>
         <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
           <FormGroup className={`${itemStylesClass.itemStyles}`}>
             {brands.map((item, i) => {
@@ -159,7 +159,7 @@ export default function SideBar({ categories, brands, products, setProducts }) {
             })}
           </FormGroup>
         </FormControl>
-      </Box>
+      </Box> */}
 
       <hr className={`${hrClass.hr}`} />
 

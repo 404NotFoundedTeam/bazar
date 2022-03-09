@@ -39,6 +39,7 @@ export default function VendorOwnPage() {
 
   //products reducer
   const allProducts = useSelector((state) => {
+    console.log(state.products);
     return state.products;
   });
 
