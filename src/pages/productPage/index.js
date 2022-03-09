@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -8,7 +8,7 @@ export default function ProductPage() {
   const products = useSelector((state) => state.products);
   let data = products[id ? id : 0];
   return (
-    <div style={{ marginTop: "20px" }}>
+    <Box sx={{ py: 10 }}>
       <Grid container spacing={1}>
         <Grid item xs={12} lg={6}>
           <img
@@ -41,11 +41,11 @@ export default function ProductPage() {
           <Typography fontSize="12" color="textSecondary">
             {data.stock > 0 ? "Stock available" : "Stock not available"}
           </Typography>
-          <Button variant="contained" color="error" sx={{ margin: "20px 0" }}>
+          <Button variant="outlined" color="error" sx={{ margin: "20px 0" }}>
             Add to Cart
           </Button>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }

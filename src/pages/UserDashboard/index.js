@@ -131,7 +131,7 @@ export default function UserDashboard(props) {
   });
 
   return (
-    <div style={{ padding: "24px" }}>
+    <div style={{ padding: "60px 24px" }}>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={3}>
           <Paper className={classes.sidebar} elevation={0}>
