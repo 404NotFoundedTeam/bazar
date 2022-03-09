@@ -10,7 +10,12 @@ import { useSelector } from "react-redux";
 
 export default function VendorOwnPage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({
+    data: [],
+    maxPrice: 3000,
+    minPrice: 50,
+    brand: "Apple",
+  });
   const vendorId = useParams();
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -34,14 +39,18 @@ export default function VendorOwnPage() {
 
   //products reducer
   const allProducts = useSelector((state) => {
-    console.log(state);
     return state.products;
   });
 
+  // useEffect(() => {
+  //   const temp = [];
+  //   data.map((id) => temp.push(allProducts[`${id}`]));
+  //   setProducts(temp);
+  // }, []);
   useEffect(() => {
     const temp = [];
     data.map((id) => temp.push(allProducts[`${id}`]));
-    setProducts(temp);
+    setProducts({ ...products, data: temp });
   }, []);
 
   // categories and brands
@@ -50,7 +59,7 @@ export default function VendorOwnPage() {
 
   data.map((id) => {
     const category_id = allProducts[id].category;
-    const brand_id = allProducts[id].brand;
+    const brand_id = allProducts[id].brand.toLowerCase();
 
     ownBrands.push(brands[brand_id]);
     ctgryProducts.push(categories[category_id]?.name);
@@ -59,7 +68,9 @@ export default function VendorOwnPage() {
   const noDuplicateownBrands = [...new Set(ownBrands)];
   const noDuplicateCtgryProducts = [...new Set(ctgryProducts)];
 
-  console.log(products);
+  const renderedProducts = products.data.filter(
+    (p) => p.price > products.minPrice && p.price < products.maxPrice
+  );
 
   return (
     <Container
@@ -89,6 +100,8 @@ export default function VendorOwnPage() {
           <SideBar
             brands={noDuplicateownBrands}
             categories={noDuplicateCtgryProducts}
+            products={products}
+            setProducts={setProducts}
           />
           <Drawer
             anchor="left"
@@ -106,6 +119,8 @@ export default function VendorOwnPage() {
             }}
           >
             <SideBar
+              products={products}
+              setProducts={setProducts}
               brands={noDuplicateownBrands}
               categories={noDuplicateCtgryProducts}
             />
@@ -118,9 +133,9 @@ export default function VendorOwnPage() {
                 <MainCard key={id} data={allProducts[`${id}`]} />
               </Grid>
             ))} */}
-            {products.map((item, index) => (
+            {renderedProducts.map((item, index) => (
               <Grid key={index} item lg={4} md={6} sm={6} xs={12}>
-                <MainCard key={index} data={item} />
+                <MainCard key={index} data={item} id={item.id} />
               </Grid>
             ))}
           </Grid>

@@ -831,11 +831,11 @@ export const VendorSettings = () => {
         </div>
         <div style={{ marginTop: "15px" }}>
           <TextField
-            {...register("productsImg", { required: true })}
+            {...register("img", { required: true })}
             id="outlined-required"
             label="Wallpaper"
             fullWidth
-            error={errors["productsImg"]}
+            error={errors["img"]}
           />
         </div>
         <div style={{ marginTop: "15px" }}>

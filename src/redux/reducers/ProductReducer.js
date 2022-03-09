@@ -27,7 +27,7 @@ const productState = {
     off: 0,
     stock: 10,
     vendor: "vendor-id",
-    category: "phone",
+    category: "phones",
     description: "product information",
     rated: 20,
     star: 90,
