@@ -14,6 +14,7 @@ import {
   deleteProduct__K,
 } from "../../redux/actions/userActions";
 import RatingSIze from "../rating";
+import { useNavigate } from "react-router-dom";
 
 export default function MainCard({ data, id }) {
   const cart = useSelector((state) => state.user.korzina);
@@ -27,6 +28,8 @@ export default function MainCard({ data, id }) {
       addProduct__K(id);
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -48,11 +51,14 @@ export default function MainCard({ data, id }) {
       <CardMedia
         component="img"
         alt="green iguana"
+        onClick={() => {
+          navigate(`/products/${id}`);
+        }}
         image={
           data.productsImg ||
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx3-HBdZNC4ZdhEpF3H-QcM8XzYXsBbjWMrg&usqp=CAU"
         }
-        sx={{ height: "180px", objectFit: "cover" }}
+        sx={{ height: "180px", cursor: "pointer", objectFit: "cover" }}
       />
       <CardContent>
         <Grid container spacing={2}>

@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { createContext, useMemo, useState } from "react";
+import { Box } from "@mui/material";
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -66,14 +67,15 @@ function MainThemeProvider({ children }) {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <section
-          style={{
+        <Box
+          variant="section"
+          sx={{
             backgroundColor: theme.palette.background.default,
             minHeight: "100vh",
           }}
         >
           {children}
-        </section>
+        </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
