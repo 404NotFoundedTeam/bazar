@@ -191,7 +191,7 @@ function UserOrders() {
                   {order.id}
                 </Typography>
                 <Typography>{order.status}</Typography>
-                <Typography>{order.date.toLocaleDateString()}</Typography>
+                <Typography>{order?.date?.toLocaleDateString()}</Typography>
                 <Typography>${order.price}</Typography>
                 <Typography color="textSecondary">
                   <ArrowRightAlt />
